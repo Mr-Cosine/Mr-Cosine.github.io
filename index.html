@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <title>A secret tab</title>
+</head>
+
+<script src="secret.js"></script>
+<script src="findme.js"></script>
+<script type="module" src="modelviewer.js"></script>
+<script src="camerareturn.js"></script>
+
+<body>
+    <div class="aboutme">
+        <div class="nametag">JIAQI (ANDY) SUN</div>
+        <div class="separator"></div>
+        <div class="findme">
+            <div id="contact">FIND ME AT:</div>
+            <div id="contact-list">
+                <ul>
+                    <li><a href="mailto:a95sun@uwaterloo.ca">Email: a95sun@uwaterloo.ca</a></li> 
+                    <li><a href="https://www.linkedin.com/in/jiaqi-sun-472053359/">LinkedIn: www.linkedin.com/in/jiaqi-sun-472053359</a></li> 
+                    <li><a href="https://github.com/Mr-Cosine">GitHub: github.com/Mr-Cosine</a></li>
+                    <li><a href="https://www.instagram.com/bot_no.0721/">Instagram: instagram.com/bot_no.0721</a></li>
+                    <li><a href="https://www.facebook.com/andy.sun.792">Facebook: facebook.com/andy.sun.792</a></li>
+                    <li><a href="https://space.bilibili.com/526016800">Bilibili: https://space.bilibili.com/526016800</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="top-message"></div>
+
+    <div class="header">
+        <div class = "text">
+            <h1>
+                HI THERE, I AM 
+                <span style="color: #6babff;"><span class = "clickable">ANDY</span></span>
+            </h1>
+            <hr>
+            <p>
+                I am a future biomedical engineer now studying in University of Waterloo.<br>
+                I love designing mechanical systems, programming, building PCs, and exploring new things!<br>
+                <br>
+            </p>
+        </div>
+        <button class="scroll-button" onclick="document.querySelector('.content').scrollIntoView({ behavior: 'smooth' })">   
+        </button>
+
+        <img src="asset/images/myimage.jpg" class="myimg">
+    </div>
+
+    <div class="content">
+        <h1>Projects</h1>
+        <div class="project-container">
+            <div class="content-left">
+                <h2>Wearable Exoskeleton System for Grip Assistance</h2>
+
+                <p>
+                    Designed, prototyped, and iterated a fully 3D‑printed wearable grip‑assisting exoskeleton 
+                    for individuals with hand‑strength deficiencies. Developed ergonomic mechanical structures 
+                    in SolidWorks, integrating motor and battery housings, cable routing, and ergonomics through 3D printing. 
+                    Selected and sourced motors, batteries, and control electronics.
+                </p>
+            </div>
+
+            <div class="content-right">
+                <model-viewer 
+                    src="asset/models/hand.glb" 
+                    class="media-window" 
+                    orientation="0deg 0deg 0deg"
+                    exposure="0.8"
+                    shadow-intensity="5"
+                    shadow-softness="0.8"
+                    camera-controls 
+                    camera-orbit = "45deg 45deg 1m"
+                    data-default-orbit = "45deg 45deg 1m"
+                    auto-rotate
+                    auto-rotate-delay="2000"
+                    alt="Hand Exoskeleton 3D Model">          
+                </model-viewer>
+            </div>
+        </div>
+
+        <div class="project-container">
+            <div class="content-left">
+                <h2>Goldeagle 8308 BDLC motor testing stand</h2>
+
+                <p>
+                    Designed a customized motor mounting for testing purposes. Considered 3D printability, structure reliability, ease of assembly, and upgradability. 
+                    Achieved a good satisfaction for requirements with a simple-to-manufacture design.
+                </p>
+            </div>
+
+            <div class="content-right">
+                <model-viewer 
+                    src="asset/models/motor_explodeloop.glb" 
+                    class="media-window" 
+                    exposure="0.8"
+                    shadow-intensity="5"
+                    shadow-softness="0.8"
+                    camera-controls 
+                    camera-orbit = "45deg 45deg"
+                    data-default-orbit = "45deg 45deg"
+                    autoplay
+                    loop
+                    auto-rotate
+                    auto-rotate-delay="2000"
+                    alt="Motor Testing Stand 3D Model">
+                </model-viewer>
+            </div>
+        </div>
+
+        <div class="project-container">
+            <div class="content-left">
+                <h2>
+                    SolidWorks Aesthetic Model — <br>
+                    Renault FT‑17 Tank
+                </h2>
+
+                <p>
+                    Designed a detailed aesthetic model of the Renault FT‑17 WWI tank in SolidWorks, 
+                    focusing on aesthetic fidelity. The model inccludes intricate details such as the turret, tracks, and body features. 
+                    (Includes some interpretations due to insufficient reference materials)
+                </p>
+            </div>
+
+            <div class="content-right">
+                <model-viewer 
+                    src="asset/models/tank.glb" 
+                    class="media-window" 
+                    orientation="0deg 90deg 0deg"
+                    exposure="0.8"
+                    shadow-intensity="5"
+                    shadow-softness="0.8"
+                    camera-controls 
+                    camera-orbit = "315deg 70deg 100m"
+                    data-default-orbit = "315deg 70deg 100m"
+                    autoplay
+                    loop
+                    auto-rotate
+                    auto-rotate-delay="2000"
+                    alt="Renault FT‑17 Tank 3D Model">          
+                </model-viewer>
+            </div>
+        </div>
+
+        <div class="project-container">
+            <div class="content-left">
+                <h2>
+                    SolidWorks Aesthetic Model — <br>
+                    M67 Grenade
+                </h2>
+
+                <p>
+                    Created a full 1:1 SolidWorks model of the M67 grenade, including a complete internal 
+                    assembly based on published technical drawings. (Modified slightly for 3D printability and to be unfunctional)
+                </p>
+            </div>
+
+            <div class="content-right">
+                <model-viewer 
+                    src="asset/models/grenade.glb" 
+                    class="media-window" 
+                    orientation="0deg 90deg 0deg"
+                    exposure="0.8"
+                    shadow-intensity="5"
+                    shadow-softness="0.8"
+                    camera-controls 
+                    camera-orbit = "0deg 60deg 1000m"
+                    data-default-orbit = "0deg 60deg 1000m"
+                    auto-rotate
+                    auto-rotate-delay="2000"
+                    alt="M67 Grenade 3D Model">          
+                </model-viewer>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
