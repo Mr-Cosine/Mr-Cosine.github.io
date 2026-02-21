@@ -29,7 +29,7 @@ body {
 
 /*name*/
 .nametag {
-    font-size: 1.2rem;
+    font-size: clamp(0.8rem, 1vw, 1.2rem);
     font-weight: 600;
     color: white;
     z-index: 1000;
@@ -38,7 +38,7 @@ body {
 /*split line*/
 .separator { 
     width: 2px; 
-    height: 24px;
+    height: clamp(20px, 1vw, 30px);
     background-color: #ffffff;
     z-index: 1000;
 }
@@ -52,7 +52,7 @@ body {
 }
 
 #contact {
-    font-size: 1.2rem;
+    font-size: clamp(0.8rem, 1vw, 1.2rem);
     font-weight: 600;
     color: white;
     cursor: pointer;
@@ -79,6 +79,7 @@ body {
     z-index: 1; 
 
     li {
+        font-size: clamp(0.8rem, 2vw, 1.2rem);
         color: black
     }
 } 
@@ -114,7 +115,6 @@ body {
 
     height: 60vh;
     padding: 50px 60px;
-    margin-bottom: 10px;
 
     gap: 40px;
 }
@@ -151,24 +151,24 @@ body {
 
 .text {
     flex: 1 1 400px;
+}
 
-    h1 {
-        font-size: 5rem;
-        font-weight: 800;
-        margin: 0;
-    }
+.text h1 {
+    font-size: clamp(3rem, 4vw, 5rem);
+    font-weight: 800;
+    margin: 0;
+}
 
-    p {
-        font-size: 1.5rem;
-        font-weight: 250;
-    }
+.text p {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-weight: 250;
+}
 
-    hr { 
-        width: 20%;
-        border: none;
-        border-top: 2px solid white;
-        margin: 10px 0 20px 0;
-    }
+.text hr { 
+    width: 20%;
+    border: none;
+    border-top: 2px solid white;
+    margin: 10px 0 20px 0;
 }
 
 /* Image block*/
@@ -238,38 +238,40 @@ body {
     background-repeat: repeat;
     margin: 0 auto;
 
-    h1 { 
-        text-align: center; 
-        font-size: 4rem; 
-        font-weight: 1000;
-        margin-bottom: 60px; 
-        color: black; 
-    } 
+    padding-top: 60px;
 }
+
+.content h1 { 
+        text-align: center; 
+        font-size: clamp(2rem, 4vw, 4rem); 
+        font-weight: 800;
+        margin-bottom: 40px; 
+        color: black; 
+} 
 
 /*projects*/
 .project-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 60px;
+    padding: 40px;
     padding-top: 0;
-    gap: 40px;
+    gap: 20px;
 }
 
 .content-left {
     flex: 1 1 400px;
-    padding-right: 50px;
+    padding-right: 40px;
 
     h2 {
-        font-size: 2.5rem;
+        font-size: clamp(1.5rem, 2vw, 2.5rem);
         margin-top: 0;
         margin-bottom: 0;
         color: black;
     }
 
     p {
-        font-size: 1.2rem;
+        font-size: clamp(0.8rem, 2vw, 1.2rem);
         line-height: 1.6;
         color: black;
     }
@@ -311,13 +313,10 @@ model-viewer.media-window {
         padding: 40px 40px;
     }
 
-    .text h1 {
-        font-size: 4rem;
-    }
-
     .myimg {
         width: 260px;
     }
+
 }
 
 /* Small laptops / tablets — below 900px */
@@ -339,14 +338,6 @@ model-viewer.media-window {
         margin-right: auto;
     }
 
-    .text h1 {
-        font-size: 3.2rem;
-    }
-
-    .text p {
-        font-size: 1.3rem;
-    }
-
     .myimg {
         width: 220px;
         margin: 20px 0 0 0;
@@ -355,15 +346,11 @@ model-viewer.media-window {
 
 /* Phones — below 600px */
 @media (max-width: 600px) {
-    .text h1 {
-        font-size: 2.5rem;
-    }
-
-    .text p {
-        font-size: 1.1rem;
-    }
-
     .myimg {
         width: 180px;
+    }
+
+    .media-window {
+        aspect-ratio: 10/16;
     }
 }
