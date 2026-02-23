@@ -23,6 +23,7 @@ const messages = [
     "I like using Copilot, more than any other AI asisstant. It's like...friendship has been formed?",
     "The time these messages last depends on their length.",
     "My name has a syllable that does not exist in English.",
+    "My github name came from my steam account, f(x) = cos(x). Cuz my other two friends are sin(x) and conics.",
     "You can also call me: Jaki, Jackie, Jyachee, or... okay maybe just Andy."
 ];
 
