@@ -314,6 +314,22 @@ model-viewer.media-window {
      background-position: center;
 }
 
+.toggleViewBtn {
+    padding: 10px 18px;
+    background: #222;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+.toggleViewBtn:hover {
+    background: #444;
+}
+
 /* ============================
    RESPONSIVE BREAKPOINTS
    ============================ */
