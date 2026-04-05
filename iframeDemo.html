@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SciHelper Demo</title>
+ 
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+Math&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="asset/software/SciHelper/style.css">
+ 
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            background: #f0f4f9;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+ 
+        #demo-banner {
+            background: #4a90e2;
+            color: white;
+            padding: 10px 20px;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+ 
+        #demo-banner strong {
+            font-size: 15px;
+        }
+ 
+        #demo-banner .hint {
+            opacity: 0.85;
+            font-size: 12px;
+        }
+ 
+        #demo-area {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+ 
+        /* Keep all plugin popups inside the demo area */
+        #demo-area #sci-mainpanel {
+            position: absolute !important;
+        }
+ 
+        #demo-area #sci-restore-btn {
+            position: absolute !important;
+            bottom: 20px;
+            right: 20px;
+        }
+ 
+        #demo-area #sci-chempanel,
+        #demo-area #sci-genpanel {
+            position: absolute !important;
+        }
+ 
+        #demo-area #sci-chempanel-elesearch,
+        #demo-area #sci-chempanel-molcalc,
+        #demo-area #sci-chempanel-limcalc,
+        #demo-area #sci-chempanel-elecchem,
+        #demo-area #sci-genpanel-poly,
+        #demo-area #sci-infopanel,
+        #demo-area #sci-infopanel-contentpage {
+            position: absolute !important;
+        }
+ 
+        #demo-watermark {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #b0bec5;
+            font-size: 11px;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+ 
+<div id="demo-banner">
+    <div>
+        <strong>SciHelper — Demo</strong><br>
+    </div>
+</div>
+
+ 
+<!-- Plugin scripts -->
+<script src="asset/software/SciHelper/resources.js"></script>
+<script src="asset/software/SciHelper/Chemistry_lib.js"></script>
+<script src="asset/software/SciHelper/General_lib.js"></script>
+<script src="asset/software/SciHelper/SciHelper_lib.js"></script>
+<script src="asset/software/SciHelper/SciHelper.js"></script>
+ 
+<script>
+    // Redirect all document.body.appendChild calls that the plugin makes
+    // into the demo-area div so everything stays contained in the iframe.
+    // We do this by re-routing after the scripts load.
+ 
+    const demoArea = document.getElementById('demo-area');
+ 
+    // Auto-launch the panel by simulating a quick click on the restore button
+    window.addEventListener('load', function () {
+        const restoreBtn = document.getElementById('sci-restore-btn');
+        if (restoreBtn) {
+            // Move restore button into demo area
+            demoArea.appendChild(restoreBtn);
+ 
+            // Simulate a short click to trigger initSciHelper
+            const mdEvt = new MouseEvent('mousedown', { bubbles: true });
+            restoreBtn.dispatchEvent(mdEvt);
+ 
+            setTimeout(() => {
+                const muEvt = new MouseEvent('mouseup', { bubbles: true });
+                restoreBtn.dispatchEvent(muEvt);
+ 
+                // Move the panel and any sub-panels into demo-area
+                setTimeout(() => {
+                    ['sci-mainpanel', 'sci-chempanel', 'sci-genpanel',
+                     'sci-chempanel-elesearch', 'sci-chempanel-molcalc',
+                     'sci-chempanel-limcalc', 'sci-chempanel-elecchem',
+                     'sci-genpanel-poly', 'sci-infopanel',
+                     'sci-infopanel-contentpage'
+                    ].forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el && el.parentNode !== demoArea) {
+                            demoArea.appendChild(el);
+                        }
+                    });
+ 
+                    // Position panel nicely
+                    const panel = document.getElementById('sci-mainpanel');
+                    if (panel) {
+                        panel.style.left = '30px';
+                        panel.style.top  = '20px';
+                    }
+                }, 50);
+            }, 40);
+        }
+    });
+ 
+    // Observe DOM for any new plugin panels appended to body and reroute them
+    const observer = new MutationObserver(mutations => {
+        mutations.forEach(m => {
+            m.addedNodes.forEach(node => {
+                if (node.nodeType === 1 && node.parentNode === document.body) {
+                    const id = node.id || '';
+                    if (id.startsWith('sci-')) {
+                        demoArea.appendChild(node);
+                    }
+                }
+            });
+        });
+    });
+    observer.observe(document.body, { childList: true });
+</script>
+ 
+</body>
+</html>

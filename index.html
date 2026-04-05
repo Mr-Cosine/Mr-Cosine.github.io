@@ -58,43 +58,45 @@
     </div>
 
     <div class="content">
-        <h1>Projects</h1>
-        <div class="project-container">
-            <div class="content-left">
-                <h2>Wearable Exoskeleton System for Grip Assistance</h2>
+        <h1>PROJECTS</h1>
+        
+        <h2>INTEGRATED</h2>
+        <hr>
+            <div class="project-container">
+                <div class="content-left">
+                    <h3>Wearable Exoskeleton System for Grip Assistance</h3>
 
-                <p>
-                    Designed, prototyped, and iterated a fully 3D‑printed wearable grip‑assisting exoskeleton 
-                    for individuals with hand‑strength deficiencies. Developed ergonomic mechanical structures 
-                    in SolidWorks, integrating motor and battery housings, and cable routing fully through 3D printable components.
-                    Iterate designs through 3D printing prototypes and testings.
-                </p>
+                    <p>
+                        Designed, prototyped, and iterated a fully 3D‑printed wearable grip‑assisting exoskeleton 
+                        for individuals with hand‑strength deficiencies. Developed ergonomic mechanical structures 
+                        in SolidWorks, integrating motor and battery housings, and cable routing fully through 3D printable components.
+                        Iterate designs through 3D printing prototypes and testings.
+                    </p>
+                </div>
+
+                <div class="content-right">
+                    <model-viewer 
+                        src="asset/models/hand.glb" 
+                        class="media-window" 
+                        orientation="0deg 0deg 0deg"
+                        exposure="0.8"
+                        shadow-intensity="5"
+                        shadow-softness="0.8"
+                        camera-controls 
+                        camera-orbit = "45deg 45deg 1m"
+                        data-default-orbit = "45deg 45deg 1m"
+                        auto-rotate
+                        auto-rotate-delay="2000"
+                        alt="Hand Exoskeleton 3D Model">          
+                    </model-viewer>
+                </div>
             </div>
 
-            <div class="content-right">
-                <model-viewer 
-                    src="asset/models/hand.glb" 
-                    class="media-window" 
-                    orientation="0deg 0deg 0deg"
-                    exposure="0.8"
-                    shadow-intensity="5"
-                    shadow-softness="0.8"
-                    camera-controls 
-                    camera-orbit = "45deg 45deg 1m"
-                    data-default-orbit = "45deg 45deg 1m"
-                    auto-rotate
-                    auto-rotate-delay="2000"
-                    alt="Hand Exoskeleton 3D Model">          
-                </model-viewer>
-            </div>
-        </div>
-
+        <h2>MECHANICAL DESIGN</h2>
+        <hr>
         <div class="project-container">
             <div class="content-left">
-                <h2>
-                    SolidWorks Mechanical Design — <br>
-                    Bolt-Action Rifle
-                </h2>
+                <h3>Bolt-Action Rifle</h3>
 
                 <p>
                     Designed a functioning bolt-action rifle, constructed a complete internal structure from scratch without any reference. 
@@ -127,7 +129,7 @@
 
         <div class="project-container">
             <div class="content-left">
-                <h2>Goldeagle 8308 BDLC motor testing stand</h2>
+                <h3>Goldeagle 8308 BDLC motor testing stand</h3>
 
                 <p>
                     Designed a customized motor mounting for testing purposes. Considered 3D printability, structure reliability, ease of assembly, and upgradability. 
@@ -156,10 +158,10 @@
 
         <div class="project-container">
             <div class="content-left">
-                <h2>
+                <h3>
                     SolidWorks Aesthetic Model — <br>
                     Renault FT‑17 Tank
-                </h2>
+                </h3>
 
                 <p>
                     Designed a detailed aesthetic model of the Renault FT‑17 WWI tank in SolidWorks, 
@@ -188,10 +190,10 @@
 
         <div class="project-container">
             <div class="content-left">
-                <h2>
+                <h3>
                     SolidWorks Aesthetic Model — <br>
                     M67 Grenade
-                </h2>
+                </h3>
 
                 <p>
                     Created a full 1:1 SolidWorks model of the M67 grenade, including a complete internal 
@@ -214,6 +216,29 @@
                     auto-rotate-delay="2000"
                     alt="M67 Grenade 3D Model">          
                 </model-viewer>
+            </div>
+        </div>
+        
+        <h2>SOFTWARE DEVELOPPING</h2>
+        <hr>
+
+            <div class="project-container">
+            <div class="content-left">
+                <h3>Sci-Helper: Integrated Highschool Science Writing Utilities</h3>
+
+                <p><strong>Goal:</strong> Build a browser extension to speed up the process of writing scientific formulas and special characters in Google Docs.</p>
+                <p><strong>Description:</strong> Developed a Firefox extension in JavaScript that provides hotkey-triggered insertion of superscripts, subscripts, Greek letters, and mathematical operators. All hotkeys are activated via sticky toggle buttons, making the workflow fast and intuitive for science students and researchers.</p>
+                <p><strong>Outcome:</strong> A fully functional, published Firefox extension that streamlines formula writing in Google Docs — eliminating the need to manually search for special characters.</p>
+            </div>
+
+            <div class="content-right">
+                <iframe 
+                    src="iframeDemo.html"
+                    width="560px"
+                    height="480px"
+                    style="border: 1px solid #ddd; border-radius: 8px;"
+                    title="SciHelper Live Demo">
+                </iframe>
             </div>
         </div>
     </div>

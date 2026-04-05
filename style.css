@@ -249,23 +249,43 @@ body {
     background-repeat: repeat;
     margin: 0 auto;
 
+    padding: 40px;
     padding-top: 60px;
 }
 
-.content h1 { 
-        text-align: center; 
-        font-size: clamp(2rem, 4vw, 4rem); 
-        font-weight: 800;
-        margin-bottom: 40px; 
-        color: black; 
+.content h1 {
+    text-align: center;
+    font-size: clamp(2rem, 4vw, 4rem); 
+    font-weight: 800;
+    color: black; 
+    margin-top: 0;
+    margin-bottom: 40px;
 } 
+
+.content h2 { 
+    text-align: left; 
+    font-size: clamp(1.5rem, 4vw, 3rem); 
+    font-weight: 800;
+    color: black; 
+    margin-bottom: 0px;
+    height: auto;
+} 
+
+.content hr {
+    width: 100%;
+    border: none;
+    border-top: 3px solid black;
+    border-color: rgb(130, 130, 130);
+    margin-bottom: 40px;
+    height:8px;
+}
 
 /*projects*/
 .project-container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 40px;
+    align-items: top;
+    padding: 20px;
     padding-top: 0;
     gap: 20px;
 }
@@ -274,7 +294,7 @@ body {
     flex: 1 1 400px;
     padding-right: 40px;
 
-    h2 {
+    h3 {
         font-size: clamp(1.5rem, 2vw, 2.5rem);
         margin-top: 0;
         margin-bottom: 0;
