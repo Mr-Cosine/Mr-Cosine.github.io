@@ -17,7 +17,7 @@ function enableAutoResetForAll(defaultOrbit = "45deg 45deg 1m", delay = 2000) {
         viewer.addEventListener("mousedown", restartTimer);
         viewer.addEventListener("touchstart", restartTimer);
         viewer.addEventListener("wheel", restartTimer);
-        viewer.addEventListener("pointermove", restartTimer);
+        viewer.addEventListener("pointerup", restartTimer);
 
         // Start initial timer
         restartTimer();
