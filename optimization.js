@@ -1,20 +1,15 @@
-// Lazy load the model when the viewer is in the viewport
 document.addEventListener("DOMContentLoaded", () => {
-  const viewer = document.querySelector('#myModel');
-  if (!viewer) {
-    console.warn("model-viewer element not found");
-    return;
-  }
+  const viewers = document.querySelectorAll("model-viewer");
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        viewer.play();
+        entry.target.play();
       } else {
-        viewer.pause();
+        entry.target.pause();
       }
     });
-  }, { threshold: 0.3});
+  }, { threshold: 0.3 });
 
-  observer.observe(viewer);
+  viewers.forEach(viewer => observer.observe(viewer));
 });

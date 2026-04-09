@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
             : "asset/models/rifle.glb";
 
         toggleBtn.textContent = exploded
-            ? "Normal View"
-            : "Exploded View";
+            ? "Normal"
+            : "Exploded";
     });
 });

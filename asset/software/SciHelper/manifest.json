@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "SciHelper",
+  "version": "1.0",
+  "description": "Scientific writing helper for Google Docs and web forms.",
+  
+  "permissions": [
+    "scripting",
+    "activeTab"
+  ],
+
+  "host_permissions": [
+    "https://docs.google.com/*",
+    "https://*.google.com/*"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["https://docs.google.com/document/*"],
+      "css": ["style.css"],
+      "js": ["resources.js", "Chemistry_lib.js", "General_lib.js", "SciHelper_lib.js", "SciHelper.js"],
+      "run_at": "document_end"
+    }
+  ],
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "scihelper@yourdomain.com"
+    }
+  },
+
+  "icons": {
+    "128": "icon.png"
+  },
+  
+  "action": {
+    "default_icon": "icon.png"
+  }
+}
