@@ -45,11 +45,12 @@
                 <span style="color: #6babff;"><span class = "clickable">ANDY</span></span>
             </h1>
             <hr>
-            <p>
-                I am a future biomedical engineer now studying in University of Waterloo.<br>
-                I love designing mechanical systems, programming, building PCs, and exploring new things!<br>
-                <br>
-            </p>
+                <p>
+                    Second-year Biomedical Engineering student at the University of Waterloo,
+                    seeking co-op roles in mechanical design, embedded systems, or software development.<br><br>
+                    I bridge physical and digital — from SolidWorks assemblies and 3D-printed prototypes
+                    to browser extensions and interactive web experiences.
+                </p>
         </div>
         <button class="scroll-button" onclick="document.querySelector('.content').scrollIntoView({ behavior: 'smooth' })">   
         </button>
@@ -62,39 +63,42 @@
         
         <h2>INTEGRATED</h2>
         <hr>
-            <div class="project-container">
-                <div class="content-left">
-                    <h3>Wearable Exoskeleton System for Grip Assistance</h3>
-                        <p>
-                            <p><strong>Goal:</strong> Design and prototype a 3D-printed wearable hand exoskeleton for users with limited grip strength, targeting actuation under 0.5s, a 1kg hold capacity, and comfort during continuous wear.</p>
-                            <p><strong>Description:</strong> Developed full SolidWorks assemblies integrating motors, batteries, and cable routing with anatomical fit geometry, resolving interference conflicts across 17 components. Optimized geometries through 9 iterative 3D-print prototype cycles for comfort, performance, and robustness. Validated functionality using a breadboard control circuit powered by Arduino.</p>
-                            <p><strong>Outcome:</strong> Delivered a functional wearable prototype meeting all design targets — sub-0.5s actuation, 1kg load handling, and comfortable continuous wear — validated through hardware testing and iterative refinement.</p>
-                        </p>
-                </div>
+        <div class="project-container">
+            <div class="content-left">
+                <h3>Wearable Exoskeleton System for Grip Assistance</h3>
+                    <div class="project-meta">2025 &nbsp;·&nbsp; Personal & Team</div>
 
-                <div class="content-right">
-                    <model-viewer 
-                        src="asset/models/hand.glb" 
-                        class="media-window" 
-                        orientation="0deg 0deg 0deg"
-                        exposure="0.8"
-                        shadow-intensity="5"
-                        shadow-softness="0.8"
-                        camera-controls 
-                        camera-orbit = "45deg 45deg 1m"
-                        data-default-orbit = "45deg 45deg 1m"
-                        auto-rotate
-                        auto-rotate-delay="2000"
-                        alt="Hand Exoskeleton 3D Model">          
-                    </model-viewer>
-                </div>
+                    <p>
+                        <p><strong>Goal:</strong> Design and prototype a 3D-printed wearable hand exoskeleton for users with limited grip strength, targeting actuation under 0.5s, a 1kg hold capacity, and comfort during continuous wear.</p>
+                        <p><strong>Description:</strong> Developed full SolidWorks assemblies integrating motors, batteries, and cable routing with anatomical fit geometry, resolving interference conflicts across 17 components. Optimized geometries through 9 iterative 3D-print prototype cycles for comfort, performance, and robustness. Validated functionality using a breadboard control circuit powered by Arduino.</p>
+                        <p><strong>Outcome:</strong> Delivered a functional wearable prototype meeting all design targets — sub-0.5s actuation, 1kg load handling, and comfortable continuous wear — validated through hardware testing and iterative refinement.</p>
+                    </p>
             </div>
+
+            <div class="content-right">
+                <model-viewer 
+                    src="asset/models/hand.glb" 
+                    class="media-window" 
+                    orientation="0deg 0deg 0deg"
+                    exposure="0.8"
+                    shadow-intensity="5"
+                    shadow-softness="0.8"
+                    camera-controls 
+                    camera-orbit = "45deg 45deg 1m"
+                    data-default-orbit = "45deg 45deg 1m"
+                    auto-rotate
+                    auto-rotate-delay="2000"
+                    alt="Hand Exoskeleton 3D Model">          
+                </model-viewer>
+            </div>
+        </div>
 
         <h2>MECHANICAL DESIGN</h2>
         <hr>
         <div class="project-container">
             <div class="content-left">
                 <h3>Bolt-Action Rifle</h3>
+                <div class="project-meta">2025 &nbsp;·&nbsp; Personal</div>
 
                 <p>
                     Designed a functioning bolt-action rifle, constructed a complete internal structure from scratch without any reference. 
@@ -128,7 +132,7 @@
         <div class="project-container">
             <div class="content-left">
                 <h3>Goldeagle 8308 BDLC motor testing stand</h3>
-
+                <div class="project-meta">2026 &nbsp;·&nbsp; Personal</div>
                 <p>
                     Designed a customized motor mounting for testing purposes. Considered 3D printability, structure reliability, ease of assembly, and upgradability. 
                     Achieved a good satisfaction for requirements with a simple-to-manufacture design.
@@ -160,6 +164,7 @@
                     SolidWorks Aesthetic Model — <br>
                     Renault FT‑17 Tank
                 </h3>
+                <div class="project-meta">2026 &nbsp;·&nbsp; Academic, Personal</div>
 
                 <p>
                     Designed a detailed aesthetic model of the Renault FT‑17 WWI tank in SolidWorks, 
@@ -192,6 +197,7 @@
                     SolidWorks Aesthetic Model — <br>
                     M67 Grenade
                 </h3>
+                <div class="project-meta">2026 &nbsp;·&nbsp; Personal</div>
 
                 <p>
                     Created a full 1:1 SolidWorks model of the M67 grenade, including a complete internal 
@@ -223,6 +229,7 @@
             <div class="project-container">
             <div class="content-left">
                 <h3>Sci-Helper: Integrated Highschool Science Writing Utilities</h3>
+                <div class="project-meta">2026 &nbsp;·&nbsp; Personal</div>
 
                 <p><strong>Goal:</strong> Build a browser extension to speed up the process of writing scientific formulas and special characters in Google Docs.</p>
                 <p><strong>Description:</strong> Developed a Firefox extension in JavaScript that provides hotkey-triggered insertion of superscripts, subscripts, Greek letters, and mathematical operators. All hotkeys are activated via sticky toggle buttons, making the workflow fast and intuitive for science students and researchers.</p>
@@ -230,6 +237,9 @@
             </div>
 
             <div class="content-right">
+                <div id="demo-banner">
+                    <strong>SciHelper Demo</strong><br>
+                </div>
                 <iframe 
                     src="iframeDemo.html"
                     width= 80%

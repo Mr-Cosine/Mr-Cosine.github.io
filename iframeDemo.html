@@ -7,93 +7,12 @@
  
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+Math&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="asset/software/SciHelper/style.css">
- 
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
- 
-        body {
-            font-family: 'Noto Sans', sans-serif;
-            background: #f0f4f9;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
- 
-        #demo-banner {
-            background: #4a90e2;
-            color: white;
-            padding: 10px 20px;
-            font-size: 13px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-shrink: 0;
-        }
- 
-        #demo-banner strong {
-            font-size: 15px;
-        }
- 
-        #demo-banner .hint {
-            opacity: 0.85;
-            font-size: 12px;
-        }
- 
-        #demo-area {
-            flex: 1;
-            position: relative;
-            overflow: hidden;
-        }
- 
-        /* Keep all plugin popups inside the demo area */
-        #demo-area #sci-mainpanel {
-            position: absolute !important;
-        }
- 
-        #demo-area #sci-restore-btn {
-            position: absolute !important;
-            bottom: 20px;
-            right: 20px;
-        }
- 
-        #demo-area #sci-chempanel,
-        #demo-area #sci-genpanel {
-            position: absolute !important;
-        }
- 
-        #demo-area #sci-chempanel-elesearch,
-        #demo-area #sci-chempanel-molcalc,
-        #demo-area #sci-chempanel-limcalc,
-        #demo-area #sci-chempanel-elecchem,
-        #demo-area #sci-genpanel-poly,
-        #demo-area #sci-infopanel,
-        #demo-area #sci-infopanel-contentpage {
-            position: absolute !important;
-        }
- 
-        #demo-watermark {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #b0bec5;
-            font-size: 11px;
-            pointer-events: none;
-            white-space: nowrap;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
  
-<div id="demo-banner">
-    <div>
-        <strong>SciHelper — Demo</strong><br>
-    </div>
-</div>
 <div id="demo-area"></div>
 
- 
 <script src="asset/software/SciHelper/resources.js"></script>
 <script src="asset/software/SciHelper/Chemistry_lib.js"></script>
 <script src="asset/software/SciHelper/General_lib.js"></script>
