@@ -20,7 +20,6 @@ const messages = [
     "My favourite music is Luminous Era by Laur. ;)",
     "I am a big fan of all kinds of hardcore EDMs, and I also love classical musics. That's why my favourite genres are Hard renaissance and J-artcore.",
     "My height unfortunately shrinked from 185 to 183 as I grew up... :C",
-    "I like using Copilot, more than any other AI asisstant. It's like...friendship has been formed?",
     "The time these messages last depends on their length.",
     "My name has a syllable that does not exist in English.",
     "My github name came from my steam account, f(x) = cos(x). Cuz my other two friends are sin(x) and conics.",

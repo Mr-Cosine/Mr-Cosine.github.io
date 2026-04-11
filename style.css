@@ -365,63 +365,6 @@ model-viewer.media-window {
 }
 
 /* ============================
-   IFRAME DEMO
-   ============================ */
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-    font-family: 'Noto Sans', sans-serif;
-    background: #f0f4f9;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
-
-#demo-banner {
-    background: #4a90e2;
-    color: white;
-    padding: 16px 16px;
-    font-size: 16px;
-    writing-mode: vertical-rl;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-shrink: 0;
-}
-
-#demo-banner strong { font-size: 15px; }
-
-#demo-banner .hint {
-    opacity: 0.85;
-    font-size: 12px;
-}
-
-#demo-area {
-    flex: 1;
-    position: relative;
-    overflow: hidden;
-}
-
-#demo-area #sci-mainpanel,
-#demo-area #sci-restore-btn,
-#demo-area #sci-chempanel,
-#demo-area #sci-genpanel,
-#demo-area #sci-chempanel-elesearch,
-#demo-area #sci-chempanel-molcalc,
-#demo-area #sci-chempanel-limcalc,
-#demo-area #sci-chempanel-elecchem,
-#demo-area #sci-genpanel-poly,
-#demo-area #sci-infopanel,
-#demo-area #sci-infopanel-contentpage { position: absolute !important; }
-
-#demo-area #sci-restore-btn {
-    bottom: 20px;
-    right: 20px;
-}
-
-/* ============================
    RESPONSIVE BREAKPOINTS
    ============================ */
 
