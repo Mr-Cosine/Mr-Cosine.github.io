@@ -821,6 +821,7 @@ function openElectroChemWindow(outputLoc) {
     });
 
     document.body.appendChild(electroChemWindow);
+    makeDraggable(ElectroChemHeader, electroChemWindow);
 
     return electroChemWindow;
 }
