@@ -32,84 +32,78 @@
 <script src="asset/software/SciHelper/SciHelper.js"></script>
  
 <script>
-    function badRatio() {
-        return window.innerWidth < 768 && window.innerHeight/window.innerWidth > 1;
-    }
- 
     const demoArea = document.getElementById('demo-area');
     let isInitialized = false;
- 
-    window.addEventListener('load', function () {
-        if (isInitialized) return;
-        const restoreBtn = document.getElementById('sci-restore-btn');
-        if (restoreBtn) {
-            // Move restore button into demo area
-            demoArea.appendChild(restoreBtn);
 
-            isInitialized = true;
-    
-            // Simulate a short click to trigger initSciHelper
-            const mdEvt = new MouseEvent('mousedown', { bubbles: true });
-            restoreBtn.dispatchEvent(mdEvt);
-    
+    badRatio = () => {return window.innerWidth < 768 && window.innerHeight > window.innerWidth;}
+
+    function checkScreen() {
+        setTimeout(() => {
+            if (badRatio()) {
+                demoArea.innerHTML = `
+                    <div style="padding: 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; height: 100%;">
+                        <p style="font-size: 1.2rem; font-weight: bold;">This device's aspect ratio is not supported.</p>
+                        <p>Please rotate to landscape or use a larger screen, then refresh the page.</p>
+                    </div>`;
+                
+                const panels = demoArea.querySelectorAll('[id^="sci"]');
+                panels.forEach(p => p.style.display = 'none');
+            }
+        }, 100);
+    }
+
+    function initPlugin() {
+        const restoreBtn = document.getElementById('sci-restore-btn');
+        if (!restoreBtn) return;
+
+        isInitialized = true;
+        demoArea.innerHTML = ""; // Clear warning text
+        demoArea.appendChild(restoreBtn);
+
+        // Simulate clicks
+        const mdEvt = new MouseEvent('mousedown', { bubbles: true });
+        restoreBtn.dispatchEvent(mdEvt);
+
+        setTimeout(() => {
+            const muEvt = new MouseEvent('mouseup', { bubbles: true });
+            restoreBtn.dispatchEvent(muEvt);
+
             setTimeout(() => {
-                const muEvt = new MouseEvent('mouseup', { bubbles: true });
-                restoreBtn.dispatchEvent(muEvt);
-    
-                // Move the panel and any sub-panels into demo-area
-                setTimeout(() => {
-                    ['sci-mainpanel', 'sci-chempanel', 'sci-genpanel',
+                const panelIds = [
+                    'sci-mainpanel', 'sci-chempanel', 'sci-genpanel',
                     'sci-chempanel-elesearch', 'sci-chempanel-molcalc',
                     'sci-chempanel-limcalc', 'sci-chempanel-elecchem',
                     'sci-genpanel-poly', 'sci-infopanel',
                     'sci-infopanel-contentpage'
-                    ].forEach(id => {
-                        const el = document.getElementById(id);
-                        if (el && el.parentNode !== demoArea) {
-                            demoArea.appendChild(el);
-                        }
-                    });
-    
-                    // Position panel nicely
-                    const panel = document.getElementById('sci-mainpanel');
-                    if (panel) {
-                        panel.style.left = '30px';
-                        panel.style.top  = '20px';
+                ];
+                
+                panelIds.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el && el.parentNode !== demoArea) {
+                        demoArea.appendChild(el);
                     }
-                }, 50);
-            }, 40);
-        }
-    });
+                });
 
-    function handleDisplay() {
-        if (badRatio()) {
-            demoArea.innerHTML = "<div><p>This device's aspect ratio is not supported.</p><p style='font-size: 0.8em; font-weight: normal; margin-top: 10px;'>Please rotate to landscape or use a larger screen, then refresh.</p></div>";
-            const panels = demoArea.querySelectorAll('[id^="sci-"]');
-            panels.forEach(p => p.style.display = 'none');
-        } 
-        
-        else {
-            // Screen is big enough
-            const panels = demoArea.querySelectorAll('[id^="sci-"]');
-            panels.forEach(p => p.style.display = ''); 
-            
-            if (!isInitialized) {
-                initDemo();
-            }
-        }
+                const main = document.getElementById('sci-mainpanel');
+                if (main) {
+                    main.style.left = '30px';
+                    main.style.top  = '20px';
+                }
+            }, 50);
+        }, 40);
     }
 
-    window.addEventListener('load', handleDisplay);
-    window.addEventListener('resize', handleDisplay);
- 
-    // Observe DOM for any new plugin panels appended to body and reroute them
+    // CORRECT EVENT LISTENERS: Use a reference to the function name only
+    window.addEventListener('load', checkScreen);
+    window.addEventListener('resize', checkScreen);
+
+    // MutationObserver remains the same
     const observer = new MutationObserver(mutations => {
-        if (!badRatio()){
+        if (!badRatio()) {
             mutations.forEach(m => {
                 m.addedNodes.forEach(node => {
                     if (node.nodeType === 1 && node.parentNode === document.body) {
-                        const id = node.id || '';
-                        if (id.startsWith('sci-')) {
+                        if (node.id && node.id.startsWith('sci-')) {
                             demoArea.appendChild(node);
                         }
                     }
