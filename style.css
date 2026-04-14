@@ -245,7 +245,9 @@ body {
 .values {
     display: flex;
     justify-content: center;
-    padding-top: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 60px;
     background: transparent;
     flex-wrap: wrap;
 }
@@ -257,14 +259,14 @@ body {
 }
 
 .value-item h3 {
-    font-size: clamp(1.5rem, 4vw, 3rem);
+    font-size: clamp(1.5rem, 2vw, 3rem);
     font-weight: 700;
     color: #6babff;
     margin-bottom: 10px;
 }
 
 .value-item p {
-    font-size: clamp(1.5rem, 2vw, 2.5rem);
+    font-size: clamp(0.8rem, 2vw, 1.2rem);
     color: black;
 }
 
@@ -281,7 +283,7 @@ body {
     margin: 0 auto;
 
     padding: 40px;
-    padding-top: 60px;
+    padding-top: 40px;
 }
 
 .content h1 {
@@ -290,7 +292,7 @@ body {
     font-weight: 800;
     color: black; 
     margin-top: 0;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 } 
 
 .content h2 { 
@@ -335,7 +337,7 @@ body {
     padding-right: 40px;
 
     h3 {
-        font-size: clamp(1.5rem, 2vw, 2.5rem);
+        font-size: clamp(1.5rem, 2vw, 2rem);
         margin-top: 0;
         margin-bottom: 0;
         color: black;
