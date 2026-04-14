@@ -125,6 +125,7 @@ body {
     justify-content: space-between;
 
     height: 60vh;
+    min-height: 400px;
     padding: 50px 60px;
 
     gap: 40px;
@@ -235,6 +236,36 @@ body {
 @keyframes bounce {
     0%, 100% { transform: translateX(-50%) translateY(0); }
     50% { transform: translateX(-50%) translateY(-6px); }
+}
+
+/* ============================
+   VALUES
+   ============================ */
+
+.values {
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+    background: transparent;
+    flex-wrap: wrap;
+}
+
+.value-item {
+    flex: 1 1 200px;
+    max-width: 400px;
+    text-align: center;
+}
+
+.value-item h3 {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    font-weight: 700;
+    color: #6babff;
+    margin-bottom: 10px;
+}
+
+.value-item p {
+    font-size: clamp(1.5rem, 2vw, 2.5rem);
+    color: black;
 }
 
 /* ============================

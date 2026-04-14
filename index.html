@@ -59,194 +59,218 @@
     </div>
 
     <div class="content">
-        <h1>PROJECTS</h1>
-        
-        <h2>INTEGRATED</h2>
-        <hr>
-        <div class="project-container">
-            <div class="content-left">
-                <h3>Wearable Exoskeleton System for Grip Assistance</h3>
-                    <div class="project-meta">2025 &nbsp;·&nbsp; Personal & Team</div>
+        <div class="values">
+            <div class="value-item">
+                <h3>I Build Things</h3>
+                <p>Hardware, software, and everything between, I never wait for permission to start. </p>
+            </div>
+            <div class="value-item">
+                <h3>I Learn Fast</h3>
+                <p>I am a independent, project-driven learner. Every project here involves new tools or knowledges I did not have before starting it. </p>
+            </div>
+            <div class="value-item">
+                <h3>I Ship</h3>
+                <p>Published extension. Functional prototypes. They are real deliverables, not just concepts.</p>
+            </div>
+        </div>
+
+        <div class="projects">
+            <h1>PROJECTS</h1>
+            
+            <h2>INTEGRATED</h2>
+            <hr>
+            <div class="project-container">
+                <div class="content-left">
+                    <h3>Wearable Exoskeleton System for Grip Assistance</h3>
+                        <div class="project-meta">2025 &nbsp;·&nbsp; Personal & Team</div>
+
+                        <p>
+                            <p><strong>Goal:</strong> Design and prototype a 3D-printed wearable hand exoskeleton for users with limited grip strength, targeting actuation under 0.5s, a 1kg hold capacity, and comfort during continuous wear.</p>
+                            <p><strong>Description:</strong> Developed full SolidWorks assemblies integrating motors, batteries, and cable routing with anatomical fit geometry, resolving interference conflicts across 17 components. Optimized geometries through 9 iterative 3D-print prototype cycles for comfort, performance, and robustness. Validated functionality using a breadboard control circuit powered by Arduino.</p>
+                            <p><strong>Outcome:</strong> Delivered a functional wearable prototype meeting all design targets — sub-0.5s actuation, 1kg load handling, and comfortable continuous wear — validated through hardware testing and iterative refinement.</p>
+                        </p>
+                </div>
+
+                <div class="content-right">
+                    <model-viewer 
+                        src="asset/models/hand.glb" 
+                        class="media-window" 
+                        orientation="0deg 0deg 0deg"
+                        exposure="0.8"
+                        shadow-intensity="5"
+                        shadow-softness="0.8"
+                        camera-controls 
+                        camera-orbit = "45deg 45deg 1m"
+                        data-default-orbit = "45deg 45deg 1m"
+                        auto-rotate
+                        auto-rotate-delay="2000"
+                        alt="Hand Exoskeleton 3D Model">          
+                    </model-viewer>
+                </div>
+            </div>
+
+            <h2>MECHANICAL DESIGN</h2>
+            <hr>
+            <div class="project-container">
+                <div class="content-left">
+                    <h3>Bolt-Action Rifle</h3>
+                    <div class="project-meta">2025 &nbsp;·&nbsp; Personal</div>
 
                     <p>
-                        <p><strong>Goal:</strong> Design and prototype a 3D-printed wearable hand exoskeleton for users with limited grip strength, targeting actuation under 0.5s, a 1kg hold capacity, and comfort during continuous wear.</p>
-                        <p><strong>Description:</strong> Developed full SolidWorks assemblies integrating motors, batteries, and cable routing with anatomical fit geometry, resolving interference conflicts across 17 components. Optimized geometries through 9 iterative 3D-print prototype cycles for comfort, performance, and robustness. Validated functionality using a breadboard control circuit powered by Arduino.</p>
-                        <p><strong>Outcome:</strong> Delivered a functional wearable prototype meeting all design targets — sub-0.5s actuation, 1kg load handling, and comfortable continuous wear — validated through hardware testing and iterative refinement.</p>
+                        Designed a functioning bolt-action rifle, constructed a complete internal structure from scratch without any reference. 
+                        Ensures mechanical functionality, structure rigidity and manufacturability.
                     </p>
+
+                </div>
+
+                <div class="content-right">
+                    <model-viewer 
+                        id="rifle"
+                        src="asset/models/rifle.glb"
+                        class="media-window"
+                        orientation="0deg 90deg 45deg"
+                        exposure="0.8"
+                        shadow-intensity="5"
+                        shadow-softness="0.8"
+                        camera-controls 
+                        camera-orbit="0deg 60deg 1m"
+                        data-default-orbit="0deg 60deg 1m"
+                        auto-rotate
+                        auto-rotate-delay="2000"
+                        alt="Bolt-Action Rifle 3D Model">
+                        <button id="toggleViewBtn" class="toggleViewBtn">
+                            Exploded View
+                        </button>
+                    </model-viewer>
+                </div>
             </div>
-
-            <div class="content-right">
-                <model-viewer 
-                    src="asset/models/hand.glb" 
-                    class="media-window" 
-                    orientation="0deg 0deg 0deg"
-                    exposure="0.8"
-                    shadow-intensity="5"
-                    shadow-softness="0.8"
-                    camera-controls 
-                    camera-orbit = "45deg 45deg 1m"
-                    data-default-orbit = "45deg 45deg 1m"
-                    auto-rotate
-                    auto-rotate-delay="2000"
-                    alt="Hand Exoskeleton 3D Model">          
-                </model-viewer>
-            </div>
-        </div>
-
-        <h2>MECHANICAL DESIGN</h2>
-        <hr>
-        <div class="project-container">
-            <div class="content-left">
-                <h3>Bolt-Action Rifle</h3>
-                <div class="project-meta">2025 &nbsp;·&nbsp; Personal</div>
-
-                <p>
-                    Designed a functioning bolt-action rifle, constructed a complete internal structure from scratch without any reference. 
-                    Ensures mechanical functionality, structure rigidity and manufacturability.
-                </p>
-
-            </div>
-
-            <div class="content-right">
-                <model-viewer 
-                    id="rifle"
-                    src="asset/models/rifle.glb"
-                    class="media-window"
-                    orientation="0deg 90deg 45deg"
-                    exposure="0.8"
-                    shadow-intensity="5"
-                    shadow-softness="0.8"
-                    camera-controls 
-                    camera-orbit="0deg 60deg 1m"
-                    data-default-orbit="0deg 60deg 1m"
-                    auto-rotate
-                    auto-rotate-delay="2000"
-                    alt="Bolt-Action Rifle 3D Model">
-                    <button id="toggleViewBtn" class="toggleViewBtn">
-                        Exploded View
-                    </button>
-                </model-viewer>
-            </div>
-        </div>
-
-        <div class="project-container">
-            <div class="content-left">
-                <h3>Goldeagle 8308 BDLC motor testing stand</h3>
-                <div class="project-meta">2026 &nbsp;·&nbsp; Personal</div>
-                <p>
-                    Designed a customized motor mounting for testing purposes. Considered 3D printability, structure reliability, ease of assembly, and upgradability. 
-                    Achieved a good satisfaction for requirements with a simple-to-manufacture design.
-                </p>
-            </div>
-
-            <div class="content-right">
-                <model-viewer 
-                    src="asset/models/motor_explodeloop.glb" 
-                    class="media-window" 
-                    exposure="0.8"
-                    shadow-intensity="5"
-                    shadow-softness="0.8"
-                    camera-controls 
-                    camera-orbit = "45deg 45deg"
-                    data-default-orbit = "45deg 45deg"
-                    autoplay
-                    loop
-                    auto-rotate
-                    auto-rotate-delay="2000"
-                    alt="Motor Testing Stand 3D Model">
-                </model-viewer>
-            </div>
-        </div>
-
-        <div class="project-container">
-            <div class="content-left">
-                <h3>
-                    SolidWorks Aesthetic Model — <br>
-                    Renault FT‑17 Tank
-                </h3>
-                <div class="project-meta">2026 &nbsp;·&nbsp; Academic, Personal</div>
-
-                <p>
-                    Designed a detailed aesthetic model of the Renault FT‑17 WWI tank in SolidWorks, 
-                    focusing on aesthetic fidelity. The model includes intricate details such as the turret, tracks, and body features. 
-                    (Includes some interpretations due to insufficient reference materials)
-                </p>
-            </div>
-
-            <div class="content-right">
-                <model-viewer 
-                    src="asset/models/tank.glb" 
-                    class="media-window" 
-                    orientation="0deg 90deg 0deg"
-                    exposure="0.8"
-                    shadow-intensity="5"
-                    shadow-softness="0.8"
-                    camera-controls 
-                    camera-orbit = "315deg 70deg 100m"
-                    data-default-orbit = "315deg 70deg 100m"
-                    auto-rotate
-                    auto-rotate-delay="2000"
-                    alt="Renault FT‑17 Tank 3D Model">          
-                </model-viewer>
-            </div>
-        </div>
-
-        <div class="project-container">
-            <div class="content-left">
-                <h3>
-                    SolidWorks Aesthetic Model — <br>
-                    M67 Grenade
-                </h3>
-                <div class="project-meta">2026 &nbsp;·&nbsp; Personal</div>
-
-                <p>
-                    Created a full 1:1 SolidWorks model of the M67 grenade, including a complete internal 
-                    assembly based on published technical drawings. (Modified slightly for 3D printability and to be unfunctional)
-                </p>
-            </div>
-
-            <div class="content-right">
-                <model-viewer 
-                    src="asset/models/grenade.glb" 
-                    class="media-window" 
-                    orientation="0deg 90deg 0deg"
-                    exposure="0.8"
-                    shadow-intensity="5"
-                    shadow-softness="0.8"
-                    camera-controls 
-                    camera-orbit = "0deg 60deg 1000m"
-                    data-default-orbit = "0deg 60deg 1000m"
-                    auto-rotate
-                    auto-rotate-delay="2000"
-                    alt="M67 Grenade 3D Model">          
-                </model-viewer>
-            </div>
-        </div>
-        
-        <h2>SOFTWARE DEVELOPING</h2>
-        <hr>
 
             <div class="project-container">
-            <div class="content-left">
-                <h3>Sci-Helper: Integrated Highschool Science Writing Utilities</h3>
-                <div class="project-meta">2026 &nbsp;·&nbsp; Personal</div>
+                <div class="content-left">
+                    <h3>Goldeagle 8308 BDLC motor testing stand</h3>
+                    <div class="project-meta">2026 &nbsp;·&nbsp; Personal</div>
+                    <p>
+                        Designed a customized motor mounting for testing purposes. Considered 3D printability, structure reliability, ease of assembly, and upgradability. 
+                        Achieved a good satisfaction for requirements with a simple-to-manufacture design.
+                    </p>
+                </div>
 
-                <p><strong>Goal:</strong> Build a browser extension to speed up the process of writing scientific formulas and special characters in Google Docs.</p>
-                <p><strong>Description:</strong> Developed a Firefox extension in JavaScript that provides hotkey-triggered insertion of superscripts, subscripts, Greek letters, and mathematical operators. All hotkeys are activated via sticky toggle buttons, making the workflow fast and intuitive for science students and researchers.</p>
-                <p><strong>Outcome:</strong> A fully functional, published Firefox extension that streamlines formula writing in Google Docs — eliminating the need to manually search for special characters.</p>
+                <div class="content-right">
+                    <model-viewer 
+                        src="asset/models/motor_explodeloop.glb" 
+                        class="media-window" 
+                        exposure="0.8"
+                        shadow-intensity="5"
+                        shadow-softness="0.8"
+                        camera-controls 
+                        camera-orbit = "45deg 45deg"
+                        data-default-orbit = "45deg 45deg"
+                        autoplay
+                        loop
+                        auto-rotate
+                        auto-rotate-delay="2000"
+                        alt="Motor Testing Stand 3D Model">
+                    </model-viewer>
+                </div>
             </div>
 
-            <div class="content-right">
-                <div id="demo-banner">
-                    <strong>Demo</strong><br>
+            <div class="project-container">
+                <div class="content-left">
+                    <h3>
+                        SolidWorks Aesthetic Model — <br>
+                        Renault FT‑17 Tank
+                    </h3>
+                    <div class="project-meta">2026 &nbsp;·&nbsp; Academic, Personal</div>
+
+                    <p>
+                        Designed a detailed aesthetic model of the Renault FT‑17 WWI tank in SolidWorks, 
+                        focusing on aesthetic fidelity. The model includes intricate details such as the turret, tracks, and body features. 
+                        (Includes some interpretations due to insufficient reference materials)
+                    </p>
                 </div>
-                <iframe 
-                    src="iframeDemo.html"
-                    width= 80%
-                    height= "480px"
-                    style="border: 1px solid #bbb; border-radius: 0 8px 8px 0;"
-                    title="SciHelper Live Demo">
-                </iframe>
+
+                <div class="content-right">
+                    <model-viewer 
+                        src="asset/models/tank.glb" 
+                        class="media-window" 
+                        orientation="0deg 90deg 0deg"
+                        exposure="0.8"
+                        shadow-intensity="5"
+                        shadow-softness="0.8"
+                        camera-controls 
+                        camera-orbit = "315deg 70deg 100m"
+                        data-default-orbit = "315deg 70deg 100m"
+                        auto-rotate
+                        auto-rotate-delay="2000"
+                        alt="Renault FT‑17 Tank 3D Model">          
+                    </model-viewer>
+                </div>
+            </div>
+
+            <div class="project-container">
+                <div class="content-left">
+                    <h3>
+                        SolidWorks Aesthetic Model — <br>
+                        M67 Grenade
+                    </h3>
+                    <div class="project-meta">2026 &nbsp;·&nbsp; Personal</div>
+
+                    <p>
+                        Created a full 1:1 SolidWorks model of the M67 grenade, including a complete internal 
+                        assembly based on published technical drawings. (Modified slightly for 3D printability and to be unfunctional)
+                    </p>
+                </div>
+
+                <div class="content-right">
+                    <model-viewer 
+                        src="asset/models/grenade.glb" 
+                        class="media-window" 
+                        orientation="0deg 90deg 0deg"
+                        exposure="0.8"
+                        shadow-intensity="5"
+                        shadow-softness="0.8"
+                        camera-controls 
+                        camera-orbit = "0deg 60deg 1000m"
+                        data-default-orbit = "0deg 60deg 1000m"
+                        auto-rotate
+                        auto-rotate-delay="2000"
+                        alt="M67 Grenade 3D Model">          
+                    </model-viewer>
+                </div>
+            </div>
+            
+            <h2>SOFTWARE DEVELOPING</h2>
+            <hr>
+
+                <div class="project-container">
+                <div class="content-left">
+                    <h3>Sci-Helper: Integrated Highschool Science Writing Utilities</h3>
+                    <div class="project-meta">2026 &nbsp;·&nbsp; Personal</div>
+
+                    
+                    <p><strong>Problem aiming to address:</strong> Writing scientific formulas in Google Docs is painfully slow —
+                    students waste time hunting for special characters and symbols mid-sentence.</p>
+
+                    <p><strong>Solution:</strong> Independently identified this gap, designed a solution,
+                    and shipped a published Firefox extension used by science students — with zero budget,
+                    zero team, and zero prior extension development experience.</p>
+
+                    <p><strong>Skills demonstrated:</strong> Self-directed learning, shipping a real product,
+                    UI/UX design, JavaScript development.</p>
+                </div>
+
+                <div class="content-right">
+                    <div id="demo-banner">
+                        <strong>Demo</strong><br>
+                    </div>
+                    <iframe 
+                        src="iframeDemo.html"
+                        width= 80%
+                        height= "480px"
+                        style="border: 1px solid #bbb; border-radius: 0 8px 8px 0;"
+                        title="SciHelper Live Demo">
+                    </iframe>
+                </div>
             </div>
         </div>
     </div>
