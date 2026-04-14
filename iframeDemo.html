@@ -32,41 +32,44 @@
 <script src="asset/software/SciHelper/SciHelper.js"></script>
  
 <script>
-    // Redirect all document.body.appendChild calls that the plugin makes
-    // into the demo-area div so everything stays contained in the iframe.
-    // We do this by re-routing after the scripts load.
+    function badRatio() {
+        return window.innerWidth < 768 && window.innerHeight/window.innerWidth > 1;
+    }
  
     const demoArea = document.getElementById('demo-area');
+    let isInitialized = false;
  
-    // Auto-launch the panel by simulating a quick click on the restore button
     window.addEventListener('load', function () {
+        if (isInitialized) return;
         const restoreBtn = document.getElementById('sci-restore-btn');
         if (restoreBtn) {
             // Move restore button into demo area
             demoArea.appendChild(restoreBtn);
- 
+
+            isInitialized = true;
+    
             // Simulate a short click to trigger initSciHelper
             const mdEvt = new MouseEvent('mousedown', { bubbles: true });
             restoreBtn.dispatchEvent(mdEvt);
- 
+    
             setTimeout(() => {
                 const muEvt = new MouseEvent('mouseup', { bubbles: true });
                 restoreBtn.dispatchEvent(muEvt);
- 
+    
                 // Move the panel and any sub-panels into demo-area
                 setTimeout(() => {
                     ['sci-mainpanel', 'sci-chempanel', 'sci-genpanel',
-                     'sci-chempanel-elesearch', 'sci-chempanel-molcalc',
-                     'sci-chempanel-limcalc', 'sci-chempanel-elecchem',
-                     'sci-genpanel-poly', 'sci-infopanel',
-                     'sci-infopanel-contentpage'
+                    'sci-chempanel-elesearch', 'sci-chempanel-molcalc',
+                    'sci-chempanel-limcalc', 'sci-chempanel-elecchem',
+                    'sci-genpanel-poly', 'sci-infopanel',
+                    'sci-infopanel-contentpage'
                     ].forEach(id => {
                         const el = document.getElementById(id);
                         if (el && el.parentNode !== demoArea) {
                             demoArea.appendChild(el);
                         }
                     });
- 
+    
                     // Position panel nicely
                     const panel = document.getElementById('sci-mainpanel');
                     if (panel) {
@@ -77,19 +80,42 @@
             }, 40);
         }
     });
+
+    function handleDisplay() {
+        if (badRatio()) {
+            demoArea.innerHTML = "<div><p>This device's aspect ratio is not supported.</p><p style='font-size: 0.8em; font-weight: normal; margin-top: 10px;'>Please rotate to landscape or use a larger screen, then refresh.</p></div>";
+            const panels = demoArea.querySelectorAll('[id^="sci-"]');
+            panels.forEach(p => p.style.display = 'none');
+        } 
+        
+        else {
+            // Screen is big enough
+            const panels = demoArea.querySelectorAll('[id^="sci-"]');
+            panels.forEach(p => p.style.display = ''); 
+            
+            if (!isInitialized) {
+                initDemo();
+            }
+        }
+    }
+
+    window.addEventListener('load', handleDisplay);
+    window.addEventListener('resize', handleDisplay);
  
     // Observe DOM for any new plugin panels appended to body and reroute them
     const observer = new MutationObserver(mutations => {
-        mutations.forEach(m => {
-            m.addedNodes.forEach(node => {
-                if (node.nodeType === 1 && node.parentNode === document.body) {
-                    const id = node.id || '';
-                    if (id.startsWith('sci-')) {
-                        demoArea.appendChild(node);
+        if (!badRatio()){
+            mutations.forEach(m => {
+                m.addedNodes.forEach(node => {
+                    if (node.nodeType === 1 && node.parentNode === document.body) {
+                        const id = node.id || '';
+                        if (id.startsWith('sci-')) {
+                            demoArea.appendChild(node);
+                        }
                     }
-                }
+                });
             });
-        });
+        }
     });
     observer.observe(document.body, { childList: true });
 </script>
