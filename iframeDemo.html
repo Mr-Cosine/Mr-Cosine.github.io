@@ -35,24 +35,28 @@
     const demoArea = document.getElementById('demo-area');
     let isInitialized = false;
 
-    badRatio = () => {return window.innerWidth < 768 && window.innerHeight > window.innerWidth;}
+    badRatio = () => {console.log(window.innerWidth); return window.innerWidth < 768 && window.innerHeight > window.innerWidth;}
 
     function checkScreen() {
-        setTimeout(() => {
-            if (badRatio()) {
-                demoArea.innerHTML = `
-                    <div style="padding: 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; height: 100%;">
-                        <p style="font-size: 1.2rem; font-weight: bold;">This device's aspect ratio is not supported.</p>
-                        <p>Please rotate to landscape or use a larger screen, then refresh the page.</p>
-                    </div>`;
+        if (badRatio()) {
+            demoArea.innerHTML = '';
+            demoArea.innerHTML = `
+                <div style="padding: 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; height: 100%;">
+                    <p style="font-size: 1.2rem; font-weight: bold;">This device's aspect ratio is not supported.</p>
+                    <p>Please rotate to landscape or use a larger screen, then refresh the page.</p>
+                </div>`;
                 
-                const panels = demoArea.querySelectorAll('[id^="sci"]');
-                panels.forEach(p => p.style.display = 'none');
-            }
-        }, 100);
+            const panels = document.querySelectorAll('[id^="sci"]');
+            panels.forEach(p => {p.remove()});
+            isInitialized = false;
+        }
+        else {if (!isInitialized) initPlugin;}
     }
 
     function initPlugin() {
+        if (badRatio()) {isInitialized = false; return;}
+        if (isInitialized) return;
+
         const restoreBtn = document.getElementById('sci-restore-btn');
         if (!restoreBtn) return;
 
@@ -93,8 +97,8 @@
         }, 40);
     }
 
-    // CORRECT EVENT LISTENERS: Use a reference to the function name only
     window.addEventListener('load', checkScreen);
+
     window.addEventListener('resize', checkScreen);
 
     // MutationObserver remains the same
