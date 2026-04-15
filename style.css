@@ -416,22 +416,32 @@ model-viewer.media-window {
 }
 
 .toggleViewBtn {
+    display: flex;
     position: absolute;
-    top: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    gap: 5px;
+    top: 20px;
     right: 25px;
-    padding: 8px 16px;
-    background: white;
-    color: black;
+    height: 40px;
+    background: transparent;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 14px;
     transition: 0.2s ease;
+    gap:15px;
     z-index: 9999;
+    align-items: center;
 }
 
 .toggleViewBtn:hover {
     background: #bbb;
+}
+
+.Btnicon{
+    height:80%;
+    width: auto;
 }
 
 /* ============================
