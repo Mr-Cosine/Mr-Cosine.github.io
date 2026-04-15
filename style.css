@@ -357,6 +357,43 @@ body {
     position: relative;
 }
 
+#integrated {
+    flex: 1 1 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#integrated-prototype {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: row !important;
+}
+
+#prototype-gif {
+    aspect-ratio: 4/5;
+    width: 100%;
+    max-width: 300px;
+    border-radius: 0 20px 20px 0;
+}
+
+#prototype-banner {
+    background: #4a90e2;
+    color: white;
+    padding: 24px 12px;
+    font-size: 18px;
+    font-weight: bold;
+    writing-mode: vertical-rl;
+    display: flex;
+    letter-spacing: 1px;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 20px 0 0 20px;
+}
+
 .media-window {
     aspect-ratio: 16/10;
     width: 100%;
@@ -405,7 +442,7 @@ model-viewer.media-window {
     background: #4a90e2;
     color: white;
     padding: 24px 12px;
-    font-size: 20px;
+    font-size: 18px;
     writing-mode: vertical-rl;
     display: flex;
     letter-spacing: 1px;
