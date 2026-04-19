@@ -13,6 +13,7 @@
             font-family: 'Noto Sans', sans-serif;
             background: #f0f4f9;
             height: 100vh;
+            height: 100dvh;
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -35,7 +36,7 @@
     const demoArea = document.getElementById('demo-area');
     let isInitialized = false;
 
-    badRatio = () => {console.log(window.innerWidth); return window.innerWidth < 768 && window.innerHeight > window.innerWidth;}
+    badRatio = () => {return window.innerWidth < 768 && window.innerHeight > window.innerWidth;}
 
     function checkScreen() {
         if (badRatio()) {
@@ -50,7 +51,7 @@
             panels.forEach(p => {p.remove()});
             isInitialized = false;
         }
-        else {if (!isInitialized) initPlugin;}
+        else {if (!isInitialized) initPlugin();}
     }
 
     function initPlugin() {
