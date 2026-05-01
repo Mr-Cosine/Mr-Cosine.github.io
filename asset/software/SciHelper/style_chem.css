@@ -1,0 +1,517 @@
+.no-select {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none;     /* IE 10 and 11 */
+    user-select: none;         /* Standard syntax (Chrome, Firefox, Edge) */
+}
+
+:root {
+    --teal-main: #83c1bb;
+    --teal-light: #f0f8f7;
+    --teal-highlight: #f8fffe;
+    --alert: #ff4d4d;
+}
+
+/*===========================================================================================================================*/
+/* --- The Chemistry Toolbox Styling --- */
+#sci-chem {
+    position: absolute;
+    right: 260px;
+    top: 150px;
+    width: 180px;
+    background: white;
+    border: 1px solid var(--teal-main);
+    box-shadow: 0 2px 8px #444;
+    z-index: 2147483645;
+    padding: 8px;
+}
+
+#sci-chem-header {
+    background: var(--teal-main);
+    color: white;
+    padding: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    cursor: move;
+}
+
+.sci-chem-btn {
+    width: 100%;
+    margin-top: 8px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+    font-size: 14px;
+}
+
+.sci-chem-btn-symbol {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1;
+    display: block;
+}
+
+.sci-chem-tool-header {
+    padding: 8px;
+    background: #444;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: move;
+}
+
+.sci-chem-tool-result {
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    background: var(--teal-light);
+    border-left: 4px solid var(--teal-main);
+    min-height: 20px;
+    color: #444;
+    white-space: pre-wrap;
+}
+
+.sci-chem-tool-result:hover {
+    background: var(--teal-highlight);
+}
+
+/* --- Element Search Window --- */
+#sci-chem-elem {
+    position: fixed;
+    top: 150px;
+    right: 560px;
+    width: 320px;
+    max-height: 400px;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px #444;
+    z-index: 2147483647;
+    display: flex;
+    flex-direction: column;
+}
+
+#sci-chem-elem input {
+    margin: 8px;
+    padding: 6px;
+    border: 1px solid #ccc;
+}
+
+.sci-chem-elem-results {
+    overflow-y: auto;
+    flex-grow: 1;
+    padding: 5px;
+}
+
+.sci-chem-elem-row {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-bottom: 1px solid #ccc;
+    gap: 10px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.sci-chem-elem-row:hover {
+    background: var(--teal-light);
+}
+
+.sci-chem-elem-row-symbol {
+    flex: 1;
+    flex-shrink: 0;
+    font-weight: bold;
+    color: var(--teal-main);
+    text-align: center;
+}
+
+.sci-chem-elem-row-symbol:hover {
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.sci-chem-elem-row-text {
+    flex: 1;
+    text-align: left;
+    white-space: nowrap;
+    margin-left: 8px;
+    text-align: center;
+}
+
+.sci-chem-elem-row-text:hover {
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.sci-chem-elem-row.legend {
+    background-color: #f8f9fa;
+    font-size: 0.9em;
+    color: #444;
+    border-bottom: 2px solid #ccc;
+}
+
+/* --- Molar Mass Calculator --- */
+#sci-chem-molm {
+    position: fixed;
+    top: 150px;
+    right: 560px;
+    width: 320px;
+    max-width: 500px;
+    max-height: 400px;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px #444;
+    z-index: 2147483647;
+    display: flex;
+    flex-direction: column;
+}
+
+#sci-chem-molm input {
+    margin: 8px;
+    padding: 6px;
+    border: 1px solid #ccc;
+}
+
+.sci-chem-molm-row {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+    text-align: left;
+}
+
+.sci-chem-molm-row:hover {
+    background: var(--teal-light);
+}
+
+.sci-chem-molm-row-symbol {
+    flex: 1;
+    flex-shrink: 0;
+    font-weight: bold;
+    color: var(--teal-main);
+    text-align: center;
+}
+
+.sci-chem-molm-row-symbol:hover {
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.sci-chem-molm-row-text {
+    flex: 1;
+    text-align: center;
+    white-space: nowrap;
+    margin-left: 8px;
+    text-align: center;
+}
+
+.sci-chem-molm-row-text:hover {
+    border-left: 1px solid #ababab;
+    border-right: 1px solid #ccc;
+}
+
+.sci-chem-molm-row.legend {
+    background-color: #f8f9fa;
+    font-size: 0.9em;
+    color: #444;
+    border-bottom: 2px solid #ccc;
+}
+
+/* --- Limiting Reagent Calculator --- */
+#sci-chem-lim,
+#sci-chem-lim * {
+    box-sizing: border-box;
+}
+
+#sci-chem-lim {
+    position: fixed;
+    top: 150px;
+    right: 560px;
+    width: 400px;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px #444;
+    z-index: 2147483647;
+    display: flex;
+    flex-direction: column;
+}
+
+.sci-chem-lim-row {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 5px;
+    margin-top: 5px;
+    padding: 5px;
+    padding-bottom: 0px;
+
+    box-sizing: border-box;
+}
+
+.sci-chem-lim-row input,
+.sci-chem-lim-row select {
+    padding: 3px;
+    border: 1px solid #ccc;
+    font-size: 10px;
+    flex-shrink: 1;
+    min-width: 0;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.sci-chem-lim-row-name {flex: 1; font-weight: bold;}
+.sci-chem-lim-row-conc {flex: 1;}
+.sci-chem-lim-row-amount {flex: 1;}
+.sci-chem-lim-row-stoic {flex: 0 0 40px;}
+.sci-chem-lim-row select {flex: 0 0 50px;}
+
+
+input[readonly] {
+    background-color: #f0f0f0;
+    color: #444;
+    border: 1px dashed #ccc;
+}
+
+.sci-chem-lim-row-remove {
+    background: none;
+    border: none;
+    color: var(--alert);
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 0 5px;
+    flex: 0;
+}
+
+#sci-chem-lim-addrow {
+    width: 24px;
+    height: 24px;
+    padding-left: 5px;
+    font-size: 24px;
+    cursor: pointer;
+
+    background: none;
+    border: none;
+    color: #444;
+}
+
+#sci-chem-lim-ratiobox {
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+    font-size: 12px;
+    align-items: center;
+}
+
+#sci-chem-lim-ratiobox-label {
+    color: #444;
+}
+
+#sci-chem-lim-ratiobox-input {
+    padding: 3px;
+    border: 1px solid #ccc;
+    font-size: 12px;
+
+    width: 50px;
+}
+
+#sci-chem-lim-confirm {
+    width: auto;
+    padding: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+    background: none;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    font-weight: bold;
+    color: #444;
+}
+
+#sci-chem-lim-confirm:hover {
+    background: var(--teal-highlight);
+}
+
+/* --- Electrochemistry Calculator --- */
+#sci-chem-elec,
+#sci-chem-elec * {
+    box-sizing: border-box;
+}
+
+#sci-chem-elec {
+    position: fixed;
+    top: 150px;
+    right: 560px;
+    width: 320px;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px #444;
+    z-index: 2147483647;
+    display: flex;
+    flex-direction: column;
+}
+
+.sci-chem-elec-search {
+    padding: 8px 10px 0 10px;
+    width: 100%;
+}
+
+.sci-chem-elec-search-input {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+}
+
+.sci-chem-elec-search-inputbox {
+    flex: 0.8;
+    padding: 4px 6px;
+    font-size: 12px;
+    min-width: 0;
+    border: 1px solid #ccc;
+    border-right: none;
+    outline: none;
+}
+
+.sci-chem-elec-search-redoxlabel {
+    flex: 0.2;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    background: #f8f9fa;
+    cursor: pointer;
+    outline: none;
+}
+
+.sci-chem-elec-search-result {
+    position: absolute;
+    top: 100%;
+    left: 10px;
+    right: 10px;
+    z-index: 100;
+    background: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    max-height: 150px;
+    overflow-y: auto;
+    display: none;
+}
+
+.sci-chem-elec-search-result-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 8px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.sci-chem-elec-search-result-row:hover {
+    background-color: var(--teal-light);
+}
+
+#sci-chem-elec-confirm {
+    width: auto;
+    padding: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+    background: none;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+#sci-elec-lim-confirm:hover {
+    background: var(--teal-highlight);
+}
+
+/* --- Formula Sheet --- */
+#sci-chem-frml {
+    position: fixed;
+    top: 150px;
+    right: 560px;
+    width: 320px;
+    max-height: 400px;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px #444;
+    z-index: 2147483647;
+    display: flex;
+    flex-direction: column;
+}
+
+#sci-chem-frml-content {
+    overflow-y: auto;
+}
+
+.sci-chem-frml-category{
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-bottom: 1px solid #ccc;
+}
+
+.sci-chem-frml-row {
+    align-items: center;
+    padding: 8px 12px;
+    border-bottom: 1px solid #ccc;
+    gap: 10px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.sci-chem-frml-row:hover {
+    background: var(--teal-light);
+}
+
+#sci-chem-frml-calc{
+    position: absolute;
+    top: 0px;
+    right: 320px;
+    width: 240px;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px #444;
+    z-index: 2147483647;
+    display: flex;
+    flex-direction: column;
+}
+
+.sci-chem-frml-calc-input {
+    display: flex;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.sci-chem-frml-calc-solve {
+    padding: 6px 10px;
+    border: none;
+    background: white;
+    color: #444;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.sci-chem-frml-calc-alert {
+    padding: 6px 10px;
+    border: none;
+    background: var(--alert);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+}

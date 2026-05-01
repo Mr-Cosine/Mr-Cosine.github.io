@@ -1,3 +1,127 @@
+var state = {
+    greek: false,
+    superscript: false,
+    subscript: false,
+    math: false,
+    chemistry: false,
+    physics: false,
+    general: false,
+    info: false
+    };
+
+var outputLoc = null;
+
+// --- Main SciHelper Window ---
+function initSciHelper(initx = 100, inity = 100) {    
+    if (!document.body || document.getElementById('sci-panel')) return;
+        
+    // --- UI Construction ---
+    var panel = document.createElement('div');
+    panel.setAttribute('id', 'sci-panel');
+    panel.style.right = initx + 'px';
+    panel.style.top = inity + 'px';
+
+    var headerContainer = document.createElement('div');
+    headerContainer.setAttribute('id', 'sci-panel-headercontainer');
+        
+    var header = document.createElement('div');
+    header.setAttribute('id', 'sci-panel-header');
+    header.textContent = 'Sci-Helper';
+    header.classList.add('no-select');
+        
+    var closeBtn = document.createElement('button')
+    closeBtn.setAttribute('id', 'sci-panel-closebtn');
+    closeBtn.textContent = "×";
+    closeBtn.classList.add('no-select');
+
+    closeBtn.addEventListener('click', function() {closeSciHelper();});
+
+    var btnContainer = document.createElement('div');
+    btnContainer.setAttribute('id', 'sci-panel-btncontainer');
+
+    var outputBox = document.createElement('textarea');
+    outputBox.setAttribute('id', 'sci-panel-output');
+    outputBox.setAttribute('placeholder', 'Type symbols...');
+    outputLoc = outputBox;
+
+    var infoBtn = document.createElement('div');
+    infoBtn.setAttribute('id', 'sci-panel-info');
+    infoBtn.textContent = "🛈";
+    infoBtn.classList.add('no-select');
+
+    infoBtn.addEventListener('click', function () {
+        if (state.info) {
+            closeInfo();
+            state.info = false;
+        }
+        else {
+            openInfo(outputLoc);
+            state.info = true;
+        }
+    });
+
+    btnContainer.appendChild(createToggle('Suprscript', 'Xⁿ', 'superscript', '#e57373', state));
+    btnContainer.appendChild(createToggle('Subscript', 'Xₙ', 'subscript', '#ffaf4d', state));
+    btnContainer.appendChild(createToggle('Greek', 'αbγ', 'greek', '#81c784', state)); 
+    btnContainer.appendChild(createToggle('Math', '+-×÷', 'math', '#64b5f6', state)); 
+    btnContainer.appendChild(createSubMenuToggle('Chemistry', 'H₂O', 'chemistry', '#83c1bb', state, outputLoc, panel)); 
+    btnContainer.appendChild(createSubMenuToggle('Physics', 'F=ma', 'physics', '#ba68c8', state, outputLoc, panel));
+    btnContainer.appendChild(createSubMenuToggle('General', '⌬', 'general', '#cfe084', state, outputLoc, panel));
+
+    headerContainer.append(header, closeBtn);
+    panel.append(headerContainer, btnContainer, infoBtn, outputBox, createCopyBtn(outputBox));        
+    document.body.appendChild(panel);
+
+    makeDraggable(header, panel);
+
+    document.addEventListener("keydown", function(e) {
+        // Detect focus conflict
+        if (document.activeElement.tagName === 'INPUT' && 
+            document.activeElement.id !== 'sci-panel-output') {
+            return;
+        }
+
+        if (e.ctrlKey && e.altKey) {
+            if (e.code === "KeyD") { insertIntoWindow(outputLoc, degree); e.preventDefault(); return; }
+            if (e.code === "KeyE") { insertIntoWindow(outputLoc, equilibium); e.preventDefault(); return; }
+        }
+
+        if ((e.ctrlKey || e.altKey) === false) {
+            var symbol = null;
+            var key = e.key;
+
+            if (state.superscript) {
+                symbol = superscripts[key] || (e.code.startsWith("Digit") ? superscripts[e.code.replace("Digit", "")] : null);
+            } else if (state.subscript) {
+                symbol = subscripts[key] || (e.code.startsWith("Digit") ? subscripts[e.code.replace("Digit", "")] : null);
+            } else if (state.greek) {
+                symbol = greeks[key.toLowerCase()];
+            } else if (state.math) {
+                symbol = maths[key];
+            }
+                    
+            if (symbol) { e.preventDefault(); insertIntoWindow(outputLoc, symbol); }
+        }
+    }, true);
+}
+
+function closeSciHelper() {  
+    let panel = document.getElementById('sci-panel');          
+    closeChemWindow();
+    closeGenWindow();
+    closeInfo();
+    
+    let restoreBtn = document.getElementById('sci-restore');
+    restoreBtn.style.display = 'flex';
+
+    //Record current location for restoration
+    var rect = document.getElementById('sci-panel').getBoundingClientRect();
+    restoreBtn.rcdx = rect.right;
+    restoreBtn.rcdy = rect.top;
+
+    panel.remove();
+}
+
 // --- Put on textbox ---
 function insertIntoWindow(target, text) {
     if (!text || !target) return;
@@ -38,7 +162,7 @@ function refreshBtnDisp(classname, state) {
 
 function createToggle(label, symbol, id, color, state) {
     var btn = document.createElement('button');
-    btn.setAttribute('class', 'sci-mainpanel-btn');
+    btn.setAttribute('class', 'sci-panel-btn');
     btn.style.backgroundColor = 'white';
     btn.id = id;
     btn.color = color;
@@ -47,7 +171,7 @@ function createToggle(label, symbol, id, color, state) {
     labelSpan.appendChild(document.createTextNode(label));
         
     var symbolSpan = document.createElement('span');
-    symbolSpan.setAttribute('class', 'sci-mainpanel-btnsymbol');
+    symbolSpan.setAttribute('class', 'sci-panel-btn-symbol');
     symbolSpan.style.color = color;
     symbolSpan.appendChild(document.createTextNode(symbol));
 
@@ -67,7 +191,7 @@ function createToggle(label, symbol, id, color, state) {
 
 function createSubMenuToggle(label, symbol, id, color, state, outputLoc, parentPanel) {
     var btn = document.createElement('button');
-    btn.setAttribute('class', 'sci-mainpanel-btn');
+    btn.setAttribute('class', 'sci-panel-btn');
     btn.style.backgroundColor = '#f9f9f9';
     btn.id = id;
     btn.color = color;
@@ -76,7 +200,7 @@ function createSubMenuToggle(label, symbol, id, color, state, outputLoc, parentP
     labelSpan.appendChild(document.createTextNode(label));
         
     var symbolSpan = document.createElement('span');
-    symbolSpan.setAttribute('class', 'sci-mainpanel-btnsymbol');
+    symbolSpan.setAttribute('class', 'sci-panel-btn-symbol');
     symbolSpan.style.color = color;
     symbolSpan.appendChild(document.createTextNode(symbol));
 
@@ -100,7 +224,7 @@ function createSubMenuToggle(label, symbol, id, color, state, outputLoc, parentP
 
 function createCopyBtn(target) {
     var copyBtn = document.createElement('button');
-    copyBtn.setAttribute('id', 'sci-mainpanel-copybtn');
+    copyBtn.setAttribute('id', 'sci-panel-copybtn');
     copyBtn.textContent = 'COPY';
 
     copyBtn.addEventListener('click', function() {
@@ -131,19 +255,16 @@ function createCopyBtn(target) {
     return copyBtn;
 }
 
-function openInfo(outputLoc, parentpanel) {
-    if (document.getElementById('sci-infopanel')) return;
+function openInfo(outputLoc) {
+    while (document.getElementById('sci-info')) document.getElementById('sci-info').remove();
 
-    var infoBtn = document.getElementById('sci-mainpanel-info');
-    var rect = infoBtn.getBoundingClientRect();
+    var infoBtn = document.getElementById('sci-panel-info');
 
     var menuWin = document.createElement('div');
-    menuWin.id = 'sci-infopanel'; // Updated ID
-    menuWin.style.left = (rect.right + 2) + 'px';
-    menuWin.style.top = rect.top + 'px';
+    menuWin.id = 'sci-info';
 
     var header = document.createElement('div');
-    header.className = 'sci-infopanel-header';
+    header.className = 'sci-info-header';
     header.style.cursor = 'default';
     header.textContent = 'MAPPING';
     
@@ -153,94 +274,87 @@ function openInfo(outputLoc, parentpanel) {
 
     function createMenuBtn(label, data) {
         var btn = document.createElement('button');
-        btn.className = 'sci-infopanel-menubtn';
+        btn.className = 'sci-info-menubtn';
         btn.textContent = label;
         
-        btn.onclick = () => {
-            var freshRect = infoBtn.getBoundingClientRect();
-            openInfoContent(label, data, freshRect.right + 2, freshRect.top, outputLoc, parentpanel); 
-            menuWin.remove();
+        btn.onclick = (e) => {
+            e.stopPropagation();
+            openInfoContent(label, data, menuWin, outputLoc); 
         };
         return btn;
     }
 
-    // Populate using global objects
-    btnList.appendChild(createMenuBtn('MATH', Object.entries(window.maths || {})));
-    btnList.appendChild(createMenuBtn('GREEK', Object.entries(window.greeks || {})));
-    btnList.appendChild(createMenuBtn('SUP/SUB', Object.entries(window.superscripts || {}).concat(Object.entries(window.subscripts || {}))));
-    btnList.appendChild(createMenuBtn('SPECIAL', [['Deg', window.degree || '°'], ['Eq', window.equilibrium || '⇌']]));
+    btnList.appendChild(createMenuBtn('MATH', Object.entries(maths)));
+    btnList.appendChild(createMenuBtn('GREEK', Object.entries(greeks)));
+    btnList.appendChild(createMenuBtn('SUP/SUB', Object.entries(superscripts).concat(Object.entries(subscripts))));
+    btnList.appendChild(createMenuBtn('SPECIAL', [
+                                                    ['Ctrl + Alt + D', degree], 
+                                                    ['Ctrl + Alt + E', equilibium]]));
 
     menuWin.append(header, btnList);
-    document.body.appendChild(menuWin);
+    infoBtn.appendChild(menuWin);
+
+    menuWin.style.left = (- menuWin.offsetWidth - 2) + 'px';
+    menuWin.style.top = '0px';
 }
 
-function openInfoContent(title, mapping, x, y, outputLoc, parentpanel) {
-    var existingPage = document.getElementById('sci-infopanel-contentpage');
-    if (existingPage) existingPage.remove();
-
-    var contentWin = document.createElement('div');
-    contentWin.id = 'sci-infopanel-contentpage';
-    contentWin.style.left = x + 'px';
-    contentWin.style.top = y + 'px';
-
+function openInfoContent(title, mapping, panel, outputLoc) {
+    panel.innerHTML = ''; 
+    
     var header = document.createElement('div');
-    header.className = 'sci-infopanel-contentpage-header';
+    header.className = 'sci-info-content-header';
     header.style.cursor = 'move';
     
     var titleSpan = document.createElement('span');
-    titleSpan.className = 'sci-infopanel-contentpage-header-title';
+    titleSpan.className = 'sci-info-content-header-title';
     titleSpan.textContent = title;
 
     var closeBtn = document.createElement('button');
-    closeBtn.className = 'sci-infopanel-contentpage-header-closebtn';
+    closeBtn.className = 'sci-info-content-header-closebtn';
     closeBtn.textContent = '×';
     closeBtn.onclick = () => {
-        contentWin.remove(); 
-        openInfo(outputLoc, parentpanel);
+        panel.remove();
     };
 
     header.append(titleSpan, closeBtn);
 
     var displayArea = document.createElement('div');
-    displayArea.className = 'sci-infopanel-contentpage-scroll';
+    displayArea.className = 'sci-info-content-scroll';
 
     mapping.forEach(([key, val]) => {
         var row = document.createElement('div');
-        row.className = 'sci-infopanel-contentpage-scroll-row';
+        row.className = 'sci-info-content-scroll-row';
 
         var originalDiv = document.createElement('div');
-        originalDiv.className = 'sci-infopanel-contentpage-scroll-row-original';
+        originalDiv.className = 'sci-info-content-scroll-row-original';
         originalDiv.textContent = key;
 
         var arrowDiv = document.createElement('div');
-        arrowDiv.className = 'sci-infopanel-contentpage-scroll-row-arrow';
+        arrowDiv.className = 'sci-info-content-scroll-row-arrow';
         arrowDiv.textContent = '→';
 
         var mappedDiv = document.createElement('div');
-        mappedDiv.className = 'sci-infopanel-contentpage-scroll-row-mapped';
+        mappedDiv.className = 'sci-info-content-scroll-row-mapped';
         mappedDiv.textContent = val;
 
         row.appendChild(originalDiv);
         row.appendChild(arrowDiv);
         row.appendChild(mappedDiv);
 
-        row.onclick = () => {
-                insertIntoWindow(outputLoc, val);
+        row.onclick = (e) => {
+            e.stopPropagation();
+            insertIntoWindow(outputLoc, val);
         };
 
-        // Hover effects handled via CSS or JS (optional)
         displayArea.appendChild(row);
     });
 
-    contentWin.append(header, displayArea);
-    document.body.appendChild(contentWin);
+    panel.append(header, displayArea);
 
-    if (typeof makeDraggable === 'function') {
-        makeDraggable(header, contentWin);
-    }
+    panel.style.left = (- panel.offsetWidth - 2) + 'px';
+    panel.style.top = '0px';
 }
 
 function closeInfo() {
-    document.getElementById('sci-infopanel-contentpage')?.remove();
-    document.getElementById('sci-infopanel')?.remove();
+    document.getElementById('sci-info')?.remove();
 }

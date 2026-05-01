@@ -1,0 +1,196 @@
+.no-select {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none;     /* IE 10 and 11 */
+    user-select: none;         /* Standard syntax (Chrome, Firefox, Edge) */
+}
+
+:root {
+    --yellow-main: #cfe084;
+    --yellow-light: #f4f8e6;
+    --yellow-highlight: #ecf2d4;
+    --alert: #ff4d4d;
+}
+
+/*===========================================================================================================================*/
+/* --- The General Toolbox Styling --- */
+#sci-gen {
+    position: absolute;
+    right: 260px;
+    top: 150px;
+    width: 180px;
+    background: white;
+    border: 1px solid var(--yellow-main);
+    box-shadow: 0 2px 8px #444;
+    z-index: 2147483645;
+    padding: 8px;
+}
+
+#sci-gen-header {
+    background: var(--yellow-main);
+    color: white;
+    padding: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    cursor: move;
+}
+
+.sci-gen-btn {
+    width: 100%;
+    margin-top: 8px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+    font-size: 14px;
+}
+
+.sci-gen-btn-symbol {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1;
+    display: block;
+}
+
+.sci-gen-tool-header {
+    padding: 8px;
+    background: #444;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: move;
+}
+
+.sci-gen-tool-result {
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    background: var(--yellow-light);
+    border-left: 4px solid var(--yellow-main);
+    min-height: 20px;
+    color: #444;
+    white-space: pre-wrap;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sci-gen-tool-result:hover {
+    background: var(--yellow-highlight);
+}
+
+/* --- Polynomial Solver --- */
+#sci-gen-poly,
+#sci-gen-poly * {
+    box-sizing: border-box;
+}
+
+#sci-gen-poly {
+    position: fixed;
+    top: 150px;
+    right: 560px;
+    width: 320px;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px #444;
+    z-index: 2147483647;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.sci-gen-poly-row {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: 5px;
+    margin-top: 5px;
+    padding: 5px 10px;
+    overflow: hidden;
+}
+
+.sci-gen-poly-row-section {
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+    align-items: flex-start;
+    gap: 2px;
+}
+
+.sci-gen-poly-row-section input {
+    padding: 3px;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    flex-shrink: 1;
+    min-width: 0;
+}
+
+.sci-gen-poly-row-section-constant { flex: 0 0 50px; }
+.sci-gen-poly-row-section-equalsign { flex: 0 0 15px; text-align: center; padding-top: 2px; }
+.sci-gen-poly-row-section-coeff { flex: 1; min-width: 0;}
+
+.sci-gen-poly-row-section-variable {
+    font-size: 24px;
+    font-family: "Times New Roman", serif;
+    line-height: 1;
+}
+
+.sci-gen-poly-row-section-exponent {
+    flex: 0 0 25px;
+    font-size: 10px;
+    height: 16px;
+    padding: 1px !important;
+    margin-top: -4px;
+}
+
+.sci-gen-poly-row-remove {
+    background: none;
+    border: none;
+    color: var(--alert);
+    font-size: 1.2em;
+    cursor: pointer;
+    flex: 0 0 24px;
+    padding-top: 0;
+}
+
+#sci-gen-poly-addrow {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 10px;
+    margin-left: 75px;
+    font-size: 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #444;
+}
+
+#sci-gen-poly-confirm {
+    width: auto;
+    padding: 8px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+#sci-gen-poly-confirm:hover {
+    background: var(--yellow-highlight);
+}
+
+.sci-gen-poly-result-changeform {
+    font-size: 14px;
+    font-weight: bold;
+    background: none;
+    cursor: pointer;
+}
+
+.sci-gen-poly-result-changeform:hover {
+    color: #666;
+}
