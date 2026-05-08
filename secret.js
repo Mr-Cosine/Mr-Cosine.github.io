@@ -31,10 +31,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const bar = document.getElementById('top-message');
 
     name.addEventListener('click', () => {
-        if (bar.style.opacity === '1') return; // prevent multiple clicks while message is visible
         const randomIndex = Math.floor(Math.random() * messages.length);
-        bar.textContent = messages[randomIndex];    //select message
-        
+        showMessage(bar, messages[randomIndex]);
+    });
+});
+
+function showMessage(bar, message) {
+    if (bar.style.opacity === '1') return; // prevent multiple clicks while message is visible
+        bar.textContent = message;
         timeoutsec = bar.textContent.length * 50 + 500;
          // fade in 
         bar.style.opacity = 1; 
@@ -43,5 +47,4 @@ document.addEventListener("DOMContentLoaded", () => {
             bar.style.opacity = 0; 
             setTimeout(() => {}, 1000); // wait for fade out transition to complete before clearing text
         }, timeoutsec);
-    });
-});
+}

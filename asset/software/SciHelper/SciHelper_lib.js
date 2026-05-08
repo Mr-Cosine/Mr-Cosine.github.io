@@ -1,4 +1,4 @@
-var state = {
+let state = {
     greek: false,
     superscript: false,
     subscript: false,
@@ -7,13 +7,51 @@ var state = {
     physics: false,
     general: false,
     info: false
-    };
+};
+    
+let outputLoc = null;
+let keyListener = null;
 
-var outputLoc = null;
+/* --- Booting --- */
+function boot() {
+    if (document.getElementById('sci-restore')) {document.getElementById('sci-restore').remove();}
+    var restoreBtn = document.createElement('div');
+    restoreBtn.id = 'sci-restore';
+    restoreBtn.textContent = '⌬';
+    restoreBtn.classList.add('no-select');
+    restoreBtn.rcdx = 100; restoreBtn.rcdy = 100;
 
-// --- Main SciHelper Window ---
+    let startTime;
+    restoreBtn.addEventListener('mousedown', function() { startTime = Date.now(); });
+
+    restoreBtn.addEventListener('mouseup', function() {
+        let duration = Date.now() - startTime;
+
+        if (duration < 150) { 
+            initSciHelper(this.rcdx, this.rcdy);
+            this.style.display = 'none';
+        } 
+    });
+
+    restoreBtn.addEventListener('mouseenter', function() {
+        cancelClose();
+        openSettings(restoreBtn);
+    });
+
+    restoreBtn.addEventListener('mouseleave', function() {
+        closeSettings();
+    })
+
+    makeDraggable(restoreBtn, restoreBtn);
+
+    document.body.appendChild(restoreBtn);
+}
+
+/* --- Main SciHelper Window --- */
 function initSciHelper(initx = 100, inity = 100) {    
     if (!document.body || document.getElementById('sci-panel')) return;
+
+    Object.keys(state).forEach(key => { state[key] = false; });
         
     // --- UI Construction ---
     var panel = document.createElement('div');
@@ -36,8 +74,10 @@ function initSciHelper(initx = 100, inity = 100) {
 
     closeBtn.addEventListener('click', function() {closeSciHelper();});
 
-    var btnContainer = document.createElement('div');
-    btnContainer.setAttribute('id', 'sci-panel-btncontainer');
+    var characterBtnContainer = document.createElement('div');
+    characterBtnContainer.setAttribute('class', 'sci-panel-btncontainer');
+    var toolboxBtnContainer = document.createElement('div');
+    toolboxBtnContainer.setAttribute('class', 'sci-panel-btncontainer');
 
     var outputBox = document.createElement('textarea');
     outputBox.setAttribute('id', 'sci-panel-output');
@@ -60,22 +100,31 @@ function initSciHelper(initx = 100, inity = 100) {
         }
     });
 
-    btnContainer.appendChild(createToggle('Suprscript', 'Xⁿ', 'superscript', '#e57373', state));
-    btnContainer.appendChild(createToggle('Subscript', 'Xₙ', 'subscript', '#ffaf4d', state));
-    btnContainer.appendChild(createToggle('Greek', 'αbγ', 'greek', '#81c784', state)); 
-    btnContainer.appendChild(createToggle('Math', '+-×÷', 'math', '#64b5f6', state)); 
-    btnContainer.appendChild(createSubMenuToggle('Chemistry', 'H₂O', 'chemistry', '#83c1bb', state, outputLoc, panel)); 
-    btnContainer.appendChild(createSubMenuToggle('Physics', 'F=ma', 'physics', '#ba68c8', state, outputLoc, panel));
-    btnContainer.appendChild(createSubMenuToggle('General', '⌬', 'general', '#cfe084', state, outputLoc, panel));
+    var specialCharacterTitle = document.createElement('div');
+    specialCharacterTitle.setAttribute('class', 'sci-panel-sectiontitle');
+    specialCharacterTitle.textContent = '▸ Special characters insertion:';
+
+    characterBtnContainer.appendChild(createToggle('Suprscript', 'Xⁿ', 'superscript', '#e57373', state));
+    characterBtnContainer.appendChild(createToggle('Subscript', 'Xₙ', 'subscript', '#ffaf4d', state));
+    characterBtnContainer.appendChild(createToggle('Greek', 'αbγ', 'greek', '#81c784', state)); 
+    characterBtnContainer.appendChild(createToggle('Math', '+-×÷', 'math', '#64b5f6', state)); 
+
+    var toolboxTitle = document.createElement('div');
+    toolboxTitle.setAttribute('class', 'sci-panel-sectiontitle');
+    toolboxTitle.textContent = '▸ Toolboxes:';
+
+    toolboxBtnContainer.appendChild(createSubMenuToggle('Chemistry', 'H₂O', 'chemistry', '#83c1bb', state, outputLoc, panel)); 
+    toolboxBtnContainer.appendChild(createSubMenuToggle('Physics', 'F=ma', 'physics', '#ba68c8', state, outputLoc, panel));
+    toolboxBtnContainer.appendChild(createSubMenuToggle('General', '⌬', 'general', '#cfe084', state, outputLoc, panel));
 
     headerContainer.append(header, closeBtn);
-    panel.append(headerContainer, btnContainer, infoBtn, outputBox, createCopyBtn(outputBox));        
+    panel.append(headerContainer, specialCharacterTitle, characterBtnContainer, toolboxTitle, toolboxBtnContainer, infoBtn, outputBox, createCopyBtn(outputBox));        
     document.body.appendChild(panel);
 
-    makeDraggable(header, panel);
+    makeDraggable(headerContainer, panel);
 
-    document.addEventListener("keydown", function(e) {
-        // Detect focus conflict
+    if (keyListener) document.removeEventListener('keydown', keyListener);
+    keyListener = function(e) {
         if (document.activeElement.tagName === 'INPUT' && 
             document.activeElement.id !== 'sci-panel-output') {
             return;
@@ -102,7 +151,8 @@ function initSciHelper(initx = 100, inity = 100) {
                     
             if (symbol) { e.preventDefault(); insertIntoWindow(outputLoc, symbol); }
         }
-    }, true);
+    }
+    document.addEventListener("keydown", keyListener, true);
 }
 
 function closeSciHelper() {  
@@ -114,15 +164,15 @@ function closeSciHelper() {
     let restoreBtn = document.getElementById('sci-restore');
     restoreBtn.style.display = 'flex';
 
-    //Record current location for restoration
     var rect = document.getElementById('sci-panel').getBoundingClientRect();
     restoreBtn.rcdx = rect.right;
     restoreBtn.rcdy = rect.top;
 
     panel.remove();
+    outputLoc = null;
 }
 
-// --- Put on textbox ---
+/* --- Put on textbox --- */
 function insertIntoWindow(target, text) {
     if (!text || !target) return;
     var start = target.selectionStart || target.value.length;
@@ -132,7 +182,7 @@ function insertIntoWindow(target, text) {
     target.focus();
 }
 
-// --- Drag logic ---
+/* --- Drag logic --- */
 function makeDraggable(handle, target) {
     handle.addEventListener('mousedown', function(e) {
         var rect = target.getBoundingClientRect();
@@ -150,7 +200,7 @@ function makeDraggable(handle, target) {
     });
 }
 
-// --- Mode toggle buttons ---
+/* --- Mode toggle buttons --- */
 function refreshBtnDisp(classname, state) {
     var allBtns = document.getElementsByClassName(classname);
     for (let b of allBtns) {
@@ -186,13 +236,15 @@ function createToggle(label, symbol, id, color, state) {
         refreshBtnDisp(btn.className, state);
     });
 
+    refreshBtnDisp(btn.className, state);
+
     return btn;
 }
 
 function createSubMenuToggle(label, symbol, id, color, state, outputLoc, parentPanel) {
     var btn = document.createElement('button');
     btn.setAttribute('class', 'sci-panel-btn');
-    btn.style.backgroundColor = '#f9f9f9';
+    btn.style.backgroundColor = 'white';
     btn.id = id;
     btn.color = color;
 
@@ -218,6 +270,8 @@ function createSubMenuToggle(label, symbol, id, color, state, outputLoc, parentP
         }
         refreshBtnDisp(btn.className, state);
     });
+
+    refreshBtnDisp(btn.className, state);
 
     return btn;
 }
@@ -358,3 +412,76 @@ function openInfoContent(title, mapping, panel, outputLoc) {
 function closeInfo() {
     document.getElementById('sci-info')?.remove();
 }
+
+/* --- Settings --- */
+function openSettings(parent) {
+    cancelClose();
+
+    if (document.querySelector('.sci-bubble')) return;
+
+    const initAngle = -90;
+    const deviate = 40;
+    const radius = 50;
+
+    const bubbles = [
+        createBubble('×', 'sci-bubble-close', "Turn off SciHelper", () => turnoff()),
+        createBubble('⚙', 'sci-bubble-option', "Open options", () => openOptions()),
+        createBubble('✉', 'sci-bubble-contact', "Reach to dev", () => openContact())
+    ];
+
+    bubbles.forEach((bubble, index) => {
+        parent.appendChild(bubble);
+
+        void bubble.offsetWidth;
+
+        const angleRad = (initAngle + deviate * index) * Math.PI / 180;
+        const dx = radius * Math.cos(angleRad);
+        const dy = radius * Math.sin(angleRad);
+
+        bubble.style.left = `calc(50% + ${dx}px)`;
+        bubble.style.top = `calc(50% + ${dy}px)`;
+        bubble.style.transform = 'translate(-50%, -50%)';
+    });
+}
+
+function createBubble(text, id, description, clickHandler) {
+    const bubble = document.createElement('div');
+    bubble.className = 'sci-bubble';
+    bubble.id = id;
+    bubble.textContent = text;
+    bubble.setAttribute('title', description);
+
+    bubble.addEventListener('click', (e) => {
+        e.stopPropagation();
+        clickHandler();
+    });
+    
+    bubble.addEventListener('mouseenter', () => cancelClose());
+    bubble.addEventListener ('mouseleave', () => closeSettings());
+    return bubble;
+}
+
+let closeTimeout = null;
+
+function closeSettings() {
+    if (closeTimeout) clearTimeout(closeTimeout);
+    closeTimeout = setTimeout(() => {
+        document.querySelectorAll('.sci-bubble').forEach(bubble => {
+            bubble.remove()
+        });
+        closeTimeout = null;
+    }, 300);
+}
+
+function cancelClose() {
+    if (closeTimeout) {
+        clearTimeout(closeTimeout);
+        closeTimeout = null;
+    }
+}
+
+function turnoff() { document.querySelectorAll('[id^="sci-"], [class^="sci-"]').forEach(element => element.remove()); }
+
+function openOptions() { browser.runtime.sendMessage({ action: 'openOptions' }); }
+
+function openContact() { browser.runtime.sendMessage({ action: 'openContact' }); }

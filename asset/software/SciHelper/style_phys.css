@@ -16,9 +16,9 @@
 
 #sci-phys {
     position: absolute;
-    left: 260px;
+    left: 320px;
     top: 150px;
-    width: 180px;
+    width: 200px;
     background: white;
     border: 1px solid var(--purple-main);
     box-shadow: 0 2px 8px #444;

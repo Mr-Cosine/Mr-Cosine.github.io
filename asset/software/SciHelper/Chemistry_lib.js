@@ -481,13 +481,13 @@ function openElemSearchWindow(outputLoc) {
     legend.setAttribute('class', 'sci-chem-elem-row');
     var symbol_legend = document.createElement("div");
     symbol_legend.classList.add('sci-chem-elem-row-symbol');
-    symbol_legend.textContent = "Symbol: ";
+    symbol_legend.textContent = "Symbol";
     var name_legend = document.createElement("div");
     name_legend.classList.add('sci-chem-elem-row-text');
-    name_legend.textContent = "Name: ";
+    name_legend.textContent = "Name";
     var mass_legend = document.createElement("div");
     mass_legend.classList.add('sci-chem-elem-row-text');
-    mass_legend.textContent = "Molar Mass: ";
+    mass_legend.textContent = "Molar Mass";
 
     legend.append(symbol_legend, name_legend, mass_legend);
     resultsArea.appendChild(legend);
@@ -595,16 +595,16 @@ function openMolarMassWindow(outputLoc) {
     legend.setAttribute('class', 'sci-chem-molm-row');
     var symbol_legend = document.createElement("div");
     symbol_legend.classList.add('sci-chem-molm-row-symbol');
-    symbol_legend.textContent = "Element: ";
+    symbol_legend.textContent = "Element";
     var count_legend = document.createElement("div");
     count_legend.classList.add('sci-chem-molm-row-text');
-    count_legend.textContent = "Count: ";
+    count_legend.textContent = "Count";
     var mass_legend = document.createElement("div");
     mass_legend.classList.add('sci-chem-molm-row-text');
-    mass_legend.textContent = "Mass: ";
+    mass_legend.textContent = "Mass";
     var masspercent_legend = document.createElement("div");
     masspercent_legend.classList.add('sci-chem-molm-row-text');
-    masspercent_legend.textContent = "%Mass: ";
+    masspercent_legend.textContent = "%Mass";
 
     legend.append(symbol_legend, count_legend, mass_legend, masspercent_legend);
     resultBox.appendChild(legend);

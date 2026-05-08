@@ -1,24 +1,11 @@
-if (document.getElementById('sci-restore')) {document.getElementById('sci-restore').remove();}
-var restoreBtn = document.createElement('div');
-restoreBtn.id = 'sci-restore';
-restoreBtn.textContent = '⌬';
-restoreBtn.classList.add('no-select');
-restoreBtn.rcdx = 100; restoreBtn.rcdy = 100;
-
-let startTime;
-restoreBtn.addEventListener('mousedown', function() {
-    startTime = Date.now(); // Record the exact start time
+document.addEventListener('keydown', (e) => {
+    if (e.shiftKey && e.altKey && e.code === 'KeyS') {
+        const existingSci = document.querySelector('[id^="sci-"], [class^="sci-"]');
+        if (!existingSci) {
+            e.preventDefault();
+            boot();
+        }
+    }
 });
 
-restoreBtn.addEventListener('mouseup', function() {
-    let duration = Date.now() - startTime;
-
-       if (duration < 150) { 
-        initSciHelper(this.rcdx, this.rcdy);
-        this.style.display = 'none';
-    } 
-});
-
-makeDraggable(restoreBtn, restoreBtn);
-
-document.body.appendChild(restoreBtn);
+boot();

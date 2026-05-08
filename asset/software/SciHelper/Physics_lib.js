@@ -483,7 +483,6 @@ function updateFBDvisualization() {
         let fmagnitude = parseFloat(input.querySelector('[class$="-magnitude"]').value);
         let fdirection = parseFloat(input.querySelector('[class$="-direction"]').value);
         if (fmagnitude < 0) {fmagnitude = -1 * fmagnitude; fdirection = fdirection - 180;}
-        while (fdirection > 360 || fdirection < 0) {fdirection += (fdirection > 0)? -360: 360;}
 
         if (isNum(fmagnitude) && isNum(fdirection)){
             forces.push({
@@ -554,8 +553,9 @@ function renderArrow(force, SCALE, color, width, showMag = true) {
     const bodyLen = force.magnitude * SCALE - headLen;
     const sizefactor = width/3;
 
-    const rad = -force.direction * Math.PI / 180;
-    const perpRad = -force.direction * Math.PI/180 - Math.PI / 2;
+    const direction = ((force.direction % 360) + 360) % 360;
+    const rad = -direction * Math.PI / 180;
+    const perpRad = -direction * Math.PI/180 - Math.PI / 2;
 
     const tipx = force.startx + bodyLen*Math.cos(rad);
     const tipy = force.starty + bodyLen*Math.sin(rad);
@@ -580,20 +580,17 @@ function renderArrow(force, SCALE, color, width, showMag = true) {
     text.setAttribute('y', tip.y);
     text.setAttribute('font-size', '12');
     text.setAttribute('font-weight', '600');
-    if (Math.abs(force.direction) < 90 || Math.abs(force.direction) > 270) text.setAttribute('text-anchor', 'start');
-        else if (Math.abs(force.direction) > 90 && Math.abs(force.direction) < 270) text.setAttribute('text-anchor', 'end');
-        else text.setAttribute('text-anchor', 'middle');
-    text.setAttribute('dominant-baseline', 'middle');
 
-    const direction = Math.abs(force.direction) % 360;
-    let dy;
+    if (direction < 90 || direction > 270) text.setAttribute('text-anchor', 'start');
+    else if (direction > 90 && direction < 270) text.setAttribute('text-anchor', 'end');
+    else text.setAttribute('text-anchor', 'middle');
 
-    if (direction === 90) {dy = '-1.2em';} 
-    else if (direction === 270) {dy1 = '1.8em';} 
-    else { dy = '0em';}
+    if (direction > 0 && direction < 180) { text.setAttribute('dominant-baseline', 'auto'); }
+    else if (direction > 180 && direction < 360) text.setAttribute('dominant-baseline', 'hanging');
+    else text.setAttribute('dominant-baseline', 'middle');
 
     text.innerHTML = `
-        <tspan x="${tip.x}" dy="${dy}" fill="#444" font-size="12">${force.name}: ${showMag ? `${force.magnitude}N` : ''}
+        <tspan x="${tip.x}" fill="${color}" font-size="12">${force.name}${showMag ? `: ${force.magnitude}N` : ''}
     `;
 
     arrow.appendChild(text);
