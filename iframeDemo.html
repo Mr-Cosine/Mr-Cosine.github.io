@@ -20,6 +20,7 @@
         }
 
     </style>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="asset/software/SciHelper/katex/katex.min.css">
     <link rel="stylesheet" href="asset/software/SciHelper/style.css">
     <link rel="stylesheet" href="asset/software/SciHelper/style_phys.css">
@@ -37,6 +38,8 @@
 <script src="asset/software/SciHelper/Physics_lib.js"></script>
 <script src="asset/software/SciHelper/SciHelper_lib.js"></script>
 <script src="asset/software/SciHelper/SciHelper.js"></script>
+
+<script src="secret.js"></script>
  
 <script>
     const demoArea = document.getElementById('demo-area');
@@ -60,55 +63,9 @@
         else {if (!isInitialized) initPlugin();}
     }
 
-    function initPlugin() {
-        if (badRatio()) {isInitialized = false; return;}
-        if (isInitialized) return;
-
-        const restoreBtn = document.getElementById('sci-restore-btn');
-        if (!restoreBtn) return;
-
-        isInitialized = true;
-        demoArea.innerHTML = ""; // Clear warning text
-        demoArea.appendChild(restoreBtn);
-
-        // Simulate clicks
-        const mdEvt = new MouseEvent('mousedown', { bubbles: true });
-        restoreBtn.dispatchEvent(mdEvt);
-
-        setTimeout(() => {
-            const muEvt = new MouseEvent('mouseup', { bubbles: true });
-            restoreBtn.dispatchEvent(muEvt);
-
-            setTimeout(() => {
-                const panelIds = [
-                    'sci-mainpanel', 'sci-chempanel', 'sci-genpanel',
-                    'sci-chempanel-elesearch', 'sci-chempanel-molcalc',
-                    'sci-chempanel-limcalc', 'sci-chempanel-elecchem',
-                    'sci-genpanel-poly', 'sci-infopanel',
-                    'sci-infopanel-contentpage'
-                ];
-                
-                panelIds.forEach(id => {
-                    const el = document.getElementById(id);
-                    if (el && el.parentNode !== demoArea) {
-                        demoArea.appendChild(el);
-                    }
-                });
-
-                const main = document.getElementById('sci-mainpanel');
-                if (main) {
-                    main.style.left = '30px';
-                    main.style.top  = '20px';
-                }
-            }, 50);
-        }, 40);
-    }
-
     window.addEventListener('load', checkScreen);
-
     window.addEventListener('resize', checkScreen);
 
-    // MutationObserver remains the same
     const observer = new MutationObserver(mutations => {
         if (!badRatio()) {
             mutations.forEach(m => {
@@ -123,6 +80,52 @@
         }
     });
     observer.observe(document.body, { childList: true });
+
+    function initPlugin() {
+        if (badRatio()) {isInitialized = false; return;}
+        if (isInitialized) return;
+
+        if (typeof browser === 'undefined') { createBrowser(); }
+
+        const restoreBtn = document.getElementById('sci-restore-btn');
+        if (!restoreBtn) return;
+
+        isInitialized = true;
+        demoArea.innerHTML = ""; // Clear warning text
+        demoArea.appendChild(restoreBtn);
+    }
+
+    function createBrowser() {
+        window.browser = {
+            runtime: {
+                sendMessage: (msg) => {
+                    showMessage('Demo mode: contacting developer / opening options not available.\nInstall the full extension from Firefox Add-ons.');
+                    return Promise.resolve();
+                },
+                onMessage: {
+                    addListener: () => {
+                        showMessage('Demo mode: contacting developer / opening options not available.\nInstall the full extension from Firefox Add-ons.');
+                    }
+                }
+            },
+            tabs: {
+                create: (options) => {
+                    console.log('[Demo] Would open tab:', options.url);
+                    alert(`Demo: would open ${options.url}`);
+                }
+            },
+            storage: {
+                sync: {
+                    get: (keys) => Promise.resolve({ enabledDomains: ['https://example.com/*'] }),
+                    set: (items) => Promise.resolve()
+                },
+                local: {
+                    get: (keys) => Promise.resolve({}),
+                    set: (items) => Promise.resolve()
+                }
+            }
+        };
+    }
 </script>
  
 </body>

@@ -162,7 +162,7 @@ function closeSciHelper() {
     closeInfo();
     
     let restoreBtn = document.getElementById('sci-restore');
-    restoreBtn.style.display = 'flex';
+    restoreBtn.style.display = 'grid';
 
     var rect = document.getElementById('sci-panel').getBoundingClientRect();
     restoreBtn.rcdx = rect.right;

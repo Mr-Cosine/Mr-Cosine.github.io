@@ -84,9 +84,8 @@
     background-color: #4a90e2;
     color: white;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    place-items: center;
     font-size: 44px;
     cursor: pointer;
     box-shadow: 0 4px 8px black;

@@ -30,21 +30,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const name = document.querySelector('.clickable');
     const bar = document.getElementById('top-message');
 
-    name.addEventListener('click', () => {
-        const randomIndex = Math.floor(Math.random() * messages.length);
-        showMessage(bar, messages[randomIndex]);
-    });
+    if (name) {
+        name.addEventListener('click', () => {
+            const randomIndex = Math.floor(Math.random() * messages.length);
+            showMessage(messages[randomIndex]);
+        });
+    }
 });
 
-function showMessage(bar, message) {
-    if (bar.style.opacity === '1') return; // prevent multiple clicks while message is visible
-        bar.textContent = message;
-        timeoutsec = bar.textContent.length * 50 + 500;
-         // fade in 
-        bar.style.opacity = 1; 
-        // fade out after 2 seconds 
-        setTimeout(() => { 
-            bar.style.opacity = 0; 
-            setTimeout(() => {}, 1000); // wait for fade out transition to complete before clearing text
-        }, timeoutsec);
+function showMessage(message) {
+    let bar = document.getElementById('top-message');
+
+    if (!bar) {
+        bar = document.createElement('div');
+        bar.setAttribute('id', 'top-message');
+        document.body.appendChild(bar);
+    }
+
+    if (!bar || bar.style.opacity === '1') return; // prevent multiple clicks while message is visible
+    bar.textContent = message;
+    const timeoutsec = bar.textContent.length * 40 + 500;
+
+    // fade in 
+    bar.style.opacity = '1';
+    // fade out after the timeout
+    setTimeout(() => {
+        bar.style.opacity = '0';
+    }, timeoutsec);
 }

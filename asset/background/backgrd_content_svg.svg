@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 800 300">
+  <defs>
+    <pattern id="myPattern" width="100" height="100" patternUnits="userSpaceOnUse">
+      <!-- Background for the pattern unit -->
+      <rect width="100" height="100" fill="#fdfdfd" />
+      
+      <!-- Your exact paths – unchanged -->
+      <g stroke="#e8e8e8" stroke-width="1.5" fill="none" stroke-linecap="square">
+          <path d="M 0,7.5 L 7.5,0" /> 
+          <path d="M 0,25 L 25,0" />
+          <path d="M 45,5 L 5,45" />
+          <path d="M 50,25 L 25,50" />
+          <path d="M 50,42.5 L 42.5,50" />
+      
+          <path d="M 92.5,0 L 100,7.5" /> 
+          <path d="M 75,0 L 100,25" />
+          <path d="M 55,5 L 95,45" />
+          <path d="M 50,25 L 75,50" />
+          <path d="M 50,42.5 L 57.5,50" />
+      
+          <path d="M 0,92.5 L 7.5,100" /> 
+          <path d="M 0,75 L 25,100" />
+          <path d="M 5,55 L 45,95" />
+          <path d="M 25,50 L 50,75" />
+          <path d="M 42.5,50 L 50,57.5" /> 
+      
+          <path d="M 92.5,100 L 100,92.5" /> 
+          <path d="M 75,100 L 100,75" />
+          <path d="M 55,95 L 95,55" />
+          <path d="M 50,75 L 75,50" />
+          <path d="M 50,57.5 L 57.5,50" />
+      
+          <path d="M 8,29.5 L 29.5,8" />
+          <path d="M 19,43.5 L 26.5,36" />
+          <path d="M 36.5,26 L 44,18.5" />
+      
+          <path d="M 70.5,8 L 92,29.5" />
+          <path d="M 81,43.5 L 73.5,36" />
+          <path d="M 63.5,26 L 56,18.5" />
+          
+          <path d="M 8,70.5 L 29.5,92" />
+          <path d="M 19,56.5 L 26.5,64" />
+          <path d="M 36.5,74 L 44,81.5" />
+          
+          <path d="M 92,70.5 L 70.5,92" />
+          <path d="M 81,56.5 L 73.5,64" />
+          <path d="M 63.5,74 L 56,81.5" />
+      </g>
+    </pattern>
+  </defs>
+
+  <!-- Apply the repeating pattern to the full canvas -->
+  <rect width="100%" height="100%" fill="url(#myPattern)" />
+</svg>
+    
