@@ -44,7 +44,7 @@
 <script>
     const demoArea = document.getElementById('demo-area');
 
-    function badRatio() { return window.innerWidth < 768 && window.innerHeight > window.innerWidth; }
+    function badRatio() { return window.innerWidth < 320; }
 
     function initPlugin() {
         if (badRatio()) { demoArea.textContent = "The size of viewport may be not suitable for display the demo, landscape is recommended."}
@@ -52,11 +52,15 @@
 
         if (typeof browser === 'undefined') { createBrowser(); }
 
-        const restoreBtn = document.getElementById('sci-restore-btn');
-        if (!restoreBtn) return;
-
-        isInitialized = true;
-        demoArea.appendChild(restoreBtn);
+        let restoreBtn;
+        let loopCount = 0;
+        const MAX_TRY = 100;
+        do {
+            boot();
+            restoreBtn = document.getElementById('sci-restore');
+            loopCount++;
+        }
+        while (!restoreBtn && loopCount <= MAX_TRY);
     }
 
         const observer = new MutationObserver(mutations => {

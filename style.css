@@ -463,9 +463,17 @@ model-viewer.media-window {
 }
 
 #demo-area {
+    display: grid;
     flex: 1;
+    min-width: none;
     position: relative;
     overflow: hidden;
+    color: #ccc;
+    place-items: center;
+    font-size: clamp(0.8rem, 2vw, 1.2rem);
+    text-align: center;
+    font-weight: 600;
+    padding: 10px;
 }
 
 #demo-area #sci-mainpanel,

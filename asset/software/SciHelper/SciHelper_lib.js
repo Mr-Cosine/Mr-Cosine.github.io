@@ -19,7 +19,7 @@ function boot() {
     restoreBtn.id = 'sci-restore';
     restoreBtn.textContent = '⌬';
     restoreBtn.classList.add('no-select');
-    restoreBtn.rcdx = 100; restoreBtn.rcdy = 100;
+    restoreBtn.rcdx = 0; restoreBtn.rcdy = 0;
 
     let startTime;
     restoreBtn.addEventListener('mousedown', function() { startTime = Date.now(); });
@@ -48,7 +48,7 @@ function boot() {
 }
 
 /* --- Main SciHelper Window --- */
-function initSciHelper(initx = 100, inity = 100) {    
+function initSciHelper(initx = 0, inity = 0) {    
     if (!document.body || document.getElementById('sci-panel')) return;
 
     Object.keys(state).forEach(key => { state[key] = false; });
