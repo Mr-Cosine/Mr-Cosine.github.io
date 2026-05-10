@@ -43,43 +43,6 @@
  
 <script>
     const demoArea = document.getElementById('demo-area');
-    let isInitialized = false;
-
-    badRatio = () => {return window.innerWidth < 768 && window.innerHeight > window.innerWidth;}
-
-    function checkScreen() {
-        if (badRatio()) {
-            demoArea.innerHTML = '';
-            demoArea.innerHTML = `
-                <div style="padding: 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; height: 100%;">
-                    <p style="font-size: 1.2rem; font-weight: bold;">This device's aspect ratio is not supported.</p>
-                    <p>Please rotate to landscape or use a larger screen, then refresh the page.</p>
-                </div>`;
-                
-            const panels = document.querySelectorAll('[id^="sci"]');
-            panels.forEach(p => {p.remove()});
-            isInitialized = false;
-        }
-        else {if (!isInitialized) initPlugin();}
-    }
-
-    window.addEventListener('load', checkScreen);
-    window.addEventListener('resize', checkScreen);
-
-    const observer = new MutationObserver(mutations => {
-        if (!badRatio()) {
-            mutations.forEach(m => {
-                m.addedNodes.forEach(node => {
-                    if (node.nodeType === 1 && node.parentNode === document.body) {
-                        if (node.id && node.id.startsWith('sci-')) {
-                            demoArea.appendChild(node);
-                        }
-                    }
-                });
-            });
-        }
-    });
-    observer.observe(document.body, { childList: true });
 
     function initPlugin() {
         if (badRatio()) {isInitialized = false; return;}
@@ -94,6 +57,19 @@
         demoArea.innerHTML = ""; // Clear warning text
         demoArea.appendChild(restoreBtn);
     }
+
+        const observer = new MutationObserver(mutations => {
+        mutations.forEach(m => {
+            m.addedNodes.forEach(node => {
+                if (node.nodeType === 1 && node.parentNode === document.body) {
+                    if (node.id && node.id.startsWith('sci-')) {
+                        demoArea.appendChild(node);
+                    }
+                }
+            });
+        });
+    });
+    observer.observe(document.body, { childList: true });
 
     function createBrowser() {
         window.browser = {
@@ -126,6 +102,8 @@
             }
         };
     }
+
+    window.addEventListener('load', initPlugin);
 </script>
  
 </body>
