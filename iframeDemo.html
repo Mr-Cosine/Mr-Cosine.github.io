@@ -44,9 +44,11 @@
 <script>
     const demoArea = document.getElementById('demo-area');
 
+    function badRatio() { return window.innerWidth < 768 && window.innerHeight > window.innerWidth; }
+
     function initPlugin() {
-        if (badRatio()) {isInitialized = false; return;}
-        if (isInitialized) return;
+        if (badRatio()) { demoArea.textContent = "The size of viewport may be not suitable for display the demo, landscape is recommended."}
+        else { demoArea.innerHTML = ""; }
 
         if (typeof browser === 'undefined') { createBrowser(); }
 
@@ -54,7 +56,6 @@
         if (!restoreBtn) return;
 
         isInitialized = true;
-        demoArea.innerHTML = ""; // Clear warning text
         demoArea.appendChild(restoreBtn);
     }
 
@@ -104,6 +105,7 @@
     }
 
     window.addEventListener('load', initPlugin);
+    window.addEventListener('resize', initPlugin)
 </script>
  
 </body>

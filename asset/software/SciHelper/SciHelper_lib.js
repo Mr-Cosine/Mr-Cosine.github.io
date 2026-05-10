@@ -56,7 +56,7 @@ function initSciHelper(initx = 100, inity = 100) {
     // --- UI Construction ---
     var panel = document.createElement('div');
     panel.setAttribute('id', 'sci-panel');
-    panel.style.right = initx + 'px';
+    panel.style.left = initx + 'px';
     panel.style.top = inity + 'px';
 
     var headerContainer = document.createElement('div');
