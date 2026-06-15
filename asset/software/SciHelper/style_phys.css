@@ -105,6 +105,8 @@
 .sci-phys-frml-category{
     font-size: 14px;
     font-weight: bold;
+    stext-align: left;
+    color: #444;
     padding: 8px 12px;
     border-bottom: 1px solid #ccc;
 }
@@ -114,6 +116,7 @@
     padding: 8px 12px;
     border-bottom: 1px solid #ccc;
     gap: 10px;
+    color: #444;
     text-align: left;
     cursor: pointer;
 }

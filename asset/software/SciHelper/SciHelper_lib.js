@@ -27,8 +27,8 @@ function boot() {
     var bgWrapper = document.createElement('div');
     bgWrapper.setAttribute('id', 'sci-restore-bg');
     bgWrapper.innerHTML = `
-        <img id="top" src="img/SciHelper-iconContent.png" draggable="false" style="width:100%; z-index:3;">
-        <img id="bottom" src="img/SciHelper-iconBg.png" draggable="false" style="width:140%; z-index:1;">
+        <img id="top" src="asset/software/SciHelper/img/SciHelper-iconContent.png" draggable="false" style="width:100%; z-index:3;">
+        <img id="bottom" src="asset/software/SciHelper/img/SciHelper-iconBg.png" draggable="false" style="width:140%; z-index:1;">
     `;
 
     let dynamicBG = null;
@@ -107,7 +107,7 @@ function initSciHelper(initx = 100, inity = 100) {
         
     var header = document.createElement('div');
     header.setAttribute('id', 'sci-panel-header-header');
-    header.innerHTML = `<img src=img/SciHelper-banner.svg alt="SciHelper" draggable="false">`;
+    header.innerHTML = `<img src="asset/software/SciHelper/img/SciHelper-banner.svg" alt="SciHelper" draggable="false">`;
     header.classList.add('no-select');
         
     var closeBtn = document.createElement('button')
@@ -501,9 +501,9 @@ function openSettings(parent) {
     const radius = 54;
 
     const bubbles = [
-        createBubble("img/cross.svg", '×', false, 'sci-bubble-close', "Turn off SciHelper", () => turnoff()),
-        createBubble("img/gear.svg", '⚙', true, 'sci-bubble-option', "Open options", () => openOptions()),
-        createBubble("img/email.svg", '✉', true, 'sci-bubble-contact', "Reach to dev", () => openContact())
+        createBubble("asset/software/SciHelper/img/cross.svg", '×', false, 'sci-bubble-close', "Turn off SciHelper", () => turnoff()),
+        createBubble("asset/software/SciHelper/img/gear.svg", '⚙', true, 'sci-bubble-option', "Open options", () => openOptions()),
+        createBubble("asset/software/SciHelper/img/email.svg", '✉', true, 'sci-bubble-contact', "Reach to dev", () => openContact())
     ];
 
     bubbles.forEach((bubble, index) => {
@@ -527,7 +527,7 @@ function createBubble(src, altText, colorfulBG, id, description, clickHandler) {
     bubble.id = id;
     bubble.innerHTML =  `
         <img src="`+src+`" alt="`+altText+`" draggable = "false" style="z-index: 2">` 
-        + ((colorfulBG)? `<img id = 'bg' src="img/SciHelper-iconBg.png" draggable = "false" style="display: None; z-index: 1">`: ``);
+        + ((colorfulBG)? `<img id = 'bg' src="asset/software/SciHelper/img/SciHelper-iconBg.png" draggable = "false" style="display: None; z-index: 1">`: ``);
     bubble.setAttribute('title', description);
 
     bubble.addEventListener('mouseenter', () => { if (bubble.querySelector("#bg")) bubble.querySelector("#bg").style.display= "block";});

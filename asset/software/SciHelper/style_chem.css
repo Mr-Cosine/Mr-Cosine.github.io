@@ -467,6 +467,8 @@ input[readonly] {
 .sci-chem-frml-category{
     font-size: 14px;
     font-weight: bold;
+    text-align: left;
+    color: #444;
     padding: 8px 12px;
     border-bottom: 1px solid #ccc;
 }
@@ -476,6 +478,7 @@ input[readonly] {
     padding: 8px 12px;
     border-bottom: 1px solid #ccc;
     gap: 10px;
+    color: #444;
     text-align: left;
     cursor: pointer;
 }
