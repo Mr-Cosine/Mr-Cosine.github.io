@@ -1,86 +1,95 @@
 .no-select {
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none;     /* IE 10 and 11 */
-    user-select: none;         /* Standard syntax (Chrome, Firefox, Edge) */
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 /* --- Font Import --- */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+Math&display=swap');
+@font-face {
+    font-family: 'Monsterrat';
+    src: url('fonts/Montserrat/Montserrat-Regular.ttf') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
 
-#sci-panel,
-#sci-panel *,
-#sci-info,
-#sci-info *,
-#sci-restore,
-#sci-restore *,
-#sci-bubble,
-#sci-bubble *,
-#sci-chem,
-#sci-chem *,
-#sci-phys,
-#sci-phys *,
-#sci-gen,
-#sci-gen * {
-    font-family: 'Noto Sans', 'Noto Sans Math', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+@font-face {
+    font-family: 'Monsterrat';
+    src: url('fonts/Montserrat/Montserrat-Bold.ttf') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Monsterrat', sans-serif;
 }
 
 /* --- Main Panel --- */
 #sci-panel {
     position: fixed;
     width: 320px;
-    background: white;
-    border: 2px solid #4a90e2;
     z-index: 2147483646;
     padding: 10px;
     box-shadow: 0 4px 8px #444;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+
+    border: 2px solid transparent;
+    border-radius: 16px;
+    background-clip: padding-box, border-box;
+    background-origin: padding-box, border-box;
+    background-image: linear-gradient(to right, white, white), linear-gradient(135deg, #4a90e2, #ba68c8);
 }
 
-#sci-panel-headercontainer {
+#sci-panel-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     background: none;
-    padding: 5px 10px;
     cursor: move;
     margin-bottom: 10px;
+    padding: 10px 15px;
     border-bottom: 1px solid #bcbcbc;
 }
 
-#sci-panel-header {
+#sci-panel-header-header {
+    display: flex;
     cursor: move;
-    font-size: 24px;
-    font-weight: bold;
-    color: #4a90e2;
-    text-align: left;
+    height: 40px;
+    align-items: center;
 }
 
-#sci-panel-closebtn {
+#sci-panel-header-header img {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+    pointer-events: none;
+
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#sci-panel-header-closebtn {
     background: none;
     border: none;
-    color: #888;
     cursor: pointer;
     font-size: 24px;
-    font-weight: bold;
     line-height: 1;
-    padding-bottom: 10px;
-    margin-left: 10px;
+    font-weight: bold;
+    color: #444;
 }
 
-#sci-panel-closebtn:hover {
+#sci-panel-header-closebtn:hover {
     color: #ff4242;
 }
 
 #sci-restore {
-    position: fixed;
+    position: absolute;
     bottom: 40px;
     right: 64px;
-    width: 60px;
-    height: 60px;
+    width: 68px;
+    aspect-ratio: 1/1;
     background-color: #4a90e2;
     color: white;
     border-radius: 50%;
@@ -91,12 +100,45 @@
     cursor: pointer;
     box-shadow: 0 4px 8px #444;
     z-index: 2147483646;
-    transition: transform 0.2s;
+    transition: transform 0.3s;
+    overflow: visible;
 }
 
-#sci-restore:not(:has(.sci-bubble:hover)):hover{
-    transform: scale(1.1);
-    background-color: #5d9ce3;
+#sci-restore-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    z-index: 2;
+    perspective: 30px;
+
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+#sci-restore img#top,
+#sci-restore img#bottom {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    pointer-events: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: transform 0.3s ease-out;
+
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    -webkit-font-smoothing: antialiased;
+}
+
+#sci-restore:hover{
+    transform: scale(1.12);
 }
 
 .sci-panel-btncontainer {
@@ -110,20 +152,38 @@
 .sci-panel-btn {
     width: 100%;
     padding: 6px 6px;
-    font-size: 14px;
     cursor: pointer;
     border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    transition: all 0.2s;
+}
+
+.sci-panel-btn-label {
+    display: flex;
+    font-size: 14px;
+    align-items: center;
+    line-height: 1;
+    transition: all 0.2s;
 }
 
 .sci-panel-btn-symbol {
+    display: flex;
     font-family: 'Times New Roman', 'Noto Sans Math', serif !important;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     margin-left: 8px;
+    align-items: center;
+    line-height: 1;
+    transition: all 0.2s;
 }
 
 .sci-panel-sectiontitle {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     padding: 8px 0px;
     color: #444;
@@ -133,9 +193,13 @@
     position: relative;
     background: white;
     color: #444;
-    font-size: 14px;
+    font-size: 16px;
     width: 24px;
     cursor: pointer;
+}
+
+#sci-panel-info:hover {
+    color: #666;
 }
 
 #sci-panel-output {
@@ -147,6 +211,7 @@
     margin: 10px 0;
     padding: 8px;
     border: 1px solid #ccc;
+    border-radius: 8px;
     font-size: 16px;
     font-family: 'Times New Roman', 'Noto Sans Math', serif !important;
 
@@ -166,7 +231,8 @@
     padding: 8px;
     cursor: pointer;
     border: 1px solid #4a90e2;
-    background: #f9f9f9;
+    border-radius: 8px;
+    background: white;
     font-weight: bold;
 }
 
@@ -175,7 +241,7 @@
 #sci-info {
     position: absolute;
     width: 150px;
-    background: #fff;
+    background: white;
     border: 1px solid #ccc;
     z-index: 2147483647;
     display: flex;
@@ -187,7 +253,7 @@
 .sci-info-header,
 .sci-info-content-header {
     background: #444;
-    color: #fff;
+    color: white;
     padding: 6px 8px;
     display: flex;
     flex-direction: row;
@@ -204,7 +270,7 @@
     padding: 10px 8px;
     border: none;
     border-bottom: 1px solid #f0f0f0;
-    background: #fff;
+    background: white;
     cursor: pointer;
     font-size: 12px;
     transition: background 0.2s;
@@ -252,7 +318,7 @@
 
 .sci-info-content-header-closebtn {
     background: none;
-    color: #fff;
+    color: white;
     border: none;
     cursor: pointer;
     font-size: 16px;
@@ -267,26 +333,49 @@
 /*Bubbles*/
 .sci-bubble {
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    aspect-ratio: 1/1;
+    left: 50%;
+    top: 50%;
     background-color: #4a90e2;
     color: white;
     border-radius: 50%;
-    display: grid;
-    place-items: center;
     line-height: 1;
     font-size: 12px;
     cursor: pointer;
-    z-index: 2147483645;
-    opacity: 50%;
+    z-index: 1;
+    opacity: 65%;
+    overflow: hidden;
+    transition: all 0.2s ease-in-out;
 }
 
+.sci-bubble img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: auto;
+    object-fit: cover;
+    pointer-events: none;
+
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.sci-bubble img#bg { width: 100%; }
+
 .sci-bubble:hover {
-    opacity: 80%;
+    opacity: 90%;
 }
 
 #sci-bubble-close {
     background-color: #888 !important;
+}
+
+#sci-bubble-close img {
+    width: 40% !important;
 }
 
 #sci-bubble-close:hover {

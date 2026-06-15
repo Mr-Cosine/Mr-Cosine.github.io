@@ -20,6 +20,7 @@
     width: 200px;
     background: white;
     border: 1px solid var(--yellow-main);
+    border-radius: 16px;
     box-shadow: 0 2px 8px #444;
     z-index: 2147483645;
     padding: 8px;
@@ -33,6 +34,7 @@
     font-weight: bold;
     text-align: center;
     cursor: move;
+    border-radius: 8px;
 }
 
 .sci-gen-btn {
@@ -40,6 +42,7 @@
     margin-top: 8px;
     padding: 8px;
     border: 1px solid #ccc;
+    border-radius: 8px;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -193,4 +196,119 @@
 
 .sci-gen-poly-result-changeform:hover {
     color: #666;
+}
+
+/*--- Data Plotter ---*/
+#sci-gen-plot {
+    position: fixed;
+    top: 150px;
+    right: 560px;
+    width: 400px;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px #444;
+    z-index: 2147483647;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+#sci-gen-plot-input {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 10px;
+    gap: 5px;
+}
+
+#sci-gen-plot-input-function {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 10px;
+}
+
+#sci-gen-plot-input-function-expr,
+#sci-gen-plot-input-function-dim,
+#sci-gen-plot-input-function-confirm {
+    padding: 3px;
+    border: 1px solid #ccc;
+    border-radius: None;
+    font-size: 14px;
+    flex-shrink: 1;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+#sci-gen-plot-input-function-dim { flex: 0.3 }
+#sci-gen-plot-input-function-expr { flex: 1; }
+#sci-gen-plot-input-function-confirm { text-align:center; flex: 0.2; background-color: white; font-weight: bold; cursor: pointer; }
+#sci-gen-plot-input-function-confirm:hover { background-color: var(--yellow-light); }
+
+#sci-gen-plot-input-range {
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+.sci-gen-plot-input-range-var {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 5px;
+    box-sizing: border-box;
+}
+
+.sci-gen-plot-input-range-label {
+    padding: 3px;
+    border: None;
+    font-size: 14px;
+    flex-shrink: 1;
+    min-width: 0;
+    box-sizing: border-box;
+}
+.sci-gen-plot-input-range-min,
+.sci-gen-plot-input-range-max {
+    padding: 3px;
+    border: 1px solid #ccc;
+    border-radius: None;
+    font-size: 14px;
+    flex-shrink: 1;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.sci-gen-plot-input-range-label { width: auto; }
+.sci-gen-plot-input-range-min { flex: 0.5; }
+.sci-gen-plot-input-range-max { flex: 0.5; }
+
+#sci-gen-plot-canvas {
+    position: relative;
+    margin: 10px;
+    border: 1px solid #ccc;
+    flex: 1;
+    aspect-ratio: 1/1;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#sci-gen-plot-canvas-canvas {
+    width: 100%;
+    height: auto;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    cursor: pointer;
+}
+
+#sci-gen-plot-canvas-overlay {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    pointer-events: none;
 }

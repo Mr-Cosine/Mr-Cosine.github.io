@@ -20,6 +20,7 @@
     width: 200px;
     background: white;
     border: 1px solid var(--teal-main);
+    border-radius: 16px;
     box-shadow: 0 2px 8px #444;
     z-index: 2147483645;
     padding: 8px;
@@ -33,6 +34,7 @@
     font-weight: bold;
     text-align: center;
     cursor: move;
+    border-radius:8px;
 }
 
 .sci-chem-btn {
@@ -40,6 +42,7 @@
     margin-top: 8px;
     padding: 8px;
     border: 1px solid #ccc;
+    border-radius: 8px;
     cursor: pointer;
     display: flex;
     justify-content: space-between;

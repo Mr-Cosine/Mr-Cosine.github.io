@@ -95,9 +95,9 @@ function openPhysWindow(outputLoc, parentWin) {
     fnButtonContainer.setAttribute('class', 'sci-phys-btncontainer');
 
     var btncolor = '#ba68c8';
-    fnButtonContainer.appendChild(createFnBtn_phys('Formula Sheet', '📝', btncolor, "formula", state_phys, outputLoc));
-    fnButtonContainer.appendChild(createFnBtn_phys('Vector Calculations', '↗️', btncolor, "vectorCalc", state_phys, outputLoc));
-    fnButtonContainer.appendChild(createFnBtn_phys('FBD Visualization', '🧭', btncolor, "FBDCalc", state_phys, outputLoc));
+    fnButtonContainer.appendChild(createFnBtn_phys('Formula Sheet', '📝', btncolor, "formula", outputLoc, state_phys));
+    fnButtonContainer.appendChild(createFnBtn_phys('Vector Calculations', '↗️', btncolor, "vectorCalc", outputLoc, state_phys));
+    fnButtonContainer.appendChild(createFnBtn_phys('FBD Visualization', '🧭', btncolor, "FBDCalc", outputLoc, state_phys));
 
     physWindow.appendChild(physHeader);
     physWindow.appendChild(fnButtonContainer);
@@ -114,7 +114,7 @@ function closePhysWindow() {
     return false;
 }
 
-function createFnBtn_phys(name, symbol, color, id, state_phys, outputLoc) {
+function createFnBtn_phys(name, symbol, color, id, outputLoc, state_phys) {
     var btn = document.createElement('button');
     btn.setAttribute('class', 'sci-phys-btn');
     btn.style.backgroundColor = '#f9f9f9'; // Default state
@@ -132,21 +132,28 @@ function createFnBtn_phys(name, symbol, color, id, state_phys, outputLoc) {
     btn.append(labelSpan, symbolSpan);
 
     btn.addEventListener('click', function() {
-        if (id === 'formula') {
-            var existingWindow = document.getElementById('sci-phys-frml');
-            if (!existingWindow) {openPhysFormulaWindow(outputLoc); state_phys.formula = true;}
-            else {existingWindow.remove(); state_phys.formula = false;}
+        switch(id) {
+            case 'formula':
+                var existingWindow = document.getElementById('sci-phys-frml');
+                if (!existingWindow) {openPhysFormulaWindow(outputLoc); state_phys.formula = true;}
+                else {existingWindow.remove(); state_phys.formula = false;}
+                break;
+
+            case 'vectorCalc':
+                var existingWindow = document.getElementById('sci-phys-vect');
+                if (!existingWindow) {openVectorCalcWindow(outputLoc); state_phys.vectorCalc = true;}
+                else {existingWindow.remove(); state_phys.vectorCalc = false;}
+                break;
+
+            case 'FBDCalc':
+                var existingWindow = document.getElementById('sci-phys-fbd');
+                if (!existingWindow) {openFBDCalcWindow(outputLoc); state_phys.FBDCalc = true;}
+                else {existingWindow.remove(); state_phys.FBDCalc = false;}
+                break;
+
+            default: break;
         }
-        else if (id === 'vectorCalc') {
-            var existingWindow = document.getElementById('sci-phys-vect');
-            if (!existingWindow) {openVectorCalcWindow(outputLoc); state_phys.vectorCalc = true;}
-            else {existingWindow.remove(); state_phys.vectorCalc = false;}
-        }
-        else if (id === 'FBDCalc') {
-            var existingWindow = document.getElementById('sci-phys-fbd');
-            if (!existingWindow) {openFBDCalcWindow(outputLoc); state_phys.FBDCalc = true;}
-            else {existingWindow.remove(); state_phys.FBDCalc = false;}
-        }
+
         refreshBtnDisp(btn.className, state_phys);
     });
 
@@ -186,7 +193,7 @@ function openPhysFormulaWindow(outputLoc) {
         katex.render(entry.latex, row, { throwOnError: false, displayMode: false });
         row.rowID = i;
         row.addEventListener('click', () => {
-            openCalculatorWindow(formulaWindow, entry, outputLoc);
+            openPhysCalculatorWindow(formulaWindow, entry, outputLoc);
         });
         formulaContainer.appendChild(row);
     });
@@ -198,7 +205,7 @@ function openPhysFormulaWindow(outputLoc) {
     return formulaWindow;
 }
 
-function openCalculatorWindow (parentWindow, formula, outputLoc) {
+function openPhysCalculatorWindow (parentWindow, formula, outputLoc) {
     while(document.getElementById('sci-phys-frml-calc')) {document.getElementById('sci-phys-frml-calc').remove();}
     var calcWindow = document.createElement('div');
     calcWindow.setAttribute('id', 'sci-phys-frml-calc');
@@ -242,9 +249,8 @@ function openCalculatorWindow (parentWindow, formula, outputLoc) {
         });
 
         if (Object.keys(emptyValues).length > 0 && Object.keys(emptyValues).length < 2) {
-            let result = solveEq(varValues, formula.solve).toFixed(3);
             let targetVar = Array.from(inputs).find(input => input.symbol === Object.keys(emptyValues)[0]);
-            targetVar.value = result;
+            targetVar.value = solveEq(varValues, formula.solve);
             targetVar.style.backgroundColor = '#f3e8f7';
         }
         else {
@@ -484,7 +490,7 @@ function updateFBDvisualization() {
         let fdirection = parseFloat(input.querySelector('[class$="-direction"]').value);
         if (fmagnitude < 0) {fmagnitude = -1 * fmagnitude; fdirection = fdirection - 180;}
 
-        if (isNum(fmagnitude) && isNum(fdirection)){
+        if (isNum(fmagnitude) && isNum(fdirection)) {
             forces.push({
                 name:      fname,
                 magnitude: fmagnitude,
@@ -497,11 +503,11 @@ function updateFBDvisualization() {
         }
     }
     
-    if (forces.length > 0){
+    if (forces.length > 0) {
         canva.innerHTML = '';
         let netx = 0;
         let nety = 0;
-        for (let force of forces){
+        for (let force of forces) {
             netx += force.magnitude * Math.cos(force.direction * Math.PI/180);
             nety += force.magnitude * Math.sin(force.direction * Math.PI/180);
         }

@@ -14,41 +14,84 @@ let keyListener = null;
 
 /* --- Booting --- */
 function boot() {
-    if (document.getElementById('sci-restore')) {document.getElementById('sci-restore').remove();}
+    if (document.getElementById('sci-restore')) {
+        document.getElementById('sci-restore').remove();
+    }
     var restoreBtn = document.createElement('div');
     restoreBtn.id = 'sci-restore';
-    restoreBtn.textContent = '⌬';
     restoreBtn.classList.add('no-select');
-    restoreBtn.rcdx = 0; restoreBtn.rcdy = 0;
+    restoreBtn.rcdx = 100;
+    restoreBtn.rcdy = 100;
+
+    // Create background wrapper (this will receive mouse events)
+    var bgWrapper = document.createElement('div');
+    bgWrapper.setAttribute('id', 'sci-restore-bg');
+    bgWrapper.innerHTML = `
+        <img id="top" src="img/SciHelper-iconContent.png" draggable="false" style="width:100%; z-index:3;">
+        <img id="bottom" src="img/SciHelper-iconBg.png" draggable="false" style="width:140%; z-index:1;">
+    `;
+
+    let dynamicBG = null;
+
+    bgWrapper.addEventListener('mouseenter', () => {
+        cancelClose();
+
+        const bottomImg = bgWrapper.querySelector('#bottom');
+        const topImg = bgWrapper.querySelector('#top');
+        if (!bottomImg || !topImg) return;
+
+        // Define mousemove handler
+        dynamicBG = (e) => {
+            const rect = bgWrapper.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const offsetX = e.clientX - centerX;
+            const offsetY = e.clientY - centerY;
+
+            // Map offset to rotation angles (e.g., max ±15deg)
+            const MAX_ANGLE = 15;
+            const rotY = -(offsetX / (rect.width / 2)) * MAX_ANGLE;   // positive = right
+            const rotX = (offsetY / (rect.height / 2)) * MAX_ANGLE;  // positive = down
+
+            // Apply same rotation to both images (they move together)
+            bottomImg.style.transform = `translate(-50%, -50%) translate(${offsetX * -0.4}px, ${offsetY * -0.4}px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+            topImg.style.transform = `translate(-50%, -50%) translate(${offsetX * -0.4}px, ${offsetY * -0.4}px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+        };
+
+        bgWrapper.addEventListener('mousemove', dynamicBG);
+    });
+
+    bgWrapper.addEventListener('mouseleave', () => {
+        if (dynamicBG) { bgWrapper.removeEventListener('mousemove', dynamicBG); dynamicBG = null; }
+
+        const bottomImg = bgWrapper.querySelector('#bottom');
+        const topImg = bgWrapper.querySelector('#top');
+        
+        if (bottomImg) bottomImg.style.transform = '';
+        if (topImg) topImg.style.transform = '';
+    });
+
+    restoreBtn.appendChild(bgWrapper);
 
     let startTime;
-    restoreBtn.addEventListener('mousedown', function() { startTime = Date.now(); });
-
-    restoreBtn.addEventListener('mouseup', function() {
+    restoreBtn.addEventListener('mousedown', () => { startTime = Date.now(); });
+    restoreBtn.addEventListener('mouseup', () => {
         let duration = Date.now() - startTime;
-
-        if (duration < 150) { 
-            initSciHelper(this.rcdx, this.rcdy);
-            this.style.display = 'none';
-        } 
+        if (duration < 150) {
+            initSciHelper(restoreBtn.rcdx, restoreBtn.rcdy);
+            restoreBtn.style.display = 'none';
+        }
     });
 
-    restoreBtn.addEventListener('mouseenter', function() {
-        cancelClose();
-        openSettings(restoreBtn);
-    });
-
-    restoreBtn.addEventListener('mouseleave', function() {
-        closeSettings();
-    })
+    restoreBtn.addEventListener('mouseenter', () => {openSettings(restoreBtn)});
+    restoreBtn.addEventListener('mouseleave', () => {closeSettings()});
 
     makeDraggable(restoreBtn, restoreBtn);
-
     document.body.appendChild(restoreBtn);
 }
 
 /* --- Main SciHelper Window --- */
-function initSciHelper(initx = 0, inity = 0) {    
+function initSciHelper(initx = 100, inity = 100) {    
     if (!document.body || document.getElementById('sci-panel')) return;
 
     Object.keys(state).forEach(key => { state[key] = false; });
@@ -60,16 +103,17 @@ function initSciHelper(initx = 0, inity = 0) {
     panel.style.top = inity + 'px';
 
     var headerContainer = document.createElement('div');
-    headerContainer.setAttribute('id', 'sci-panel-headercontainer');
+    headerContainer.setAttribute('id', 'sci-panel-header');
         
     var header = document.createElement('div');
-    header.setAttribute('id', 'sci-panel-header');
-    header.textContent = 'Sci-Helper';
+    header.setAttribute('id', 'sci-panel-header-header');
+    header.innerHTML = `<img src=img/SciHelper-banner.svg alt="SciHelper" draggable="false">`;
     header.classList.add('no-select');
         
     var closeBtn = document.createElement('button')
-    closeBtn.setAttribute('id', 'sci-panel-closebtn');
-    closeBtn.textContent = "×";
+    closeBtn.setAttribute('id', 'sci-panel-header-closebtn');
+    let color = "#444";
+    closeBtn.textContent = "✖";
     closeBtn.classList.add('no-select');
 
     closeBtn.addEventListener('click', function() {closeSciHelper();});
@@ -102,7 +146,7 @@ function initSciHelper(initx = 0, inity = 0) {
 
     var specialCharacterTitle = document.createElement('div');
     specialCharacterTitle.setAttribute('class', 'sci-panel-sectiontitle');
-    specialCharacterTitle.textContent = '▸ Special characters insertion:';
+    specialCharacterTitle.textContent = '▸Special characters:';
 
     characterBtnContainer.appendChild(createToggle('Suprscript', 'Xⁿ', 'superscript', '#e57373', state));
     characterBtnContainer.appendChild(createToggle('Subscript', 'Xₙ', 'subscript', '#ffaf4d', state));
@@ -111,7 +155,7 @@ function initSciHelper(initx = 0, inity = 0) {
 
     var toolboxTitle = document.createElement('div');
     toolboxTitle.setAttribute('class', 'sci-panel-sectiontitle');
-    toolboxTitle.textContent = '▸ Toolboxes:';
+    toolboxTitle.textContent = '▸Toolboxes:';
 
     toolboxBtnContainer.appendChild(createSubMenuToggle('Chemistry', 'H₂O', 'chemistry', '#83c1bb', state, outputLoc, panel)); 
     toolboxBtnContainer.appendChild(createSubMenuToggle('Physics', 'F=ma', 'physics', '#ba68c8', state, outputLoc, panel));
@@ -207,23 +251,33 @@ function refreshBtnDisp(classname, state) {
         const active = state[b.id]; 
         b.style.backgroundColor = active ? b.color : 'white';
         b.style.color = active ? 'white' : 'black';
+        if (b.querySelector(".sci-panel-btn-symbol")) b.querySelector(".sci-panel-btn-symbol").style.color = active ? 'white' : b.color;
     }
 }
 
 function createToggle(label, symbol, id, color, state) {
     var btn = document.createElement('button');
     btn.setAttribute('class', 'sci-panel-btn');
-    btn.style.backgroundColor = 'white';
     btn.id = id;
     btn.color = color;
 
-    var labelSpan = document.createElement('span');
-    labelSpan.appendChild(document.createTextNode(label));
+    var labelSpan = document.createElement('div');
+    labelSpan.setAttribute('class', 'sci-panel-btn-label');
+    labelSpan.textContent = label;
         
-    var symbolSpan = document.createElement('span');
+    var symbolSpan = document.createElement('div');
     symbolSpan.setAttribute('class', 'sci-panel-btn-symbol');
     symbolSpan.style.color = color;
-    symbolSpan.appendChild(document.createTextNode(symbol));
+    symbolSpan.textContent = symbol;
+
+    function rgba(hex, a) {
+        const int = parseInt(hex.slice(1), 16);
+        return `rgba(${int >> 16 & 255}, ${int >> 8 & 255}, ${int & 255}, ${a})`;
+    };
+
+    let isActive = false;
+    btn.addEventListener('mouseenter', function() {if (!isActive) btn.style.backgroundColor = rgba(color, 0.3)})
+    btn.addEventListener('mouseleave', function() {if (!isActive) btn.style.backgroundColor = "white"})
 
     btn.append(labelSpan, symbolSpan);
 
@@ -232,6 +286,13 @@ function createToggle(label, symbol, id, color, state) {
         state.subscript = (id === 'subscript') ? !state.subscript : false;
         state.greek = (id === 'greek') ? !state.greek : false;
         state.math = (id === 'math')  ? !state.math  : false;
+
+        switch(id) {
+            case 'superscript': isActive = state.superscript; break;
+            case 'subscript': isActive = state.subscript; break;
+            case 'greek': isActive = state.greek; break;
+            case 'math': isActive = state.math; break;
+        }
 
         refreshBtnDisp(btn.className, state);
     });
@@ -248,31 +309,47 @@ function createSubMenuToggle(label, symbol, id, color, state, outputLoc, parentP
     btn.id = id;
     btn.color = color;
 
-    var labelSpan = document.createElement('span');
-    labelSpan.appendChild(document.createTextNode(label));
+    var labelSpan = document.createElement('div');
+    labelSpan.setAttribute('class', 'sci-panel-btn-label');
+    labelSpan.textContent = label;
         
-    var symbolSpan = document.createElement('span');
+    var symbolSpan = document.createElement('div');
     symbolSpan.setAttribute('class', 'sci-panel-btn-symbol');
     symbolSpan.style.color = color;
-    symbolSpan.appendChild(document.createTextNode(symbol));
+    symbolSpan.textContent = symbol;
+    
+    function rgba(hex, a) {
+        const int = parseInt(hex.slice(1), 16);
+        return `rgba(${int >> 16 & 255}, ${int >> 8 & 255}, ${int & 255}, ${a})`;
+    };
+
+    let isActive = false;
+    btn.addEventListener('mouseenter', function() {if (!isActive) btn.style.backgroundColor = rgba(color, 0.3)});
+    btn.addEventListener('mouseleave', function() {if (!isActive) btn.style.backgroundColor = "white"});
 
     btn.append(labelSpan, symbolSpan);
     
     btn.addEventListener('click', function() {
-        if (id === 'chemistry') {
-            state.chemistry = (state.chemistry === false) ? openChemWindow(outputLoc, parentPanel) : closeChemWindow();
+        switch (id) { 
+            case 'chemistry':
+                state.chemistry = (state.chemistry === false)? openChemWindow(outputLoc, parentPanel): closeChemWindow();
+                isActive = state.chemistry;
+                break;
+            case 'physics':
+                state.physics = (state.physics === false)? openPhysWindow(outputLoc, parentPanel): closePhysWindow();
+                isActive = state.physics;
+                break;
+            case 'general':
+                state.general = (state.general === false)? openGenWindow(outputLoc, parentPanel): closeGenWindow();
+                isActive = state.general;
+                break;
+            default: break;
         }
-        else if (id === 'physics') {
-            state.physics = (state.physics === false) ? openPhysWindow(outputLoc, parentPanel) : closePhysWindow();
-        }
-        else if (id === 'general') {
-            state.general = (state.general === false) ? openGenWindow(outputLoc, parentPanel) : closeGenWindow();
-        }
+
         refreshBtnDisp(btn.className, state);
     });
 
     refreshBtnDisp(btn.className, state);
-
     return btn;
 }
 
@@ -420,13 +497,13 @@ function openSettings(parent) {
     if (document.querySelector('.sci-bubble')) return;
 
     const initAngle = -90;
-    const deviate = 40;
-    const radius = 50;
+    const deviate = 42;
+    const radius = 54;
 
     const bubbles = [
-        createBubble('×', 'sci-bubble-close', "Turn off SciHelper", () => turnoff()),
-        createBubble('⚙', 'sci-bubble-option', "Open options", () => openOptions()),
-        createBubble('✉', 'sci-bubble-contact', "Reach to dev", () => openContact())
+        createBubble("img/cross.svg", '×', false, 'sci-bubble-close', "Turn off SciHelper", () => turnoff()),
+        createBubble("img/gear.svg", '⚙', true, 'sci-bubble-option', "Open options", () => openOptions()),
+        createBubble("img/email.svg", '✉', true, 'sci-bubble-contact', "Reach to dev", () => openContact())
     ];
 
     bubbles.forEach((bubble, index) => {
@@ -444,20 +521,66 @@ function openSettings(parent) {
     });
 }
 
-function createBubble(text, id, description, clickHandler) {
+function createBubble(src, altText, colorfulBG, id, description, clickHandler) {
     const bubble = document.createElement('div');
     bubble.className = 'sci-bubble';
     bubble.id = id;
-    bubble.textContent = text;
+    bubble.innerHTML =  `
+        <img src="`+src+`" alt="`+altText+`" draggable = "false" style="z-index: 2">` 
+        + ((colorfulBG)? `<img id = 'bg' src="img/SciHelper-iconBg.png" draggable = "false" style="display: None; z-index: 1">`: ``);
     bubble.setAttribute('title', description);
 
-    bubble.addEventListener('click', (e) => {
-        e.stopPropagation();
-        clickHandler();
-    });
+    bubble.addEventListener('mouseenter', () => { if (bubble.querySelector("#bg")) bubble.querySelector("#bg").style.display= "block";});
+    bubble.addEventListener('mouseleave', () => { if (bubble.querySelector("#bg")) bubble.querySelector("#bg").style.display= "none";});
+    bubble.addEventListener('click', (e) => { e.stopPropagation(); clickHandler(); });
     
     bubble.addEventListener('mouseenter', () => cancelClose());
     bubble.addEventListener ('mouseleave', () => closeSettings());
+
+    let dynamicBG = null;
+    bubble.addEventListener('mouseenter', () => {
+        cancelClose();
+
+        const bgWrapper = document.querySelector('#sci-restore-bg');
+        if (!bgWrapper) return;
+
+        const bottomImg = bgWrapper.querySelector('#bottom');
+        const topImg = bgWrapper.querySelector('#top');
+        if (!bottomImg || !topImg) return;
+
+        // Define mousemove handler
+        dynamicBG = (e) => {
+            const rect = bgWrapper.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const offsetX = e.clientX - centerX;
+            const offsetY = e.clientY - centerY;
+
+            // Map offset to rotation angles (e.g., max ±15deg)
+            const MAX_ANGLE = 15;
+            const rotY = -(offsetX / (rect.width / 2)) * MAX_ANGLE;
+            const rotX = (offsetY / (rect.height / 2)) * MAX_ANGLE;
+
+            // Apply same rotation to both images (they move together)
+            bottomImg.style.transform = `translate(-50%, -50%) translate(${offsetX * 0.4}px, ${offsetY * 0.4}px) rotateX(${-rotX}deg) rotateY(${-rotY}deg)`;
+            topImg.style.transform = `translate(-50%, -50%) translate(${offsetX * 0.4}px, ${offsetY * 0.4}px) rotateX(${-rotX}deg) rotateY(${-rotY}deg)`;
+        };
+
+        bubble.addEventListener('mousemove', dynamicBG);
+    });
+
+    bubble.addEventListener('mouseleave', () => {
+        const bgWrapper = document.querySelector('#sci-restore-bg');
+        if (!bgWrapper) return;
+
+        if (dynamicBG) { bgWrapper.removeEventListener('mousemove', dynamicBG); dynamicBG = null; }
+
+        const bottomImg = bgWrapper.querySelector('#bottom');
+        const topImg = bgWrapper.querySelector('#top');
+        
+        if (bottomImg) bottomImg.style.transform = '';
+        if (topImg) topImg.style.transform = '';
+    });
     return bubble;
 }
 
@@ -470,7 +593,7 @@ function closeSettings() {
             bubble.remove()
         });
         closeTimeout = null;
-    }, 300);
+    }, 500);
 }
 
 function cancelClose() {
