@@ -472,7 +472,10 @@ function createFBDRow(forceDefaultName) {
         removeBtn.style.visibility = 'hidden';
     }
 
-    row.addEventListener('input', () => {let forces = updateFBDvisualization();});
+    name.addEventListener('change', updateFBDvisualization);
+    magnitude.addEventListener('change', updateFBDvisualization);
+    direction.addEventListener('change', updateFBDvisualization);
+    row.addEventListener('input', updateFBDvisualization);
     
     row.append(name, magnitude, direction, removeBtn);
     return row;
@@ -490,7 +493,7 @@ function updateFBDvisualization() {
         let fdirection = parseFloat(input.querySelector('[class$="-direction"]').value);
         if (fmagnitude < 0) {fmagnitude = -1 * fmagnitude; fdirection = fdirection - 180;}
 
-        if (isNum(fmagnitude) && isNum(fdirection)) {
+        if (isNum(fmagnitude) && isNum(fdirection) && fmagnitude !== 0) {
             forces.push({
                 name:      fname,
                 magnitude: fmagnitude,

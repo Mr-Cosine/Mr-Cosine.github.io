@@ -2,7 +2,7 @@
 function isLetter(token) {return /[a-zA-Z]/.test(token);}
 function isUpper(token) {return (isLetter(token) && token === token.toUpperCase());}
 function isLower(token) {return (isLetter(token) && token === token.toLowerCase());}
-function isNum(token) {return !isNaN(parseFloat(token));}
+function isNum(token) {return (!(token === null) && !isNaN(parseFloat(token)));}
 
 function sanitizeFormula(input) {
     if (!input) return "";
@@ -264,43 +264,48 @@ function solveEq(variables, expressions) {
 }
 
 function infixToPostfix(tokens) {
-    const ops = new operators();
-    let outputQueue = [];
-    let operatorStack = [];
+    const ops = new Operators();
+    let outQueue = [];
+    let opStack = [];
 
     for (let token of tokens) {
-        if (isNum(token)) outputQueue.push(parseFloat(token));
-        else if (token === '(') operatorStack.push(token);
+        if (isNum(token)) outQueue.push(parseFloat(token));
+        else if (token === '(') opStack.push(token);
         else if (token === ')') {
-            while (operatorStack.length > 0 && operatorStack[operatorStack.length - 1] !== '(') { outputQueue.push(operatorStack.pop()); }
-            operatorStack.pop(); 
-            let top = operatorStack[operatorStack.length - 1];
-            if (top && ops.isUnary(top)) outputQueue.push(operatorStack.pop());
+            while (opStack.length > 0 && opStack[opStack.length - 1] !== '(') { outQueue.push(opStack.pop()); }
+            opStack.pop(); 
+            let top = opStack[opStack.length - 1];
+            if (top && ops.isUnary(top)) outQueue.push(opStack.pop());
         } 
-        else if (ops.isOperator(token)) {
+        else if (ops.isArithOperator(token)) {
             const precToken = ops.precedence(token);
-            while (operatorStack.length > 0) {
-                let operator = operatorStack[operatorStack.length - 1];
+            if (precToken === null) return;
+
+            while (opStack.length > 0) {
+                let operator = opStack[opStack.length - 1];
                 if (operator === '(') break;
+
                 const precOp = ops.precedence(operator);
-                if (precOp > precToken || (precOp === precToken && token !== '^')) outputQueue.push(operatorStack.pop());
+                if (precToken === null) return;
+
+                if (precOp > precToken || (precOp === precToken && token !== '^')) outQueue.push(opStack.pop());
                 else break;
             }
-            operatorStack.push(token);
+            opStack.push(token);
         } 
-        else outputQueue.push(token);
+        else outQueue.push(token);
     }
-    while (operatorStack.length > 0) { outputQueue.push(operatorStack.pop()); }
-    return outputQueue;
+    while (opStack.length > 0) { outQueue.push(opStack.pop()); }
+    return outQueue;
 }
 
 function evaluate(postfix) {
-    const ops = new operators();
+    const ops = new Operators();
     let stack = [];
     
     for (let token of postfix) {
         if (isNum(token)) {
-            stack.push(token);
+            stack.push(parseFloat(token));
         }
         else if (ops.isBinary(token)) {
             if (stack.length < 2) return "Error";
@@ -308,7 +313,7 @@ function evaluate(postfix) {
             let a = stack.pop();
 
             let result = ops.eval(a, token, b);
-            if (!isNum(result) || !isFinite(result) || result === null) { return "Error"; }
+            if (!isNum(result) || !isFinite(result) || result === null) return "Error";
             stack.push(result);
         }
         else if (ops.isUnary(token)) {
@@ -316,7 +321,7 @@ function evaluate(postfix) {
             let a = stack.pop();
 
             let result = ops.eval(a, token);
-            if (!isNum(result) || !isFinite(result) || result === null) { return "Error"; }
+            if (!isNum(result) || !isFinite(result) || result === null) return "Error";
             stack.push(result);
         }
         else return "Error";
@@ -1087,12 +1092,26 @@ function openChemCalculatorWindow (parentWindow, formula, outputLoc) {
         let emptyValues = {};
 
         inputs.forEach(input => {
-            if (input.value === "") {
-                emptyValues[input.symbol] = null;
-                varValues[input.symbol] = null;
+            if (input.value !== "") {
+                function processInput(input) {
+                    const regex = /([a-zA-Z]+[a-zA-Z0-9]*)|(\d+(?:\.\d+)?)|([+\-*/^()])|(\s+)/g;
+                    const tokens = [];
+                    let match;
+                    while ((match = regex.exec(input)) !== null) {
+                        if (match[4]) continue;
+                        if (match[1]) tokens.push(parseFloat(match[1]));
+                        else if (match[2]) tokens.push(match[2]);
+                        else if (match[3]) tokens.push(match[3]);
+                    }
+
+                    const expression = infixToPostfix(tokens);
+                    return parseFloat(evaluate(expression));
+                }
+                varValues[input.symbol] = processInput(input.value);
             }
             else {
-                varValues[input.symbol] = parseFloat(input.value);
+                emptyValues[input.symbol] = null;
+                varValues[input.symbol] = null;
             }
         });
 

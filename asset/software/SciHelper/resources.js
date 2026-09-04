@@ -43,7 +43,7 @@ const equilibium = "⇌";
 //============================================================================
 // Chemistry
 
-class element {
+class Element {
     constructor(name, symbol, atomicNumber, molarMass) {
         this.name = name;
         this.symbol = symbol;
@@ -53,160 +53,157 @@ class element {
     }
 }
 
-const _elements = [];
-//  _elements[#]   = new element("Chemical name", "Sym", At#,  Molar mass);
-    _elements[1]   = new element("Hydrogen",      "H",   1,    1.008);
-    _elements[2]   = new element("Helium",        "He",  2,    4.003);
-    _elements[3]   = new element("Lithium",       "Li",  3,    6.940);
-    _elements[4]   = new element("Beryllium",     "Be",  4,    9.012);
-    _elements[5]   = new element("Boron",         "B",   5,    10.810);
-    _elements[6]   = new element("Carbon",        "C",   6,    12.011);
-    _elements[7]   = new element("Nitrogen",      "N",   7,    14.007);
-    _elements[8]   = new element("Oxygen",        "O",   8,    15.999);
-    _elements[9]   = new element("Fluorine",      "F",   9,    18.998);
-    _elements[10]  = new element("Neon",          "Ne",  10,   20.180);
+const elements = Object.freeze([
+    new Element("Hydrogen",      "H",   1,    1.008),
+    new Element("Helium",        "He",  2,    4.003),
+    new Element("Lithium",       "Li",  3,    6.940),
+    new Element("Beryllium",     "Be",  4,    9.012),
+    new Element("Boron",         "B",   5,    10.810),
+    new Element("Carbon",        "C",   6,    12.011),
+    new Element("Nitrogen",      "N",   7,    14.007),
+    new Element("Oxygen",        "O",   8,    15.999),
+    new Element("Fluorine",      "F",   9,    18.998),
+    new Element("Neon",          "Ne",  10,   20.180),
 
-    _elements[11]  = new element("Sodium",        "Na",  11,   22.990);
-    _elements[12]  = new element("Magnesium",     "Mg",  12,   24.305);
-    _elements[13]  = new element("Aluminum",      "Al",  13,   26.982);
-    _elements[14]  = new element("Silicon",       "Si",  14,   28.085);
-    _elements[15]  = new element("Phosphorus",    "P",   15,   30.974);
-    _elements[16]  = new element("Sulfur",        "S",   16,   32.060);
-    _elements[17]  = new element("Chlorine",      "Cl",  17,   35.450);
-    _elements[18]  = new element("Argon",         "Ar",  18,   39.948);
+    new Element("Sodium",        "Na",  11,   22.990),
+    new Element("Magnesium",     "Mg",  12,   24.305),
+    new Element("Aluminum",      "Al",  13,   26.982),
+    new Element("Silicon",       "Si",  14,   28.085),
+    new Element("Phosphorus",    "P",   15,   30.974),
+    new Element("Sulfur",        "S",   16,   32.060),
+    new Element("Chlorine",      "Cl",  17,   35.450),
+    new Element("Argon",         "Ar",  18,   39.948),
 
-    _elements[19]  = new element("Potassium",     "K",   19,   39.098);
-    _elements[20]  = new element("Calcium",       "Ca",  20,   40.078);
-    _elements[21]  = new element("Scandium",      "Sc",  21,   44.956);
-    _elements[22]  = new element("Titanium",      "Ti",  22,   47.867);
-    _elements[23]  = new element("Vanadium",      "V",   23,   50.942);
-    _elements[24]  = new element("Chromium",      "Cr",  24,   51.996);
-    _elements[25]  = new element("Manganese",     "Mn",  25,   54.938);
-    _elements[26]  = new element("Iron",          "Fe",  26,   55.845);
-    _elements[27]  = new element("Cobalt",        "Co",  27,   58.933);
-    _elements[28]  = new element("Nickel",        "Ni",  28,   58.693);
-    _elements[29]  = new element("Copper",        "Cu",  29,   63.546);
-    _elements[30]  = new element("Zinc",          "Zn",  30,   65.380);
+    new Element("Potassium",     "K",   19,   39.098),
+    new Element("Calcium",       "Ca",  20,   40.078),
+    new Element("Scandium",      "Sc",  21,   44.956),
+    new Element("Titanium",      "Ti",  22,   47.867),
+    new Element("Vanadium",      "V",   23,   50.942),
+    new Element("Chromium",      "Cr",  24,   51.996),
+    new Element("Manganese",     "Mn",  25,   54.938),
+    new Element("Iron",          "Fe",  26,   55.845),
+    new Element("Cobalt",        "Co",  27,   58.933),
+    new Element("Nickel",        "Ni",  28,   58.693),
+    new Element("Copper",        "Cu",  29,   63.546),
+    new Element("Zinc",          "Zn",  30,   65.380),
 
-    _elements[31]  = new element("Gallium",       "Ga",  31,   69.723);
-    _elements[32]  = new element("Germanium",     "Ge",  32,   72.630);
-    _elements[33]  = new element("Arsenic",       "As",  33,   74.922);
-    _elements[34]  = new element("Selenium",      "Se",  34,   78.971);
-    _elements[35]  = new element("Bromine",       "Br",  35,   79.904);
-    _elements[36]  = new element("Krypton",       "Kr",  36,   83.798);
+    new Element("Gallium",       "Ga",  31,   69.723),
+    new Element("Germanium",     "Ge",  32,   72.630),
+    new Element("Arsenic",       "As",  33,   74.922), 
+    new Element("Selenium",      "Se",  34,   78.971),
+    new Element("Bromine",       "Br",  35,   79.904),
+    new Element("Krypton",       "Kr",  36,   83.798),
 
-    _elements[37]  = new element("Rubidium",      "Rb",  37,   85.468);
-    _elements[38]  = new element("Strontium",     "Sr",  38,   87.620);
-    _elements[39]  = new element("Yttrium",       "Y",   39,   88.906);
-    _elements[40]  = new element("Zirconium",     "Zr",  40,   91.224);
-    _elements[41]  = new element("Niobium",       "Nb",  41,   92.906);
-    _elements[42]  = new element("Molybdenum",    "Mo",  42,   95.950);
-    _elements[43]  = new element("Technetium",    "Tc",  43,   98.000);
-    _elements[44]  = new element("Ruthenium",     "Ru",  44,   101.070);
-    _elements[45]  = new element("Rhodium",       "Rh",  45,   102.910);
-    _elements[46]  = new element("Palladium",     "Pd",  46,   106.420);
-    _elements[47]  = new element("Silver",        "Ag",  47,   107.870);
-    _elements[48]  = new element("Cadmium",       "Cd",  48,   112.410);
+    new Element("Rubidium",      "Rb",  37,   85.468),
+    new Element("Strontium",     "Sr",  38,   87.620),
+    new Element("Yttrium",       "Y",   39,   88.906),
+    new Element("Zirconium",     "Zr",  40,   91.224),
+    new Element("Niobium",       "Nb",  41,   92.906),
+    new Element("Molybdenum",    "Mo",  42,   95.950),
+    new Element("Technetium",    "Tc",  43,   98.000),
+    new Element("Ruthenium",     "Ru",  44,   101.070),
+    new Element("Rhodium",       "Rh",  45,   102.910),
+    new Element("Palladium",     "Pd",  46,   106.420),
+    new Element("Silver",        "Ag",  47,   107.870),
+    new Element("Cadmium",       "Cd",  48,   112.410),
 
-    _elements[49]  = new element("Indium",        "In",  49,   114.820);
-    _elements[50]  = new element("Tin",           "Sn",  50,   118.710);
-    _elements[51]  = new element("Antimony",      "Sb",  51,   121.760);
-    _elements[52]  = new element("Tellurium",     "Te",  52,   127.600);
-    _elements[53]  = new element("Iodine",        "I",   53,   126.900);
-    _elements[54]  = new element("Xenon",         "Xe",  54,   131.290);
+    new Element("Indium",        "In",  49,   114.820),
+    new Element("Tin",           "Sn",  50,   118.710),
+    new Element("Antimony",      "Sb",  51,   121.760),
+    new Element("Tellurium",     "Te",  52,   127.600),
+    new Element("Iodine",        "I",   53,   126.900),
+    new Element("Xenon",         "Xe",  54,   131.290),
 
-    _elements[55]  = new element("Cesium",        "Cs",  55,   132.910);
-    _elements[56]  = new element("Barium",        "Ba",  56,   137.330);
+    new Element("Cesium",        "Cs",  55,   132.910),
+    new Element("Barium",        "Ba",  56,   137.330),
 
-    _elements[57]  = new element("Lanthanum",     "La",  57,   138.910);
-    _elements[58]  = new element("Cerium",        "Ce",  58,   140.120);
-    _elements[59]  = new element("Praseodymium",  "Pr",  59,   140.910);
-    _elements[60]  = new element("Neodymium",     "Nd",  60,   144.240);
-    _elements[61]  = new element("Promethium",    "Pm",  61,   145.000);
-    _elements[62]  = new element("Samarium",      "Sm",  62,   150.360);
-    _elements[63]  = new element("Europium",      "Eu",  63,   151.960);
-    _elements[64]  = new element("Gadolinium",    "Gd",  64,   157.250);
-    _elements[65]  = new element("Terbium",       "Tb",  65,   158.930);
-    _elements[66]  = new element("Dysprosium",    "Dy",  66,   162.500);
-    _elements[67]  = new element("Holmium",       "Ho",  67,   164.930);
-    _elements[68]  = new element("Erbium",        "Er",  68,   167.260);
-    _elements[69]  = new element("Thulium",       "Tm",  69,   168.930);
-    _elements[70]  = new element("Ytterbium",     "Yb",  70,   173.050);
-    _elements[71]  = new element("Lutetium",      "Lu",  71,   174.970);
+    new Element("Lanthanum",     "La",  57,   138.910),
+    new Element("Cerium",        "Ce",  58,   140.120),
+    new Element("Praseodymium",  "Pr",  59,   140.910),
+    new Element("Neodymium",     "Nd",  60,   144.240),
+    new Element("Promethium",    "Pm",  61,   145.000),
+    new Element("Samarium",      "Sm",  62,   150.360),
+    new Element("Europium",      "Eu",  63,   151.960),
+    new Element("Gadolinium",    "Gd",  64,   157.250),
+    new Element("Terbium",       "Tb",  65,   158.930),
+    new Element("Dysprosium",    "Dy",  66,   162.500),
+    new Element("Holmium",       "Ho",  67,   164.930),
+    new Element("Erbium",        "Er",  68,   167.260),
+    new Element("Thulium",       "Tm",  69,   168.930),
+    new Element("Ytterbium",     "Yb",  70,   173.050),
+    new Element("Lutetium",      "Lu",  71,   174.970),
 
-    _elements[72]  = new element("Hafnium",       "Hf",  72,   178.490);
-    _elements[73]  = new element("Tantalum",      "Ta",  73,   180.950);
-    _elements[74]  = new element("Tungsten",      "W",   74,   183.840);
-    _elements[75]  = new element("Rhenium",       "Re",  75,   186.210);
-    _elements[76]  = new element("Osmium",        "Os",  76,   190.230);
-    _elements[77]  = new element("Iridium",       "Ir",  77,   192.220);
-    _elements[78]  = new element("Platinum",      "Pt",  78,   195.080);
-    _elements[79]  = new element("Gold",          "Au",  79,   196.970);
-    _elements[80]  = new element("Mercury",       "Hg",  80,   200.590);
-    _elements[81]  = new element("Thallium",      "Tl",  81,   204.380);
-    _elements[82]  = new element("Lead",          "Pb",  82,   207.200);
-    _elements[83]  = new element("Bismuth",       "Bi",  83,   208.980);
-    _elements[84]  = new element("Polonium",      "Po",  84,   209.000);
-    _elements[85]  = new element("Astatine",      "At",  85,   210.000);
-    _elements[86]  = new element("Radon",         "Rn",  86,   222.000);
+    new Element("Hafnium",       "Hf",  72,   178.490),
+    new Element("Tantalum",      "Ta",  73,   180.950),
+    new Element("Tungsten",      "W",   74,   183.840),
+    new Element("Rhenium",       "Re",  75,   186.210),
+    new Element("Osmium",        "Os",  76,   190.230),
+    new Element("Iridium",       "Ir",  77,   192.220),
+    new Element("Platinum",      "Pt",  78,   195.080),
+    new Element("Gold",          "Au",  79,   196.970),
+    new Element("Mercury",       "Hg",  80,   200.590),
+    new Element("Thallium",      "Tl",  81,   204.380),
+    new Element("Lead",          "Pb",  82,   207.200),
+    new Element("Bismuth",       "Bi",  83,   208.980),
+    new Element("Polonium",      "Po",  84,   209.000),
+    new Element("Astatine",      "At",  85,   210.000),
+    new Element("Radon",         "Rn",  86,   222.000),
 
-    _elements[87]  = new element("Francium",      "Fr",  87,   223.000);
-    _elements[88]  = new element("Radium",        "Ra",  88,   226.000);
+    new Element("Francium",      "Fr",  87,   223.000),
+    new Element("Radium",        "Ra",  88,   226.000),
 
-    _elements[89]  = new element("Actinium",      "Ac",  89,   227.000);
-    _elements[90]  = new element("Thorium",       "Th",  90,   232.040);
-    _elements[91]  = new element("Protactinium",  "Pa",  91,   231.040);
-    _elements[92]  = new element("Uranium",       "U",   92,   238.030);
-    _elements[93]  = new element("Neptunium",     "Np",  93,   237.000);
-    _elements[94]  = new element("Plutonium",     "Pu",  94,   244.000);
-    _elements[95]  = new element("Americium",     "Am",  95,   243.000);
-    _elements[96]  = new element("Curium",        "Cm",  96,   247.000);
-    _elements[97]  = new element("Berkelium",     "Bk",  97,   247.000);
-    _elements[98]  = new element("Californium",   "Cf",  98,   251.000);
-    _elements[99]  = new element("Einsteinium",   "Es",  99,   252.000);
-    _elements[100] = new element("Fermium",       "Fm",  100,  257.000);
-    _elements[101] = new element("Mendelevium",   "Md",  101,  258.000);
-    _elements[102] = new element("Nobelium",      "No",  102,  259.000);
-    _elements[103] = new element("Lawrencium",    "Lr",  103,  266.000);
+    new Element("Actinium",      "Ac",  89,   227.000),
+    new Element("Thorium",       "Th",  90,   232.040),
+    new Element("Protactinium",  "Pa",  91,   231.040),
+    new Element("Uranium",       "U",   92,   238.030),
+    new Element("Neptunium",     "Np",  93,   237.000),
+    new Element("Plutonium",     "Pu",  94,   244.000),
+    new Element("Americium",     "Am",  95,   243.000),
+    new Element("Curium",        "Cm",  96,   247.000),
+    new Element("Berkelium",     "Bk",  97,   247.000),
+    new Element("Californium",   "Cf",  98,   251.000),
+    new Element("Einsteinium",   "Es",  99,   252.000),
+    new Element("Fermium",       "Fm",  100,  257.000),
+    new Element("Mendelevium",   "Md",  101,  258.000),
+    new Element("Nobelium",      "No",  102,  259.000),
+    new Element("Lawrencium",    "Lr",  103,  266.000),
 
-    _elements[104] = new element("Rutherfordium", "Rf",  104,  267.000);
-    _elements[105] = new element("Dubnium",       "Db",  105,  268.000);
-    _elements[106] = new element("Seaborgium",    "Sg",  106,  269.000);
-    _elements[107] = new element("Bohrium",       "Bh",  107,  270.000);
-    _elements[108] = new element("Hassium",       "Hs",  108,  269.000);
-    _elements[109] = new element("Meitnerium",    "Mt",  109,  278.000);
-    _elements[110] = new element("Darmstadtium",  "Ds",  110,  281.000);
-    _elements[111] = new element("Roentgenium",   "Rg",  111,  282.000);
-    _elements[112] = new element("Copernicium",   "Cn",  112,  285.000);
-    _elements[113] = new element("Nihonium",      "Nh",  113,  286.000);
-    _elements[114] = new element("Flerovium",     "Fl",  114,  289.000);
-    _elements[115] = new element("Moscovium",     "Mc",  115,  290.000);
-    _elements[116] = new element("Livermorium",   "Lv",  116,  293.000);
-    _elements[117] = new element("Tennessine",    "Ts",  117,  294.000);
-    _elements[118] = new element("Oganesson",     "Og",  118,  294.000);
+    new Element("Rutherfordium", "Rf",  104,  267.000),
+    new Element("Dubnium",       "Db",  105,  268.000),
+    new Element("Seaborgium",    "Sg",  106,  269.000),
+    new Element("Bohrium",       "Bh",  107,  270.000),
+    new Element("Hassium",       "Hs",  108,  269.000),
+    new Element("Meitnerium",    "Mt",  109,  278.000),
+    new Element("Darmstadtium",  "Ds",  110,  281.000),
+    new Element("Roentgenium",   "Rg",  111,  282.000),
+    new Element("Copernicium",   "Cn",  112,  285.000),
+    new Element("Nihonium",      "Nh",  113,  286.000),
+    new Element("Flerovium",     "Fl",  114,  289.000),
+    new Element("Moscovium",     "Mc",  115,  290.000),
+    new Element("Livermorium",   "Lv",  116,  293.000),
+    new Element("Tennessine",    "Ts",  117,  294.000),
+    new Element("Oganesson",     "Og",  118,  294.000)
+]);
 
-const elements = Object.freeze(_elements);
-
-const _polyions = [];
-    _polyions[0]  = new element("Ammonium",       "NH₄⁺",     -1,   18.044);
-    _polyions[1]  = new element("Acetate",        "CH₃COO⁻",  -1,   59.044);
-    _polyions[2]  = new element("Bicarbonate",    "HCO₃⁻",    -1,   61.016);
-    _polyions[3]  = new element("Chlorate",       "ClO₃⁻",    -1,   83.451);
-    _polyions[4]  = new element("Cyanide",        "CN⁻",      -1,   26.017);
-    _polyions[5]  = new element("Hydroxide",      "OH⁻",      -1,   17.007);
-    _polyions[6]  = new element("Nitrate",        "NO₃⁻",     -1,   62.004);
-    _polyions[7]  = new element("Nitrite",        "NO₂⁻",     -1,   46.005);
-    _polyions[8]  = new element("Permanganate",   "MnO₄⁻",    -1,   118.937);
-    _polyions[9]  = new element("Carbonate",      "CO₃²⁻",    -1,   60.008);
-    _polyions[10] = new element("Chromate",       "CrO₄²⁻",   -1,   115.994);
-    _polyions[11] = new element("Dichromate",     "Cr₂O₇²⁻",  -1,   215.988);
-    _polyions[12] = new element("Oxalate",        "C₂O₄²⁻",   -1,   88.019);
-    _polyions[13] = new element("Sulfate",        "SO₄²⁻",    -1,   96.062);
-    _polyions[14] = new element("Sulfite",        "SO₃²⁻",    -1,   80.062);
-    _polyions[15] = new element("Phosphate",      "PO₄³⁻",    -1,   94.971);
-    _polyions[16] = new element("Phosphite",      "PO₃³⁻",    -1,   78.972);
-
-const polyions = Object.freeze(_polyions);
+const polyions = Object.freeze([
+    new Element("Ammonium",       "NH₄⁺",     -1,   18.044),
+    new Element("Acetate",        "CH₃COO⁻",  -1,   59.044),
+    new Element("Bicarbonate",    "HCO₃⁻",    -1,   61.016),
+    new Element("Chlorate",       "ClO₃⁻",    -1,   83.451),
+    new Element("Cyanide",        "CN⁻",      -1,   26.017),
+    new Element("Hydroxide",      "OH⁻",      -1,   17.007),
+    new Element("Nitrate",        "NO₃⁻",     -1,   62.004),
+    new Element("Nitrite",        "NO₂⁻",     -1,   46.005),
+    new Element("Permanganate",   "MnO₄⁻",    -1,   118.937),
+    new Element("Carbonate",      "CO₃²⁻",    -1,   60.008),
+    new Element("Chromate",       "CrO₄²⁻",   -1,   115.994),
+    new Element("Dichromate",     "Cr₂O₇²⁻",  -1,   215.988),
+    new Element("Oxalate",        "C₂O₄²⁻",   -1,   88.019),
+    new Element("Sulfate",        "SO₄²⁻",    -1,   96.062),
+    new Element("Sulfite",        "SO₃²⁻",    -1,   80.062),
+    new Element("Phosphate",      "PO₄³⁻",    -1,   94.971),
+    new Element("Phosphite",      "PO₃³⁻",    -1,   78.972)
+]);
 
 const electroPotentials = Object.freeze([
     { name: "Fluorine",             symbol: "F₂",       rxn: "F₂(g) + 2e⁻ ⇌ 2F⁻(aq)",                                       e0: 2.87 },
@@ -1428,68 +1425,85 @@ const physFormulas = [
     }
 ];
 
-class operators {
-    #precedence
-    #binary
-    #unary
+//============================================================================
+// General
+
+class Operators {
+    #registeredOperator
+    #operators
+
     constructor() {
-        this.#precedence = {
-            '(': 1, ')': 1, 
-            '+': 2, '-': 2, 
-            '*': 3, '/': 3, 
-            '^': 4, 
-            'log10': 5, 'ln': 5, 'sin': 5, 'cos': 5, 'tan': 5, 'sec': 5, 'csc': 5, 'cot': 5, 'asin': 5, 'acos': 5, 'atan': 5, 'sqrt': 5, 'abs': 5
-        }   
-        this.#unary = ['log10', 'ln', 'sin', 'cos', 'tan', 'sec', 'csc', 'cot', 'asin', 'acos', 'atan', 'sqrt', 'abs'];
-        this.#binary = ['+', '-', '*', '/', '^'];
+        const createOp = (name, precedence, operandCount, isArithOperator, JSmethod) => {
+            let operator = {
+                name: name, 
+                precedence: precedence, 
+                operandCount: operandCount,
+                isArithOperator: isArithOperator, 
+                JSmap: JSmethod
+            }; 
+            Object.freeze(operator);
+            return operator
+        }
+
+        this.#operators = {
+            '(':    createOp('(',       1, null,    false,  null), 
+            ')':    createOp(')',       1, null,    false,  null), 
+
+            '+':    createOp('+',       2, 2,       true,   (left, right) => left + right), 
+            '-':    createOp('-',       2, 2,       true,   (left, right) => left - right), 
+
+            '*':    createOp('*',       3, 2,       true,   (left, right) => left * right), 
+            '/':    createOp('/',       3, 2,       true,   (left, right) => left / right), 
+
+            '^':    createOp('^',       4, 2,       true,   (left, right) => Math.pow(left, right)), 
+            'sqrt': createOp('sqrt',    5, 1,       true,   (arg) => Math.sqrt(arg)),
+
+            'abs':  createOp('abs',     5, 1,       true,   (arg) => Math.abs(arg)),
+
+            'log10':createOp('log10',   5, 1,       true,   (arg) => Math.log10(arg)),  
+            'ln':   createOp('ln',      5, 1,       true,   (arg) => Math.log(arg)), 
+
+            'sin':  createOp('sin',     5, 1,       true,   (arg) => Math.sin(arg)),
+            'cos':  createOp('cos',     5, 1,       true,   (arg) => Math.cos(arg)), 
+            'tan':  createOp('tan',     5, 1,       true,   (arg) => Math.tan(arg)), 
+            'sec':  createOp('sec',     5, 1,       true,   (arg) => 1/Math.cos(arg)), 
+            'csc':  createOp('csc',     5, 1,       true,   (arg) => 1/Math.sin(arg)), 
+            'cot':  createOp('cot',     5, 1,       true,   (arg) => 1/Math.tan(arg)), 
+            'asin': createOp('asin',    5, 1,       true,   (arg) => Math.asin(arg)), 
+            'acos': createOp('acos',    5, 1,       true,   (arg) => Math.acos(arg)),
+            'atan': createOp('atan',    5, 1,       true,   (arg) => Math.atan(arg)), 
+        }
+
+        this.#registeredOperator = Object.keys(this.#operators);
+
+        Object.freeze(this.#operators);
+        Object.freeze(this.#registeredOperator);
     }
 
-    precedence(operator) { return this.#precedence[operator];}
-    isOperator(operator) { return this.#precedence.hasOwnProperty(operator); }
-    isBinary(operator) { return this.#binary.includes(operator); }
-    isUnary(operator) { return this.#unary.includes(operator); }
-    eval(a, operator, b = undefined) {
-        if (!this.isOperator(operator)) return null;
+    isOperator(operator) { return this.#registeredOperator.includes(operator); }
+    isArithOperator(operator) { return (this.#registeredOperator.includes(operator) && this.#operators[operator].isArithOperator); }
+    isBinary(operator) { return (this.#registeredOperator.includes(operator) && this.#operators[operator].operandCount === 2); }
+    isUnary(operator) { return (this.#registeredOperator.includes(operator) && this.#operators[operator].operandCount === 1); }
 
-        if (this.isBinary(operator)) {
-            if (a === undefined || b === undefined || operator === undefined) return null;
-
-            let result = null;
-            switch (operator) {
-                case '+': result = a + b; break;
-                case '-': result = a - b; break;
-                case '*': result = a * b; break;
-                case '/': result = a / b; break;
-                case '^': result = Math.pow(a, b); break;
-                default: break;
-            }
-            if (!isNum(result) || !isFinite(result) || result === null) return null;
-            else return result;
-        }
-        else if (this.isUnary(operator)) {
-            if (a === undefined || operator === undefined) return null;
-
-            let result = null;
-            switch (operator) {
-                case 'log10':   result = Math.log10(a); break;
-                case 'ln':      result = Math.log(a); break;
-                case 'sin':     result = Math.sin(a); break;
-                case 'cos':     result = Math.cos(a); break;
-                case 'tan':     result = Math.tan(a); break;
-                case 'sec':     result = 1/Math.cos(a); break;
-                case 'csc':     result = 1/Math.sin(a); break;
-                case 'cot':     result = 1/Math.tan(a); break;
-                case 'asin':    result = Math.asin(a); break;
-                case 'acos':    result = Math.acos(a); break;
-                case 'atan':    result = Math.atan(a); break;
-                case 'sqrt':    result = Math.sqrt(a); break;
-                case 'abs':     result = Math.abs(a); break;
-                default: break;
-            }
-            if (!isNum(result) || !isFinite(result) || result === null) return null;
-            else return result
-        }
+    precedence(operator) { 
+        if (this.#registeredOperator.includes(operator)) return this.#operators[operator].precedence; 
         else return null;
+    }
+
+    eval(a, operator, b = null) {
+        if (a === null || operator === null) return null;
+
+        if (!(this.#registeredOperator.includes(operator) && this.#operators[operator].isArithOperator)) return null;
+
+        if (this.#operators[operator].operandCount !== 1 && this.#operators[operator].operandCount !== 2) return null;
+        if (this.#operators[operator].operandCount === 2 &&  b === null) return null;
+        
+        let result = (this.#operators[operator].operandCount === 2)? 
+            this.#operators[operator].JSmap(a, b):
+            this.#operators[operator].JSmap(a);
+            
+        if (!isNum(result) || !isFinite(result)) return null;
+        else return result
     }
 }
 
@@ -1758,6 +1772,9 @@ class viridisPlot {
         ];
         
         this.#samplesNumber = this.#colors.length;
+        
+        Object.freeze(this.#colors);
+        Object.freeze(this.#samplesNumber);
     } 
     
     getRGB(index) {
