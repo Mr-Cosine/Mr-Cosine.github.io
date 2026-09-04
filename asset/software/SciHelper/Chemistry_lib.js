@@ -386,6 +386,7 @@ function createFnBtn_chem(name, symbol, color, id, outputLoc, state_chem) {
 
     // Use 'name' from arguments
     var labelSpan = document.createElement('span');
+    labelSpan.setAttribute('class', 'sci-chem-btn-label');
     labelSpan.textContent = name;
         
     var symbolSpan = document.createElement('span');

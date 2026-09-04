@@ -19,7 +19,7 @@
         }
 
     </style>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="scihelper_demo.css">
     
     <link rel="stylesheet" href="asset/software/SciHelper/katex/katex.min.css">
     <link rel="stylesheet" href="asset/software/SciHelper/style.css">
@@ -63,9 +63,25 @@
         while (!restoreBtn && loopCount <= MAX_TRY);
     }
 
-        const observer = new MutationObserver(mutations => {
+        const SCI_IMG_BASE = 'asset/software/SciHelper/';
+
+    function fixImagePaths(root) {
+        const imgs = root.matches && root.matches('img') ? [root] : [];
+        if (root.querySelectorAll) imgs.push(...root.querySelectorAll('img'));
+        imgs.forEach(img => {
+            const src = img.getAttribute('src');
+            if (src && src.startsWith('img/')) {
+                img.setAttribute('src', SCI_IMG_BASE + src);
+            }
+        });
+    }
+
+    const observer = new MutationObserver(mutations => {
         mutations.forEach(m => {
             m.addedNodes.forEach(node => {
+                if (node.nodeType === 1) {
+                    fixImagePaths(node);
+                }
                 if (node.nodeType === 1 && node.parentNode === document.body) {
                     if (node.id && node.id.startsWith('sci-')) {
                         demoArea.appendChild(node);
@@ -74,7 +90,7 @@
             });
         });
     });
-    observer.observe(document.body, { childList: true });
+    observer.observe(document.body, { childList: true, subtree: true });
 
     function createBrowser() {
         window.browser = {

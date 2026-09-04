@@ -469,6 +469,7 @@ function createFnBtn_gen(name, symbol, color, id, outputLoc, state_gen) {
     btn.color = color;
 
     var labelSpan = document.createElement('span');
+    labelSpan.setAttribute('class', 'sci-gen-btn-label');
     labelSpan.textContent = name;
         
     var symbolSpan = document.createElement('span');

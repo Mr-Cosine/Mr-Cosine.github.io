@@ -169,6 +169,7 @@ body {
     font-size: clamp(3rem, 4vw, 5rem);
     font-weight: 800;
     margin: 0;
+    text-transform: uppercase;
 }
 
 .text p {
@@ -293,6 +294,7 @@ body {
     color: black; 
     margin-top: 0;
     margin-bottom: 20px;
+    text-transform: uppercase;
 } 
 
 .content h2 { 
@@ -302,6 +304,7 @@ body {
     color: black; 
     margin-bottom: 0px;
     height: auto;
+    text-transform: uppercase;
 } 
 
 .content hr {
@@ -430,7 +433,6 @@ model-viewer.media-window {
     border-radius: 6px;
     cursor: pointer;
     transition: 0.2s ease;
-    gap:15px;
     z-index: 9999;
     align-items: center;
 }
@@ -440,7 +442,7 @@ model-viewer.media-window {
 }
 
 .Btnicon{
-    height:80%;
+    height:24px;
     width: auto;
 }
 

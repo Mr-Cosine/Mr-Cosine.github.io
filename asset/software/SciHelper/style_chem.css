@@ -11,6 +11,27 @@
     --alert: #ff4d4d;
 }
 
+/* --- Font Import --- */
+@font-face {
+    font-family: 'Monsterrat';
+    src: url('fonts/Montserrat/Montserrat-Regular.ttf') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Monsterrat';
+    src: url('fonts/Montserrat/Montserrat-Bold.ttf') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Monsterrat', sans-serif;
+    color: #444;
+}
+
+
 /*===========================================================================================================================*/
 /* --- The Chemistry Toolbox Styling --- */
 #sci-chem {
@@ -49,6 +70,11 @@
     align-items: center;
     transition: background 0.2s;
     font-size: 14px;
+}
+
+.sci-chem-btn-label {
+    flex: 1;
+    text-align: left;
 }
 
 .sci-chem-btn-symbol {

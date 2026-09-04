@@ -1,0 +1,44 @@
+#demo-banner {
+    background: #4a90e2;
+    color: white;
+    padding: 24px 12px;
+    font-size: 18px;
+    writing-mode: vertical-rl;
+    display: flex;
+    letter-spacing: 1px;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 8px 0 0 8px;
+}
+
+#demo-area {
+    display: grid;
+    flex: 1;
+    min-width: none;
+    position: relative;
+    overflow: hidden;
+    color: #ccc;
+    place-items: center;
+    font-size: clamp(0.8rem, 2vw, 1.2rem);
+    text-align: center;
+    font-weight: 600;
+    padding: 10px;
+}
+
+#demo-area #sci-mainpanel,
+#demo-area #sci-restore-btn,
+#demo-area #sci-chempanel,
+#demo-area #sci-genpanel,
+#demo-area #sci-chempanel-elesearch,
+#demo-area #sci-chempanel-molcalc,
+#demo-area #sci-chempanel-limcalc,
+#demo-area #sci-chempanel-elecchem,
+#demo-area #sci-genpanel-poly,
+#demo-area #sci-infopanel,
+#demo-area #sci-infopanel-contentpage { position: absolute !important; }
+
+#demo-area #sci-restore-btn {
+    bottom: 20px;
+    right: 20px;
+}

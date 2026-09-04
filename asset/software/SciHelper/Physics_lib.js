@@ -122,6 +122,7 @@ function createFnBtn_phys(name, symbol, color, id, outputLoc, state_phys) {
     btn.color = color;
 
     var labelSpan = document.createElement('span');
+    labelSpan.setAttribute('class', 'sci-phys-btn-label');
     labelSpan.textContent = name;
         
     var symbolSpan = document.createElement('span');
