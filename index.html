@@ -215,16 +215,11 @@
                 </div>
 
                 <div class="content-right">
+                    <link rel="stylesheet" href="scihelper_demo.css">
                     <div id="demo-banner">
-                        <strong>Demo</strong><br>
+                        <strong>Demo</strong>
                     </div>
-                    <iframe 
-                        src="iframeDemo.html"
-                        width= "80%"
-                        height= "480px"
-                        style="border: 1px solid #bbb; border-radius: 0 8px 8px 0;"
-                        title="SciHelper Live Demo">
-                    </iframe>
+                    <iframe id="demo" src="scihelper_demo.html" title="SciHelper Live Demo"></iframe>
                 </div>
             </div>
 
@@ -243,7 +238,33 @@
                 </div>
 
                 <div class="content-right">
+                    <link rel="stylesheet" href="pdfmarker-demo.css">
+                    <div class="pm-demo">
+                        <div class="pm-demo__pane" id="pmPane"></div>
+                        <div class="pm-demo__ui">
+                            <iframe id="pmFrame" src="asset/software/PDFMarker/User_Interface/UI.html" title="PDF Marker interface"
+                                    scrolling="no" loading="lazy"></iframe>
+                        </div>
+                    </div>
                 </div>
+                <script src="pdfmarker-demo.js"></script>
+                    <script src="pdfmarker-demo-bridge.js"></script>
+                    <script>
+                    var pmDemo = PDFMarkerDemo.create({
+                        mount: '#pmPane',
+                        dataDir: 'pdfmarker-demo-data'
+                    });
+                    PDFMarkerBridge.connect({
+                        frame: '#pmFrame',
+                        demo: pmDemo,
+                        uiZoom: 0.7,
+                        defaults: {
+                            model: 'tesseractOCR',
+                            dpi: 180,
+                            leniency: 1.3, leniencyMin: 0.7, leniencyMax: 2.2, leniencyStep: 0.05
+                        }
+                    });
+                </script>
             </div>
         </div>
     </div>
