@@ -42,6 +42,12 @@
 .pm-demo {
   display: flex;
   flex-direction: column;
+  /* Fill the media column like the other demos. Without this it is a
+     flex item with grow:0, so it collapses to the iframe's 300px
+     intrinsic width and sits centred, narrower than every other card. */
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
   gap: 20px;
   padding: 20px;
   background: var(--surface-alt, #f4f3f7);
