@@ -302,7 +302,8 @@
     }
 
     function peek(text) {
-      els.peek.textContent = text ? '“' + text.slice(0, 120) + (text.length > 120 ? '…' : '') + '”' : '';
+      const max_length = 300;
+      els.peek.textContent = text ? '«' + text.slice(0, max_length) + (text.length > max_length ? '…' : '') + '»' : '';
       if (els.peek.textContent.length > 0) {
         readout.style.display = "flex";
       }
