@@ -1,0 +1,78 @@
+{
+  "source": "pdf_demo.pdf",
+  "pages": 1,
+  "dpis": [
+    150,
+    180,
+    240,
+    270,
+    300
+  ],
+  "models": [
+    "tesseractOCR",
+    "paddleOCR"
+  ],
+  "sets": [
+    {
+      "model": "tesseractOCR",
+      "dpi": 150,
+      "page": 0,
+      "file": "tesseractOCR@150_p0.json"
+    },
+    {
+      "model": "paddleOCR",
+      "dpi": 150,
+      "page": 0,
+      "file": "paddleOCR@150_p0.json"
+    },
+    {
+      "model": "tesseractOCR",
+      "dpi": 180,
+      "page": 0,
+      "file": "tesseractOCR@180_p0.json"
+    },
+    {
+      "model": "paddleOCR",
+      "dpi": 180,
+      "page": 0,
+      "file": "paddleOCR@180_p0.json"
+    },
+    {
+      "model": "tesseractOCR",
+      "dpi": 240,
+      "page": 0,
+      "file": "tesseractOCR@240_p0.json"
+    },
+    {
+      "model": "paddleOCR",
+      "dpi": 240,
+      "page": 0,
+      "file": "paddleOCR@240_p0.json"
+    },
+    {
+      "model": "tesseractOCR",
+      "dpi": 270,
+      "page": 0,
+      "file": "tesseractOCR@270_p0.json"
+    },
+    {
+      "model": "paddleOCR",
+      "dpi": 270,
+      "page": 0,
+      "file": "paddleOCR@270_p0.json"
+    },
+    {
+      "model": "tesseractOCR",
+      "dpi": 300,
+      "page": 0,
+      "file": "tesseractOCR@300_p0.json"
+    },
+    {
+      "model": "paddleOCR",
+      "dpi": 300,
+      "page": 0,
+      "file": "paddleOCR@300_p0.json"
+    }
+  ],
+  "image": "page0.jpg"
+}

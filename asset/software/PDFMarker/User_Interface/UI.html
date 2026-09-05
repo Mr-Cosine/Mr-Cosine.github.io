@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css">
+    <title>PDF Marker</title>
+</head>
+<body>
+    <div class="app-container">
+        <h1>PDF MARKING UTIL</h1>
+
+        <div class="settings">
+            <div class="setting-section" id="basic-setting">
+                <label for="basic-setting">Basic Settings :</label>
+                <div class="setting-group">
+                    <label for="keywordInput">Keyword:</label>
+                    <input type="text" id="keywordInput" value="demo"></input>
+                    <small> (The keyword that is going to be matched and circled)</small>
+                </div>
+                <div class="setting-group">
+                    <label for="outputDirInput">Output Directory:</label>
+                    <input type="text" id="outputDirInput" placeholder="Select output directory" readonly></input>
+                    <button type="button" id="selectOutputDirBtn">📁</button>
+                    <small> (The folder which processed pdf file will be saved)</small>
+                </div>
+                <div class="setting-group">
+                    <label for="outputNameInput">Output File Name:</label>
+                    <input type="text" id="outputNameInput" placeholder="Enter output file name" value="MarkedPDF"></input>
+                    <small> (The name of processed pdf file)</small>
+                </div>
+            </div>
+
+            <div class="setting-section hidden" id="advanced-setting">
+                <label for="advanced-setting">Advanced Settings :</label>
+                <div class="setting-group">
+                    <label for="capitalToggle">Case-sensitive:</label>
+                    <input type="checkbox" id="capitalToggle" unchecked></input>
+                    <small> (Matches the capital letter or not)</small>
+                </div>
+                <div class="setting-group">
+                    <label for="modelSelect">OCRmodel:</label>
+                    <select id="modelSelect">
+                        <option value="tesseractOCR">tesseractOCR</option>
+                        <option value="paddleOCR">paddleOCR</option>    
+                    </select>
+                    <small> (PaddleOCR has better accuracy but significantly slower)</small>
+                </div>
+                <div class="setting-group">
+                    <label for="resToggle">Resolution of OCR</label>
+                    <div class="range-wrapper">
+                        <input type="range" id="resToggle" value="180" min="150" max="300" step="10" size="3"/>
+                        <input type="number" id="resInput" value="180" min="150" max="300" step="10" size="3"/>
+                    </div>
+                    <small> (Higher resolution = more accurate for smaller fonts but slower)</small>
+                </div>
+                <div class="setting-group">
+                    <label for="leniencyInput">Parsing leniency:</label>
+                    <input type="number" id="leniencyInput" value="1" min="0.5" max="5" step="0.1"></input>
+                    <small> (Higher value = easier to group lines into paragraphs. Adjust based on how sparse the content is. Recommended: 0.9-1.2)</small>
+                </div>
+            </div>
+
+            <button type="button" id="expandSetting" class="expand-setting">
+                <label>
+                    <img src="./resources/images/down-arrow.svg" alt="ᐯ" id="arrow-down"></img>
+                    <img src="./resources/images/up-arrow.svg" alt="ᐱ" class="hidden" id="arrow-up"></img>
+                </label>
+                <span id="expand-setting-text"></span>
+            </button>
+        </div>
+
+        <div class="file-select">
+            <label>Select Files ➔</label>
+            <button type="button" id="fileInput">📁</button>
+        </div>
+
+        <div class="file-list-wrapper">
+            <div class="file-list-header">
+                <span>Selected Files</span>
+                <span id="orderHint">Click up/down button to sort</span>
+            </div>
+            <ul class="file-list" id="fileList">
+                <li class="empty-message">No files selected</li>
+            </ul>
+        </div>
+
+        <div class="action-row">
+            <button class="btn-mark" id="markBtn">Annotate PDF</button>
+        </div>
+
+        <div id="statusBar" class="status-bar hidden">
+            <span id="statusText" class="status-text"></span>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

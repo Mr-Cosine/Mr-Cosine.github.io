@@ -9,7 +9,7 @@
     justify-content: space-between;
     align-items: center;
     flex-shrink: 0;
-    border-radius: 8px 0 0 8px;
+    border-radius: 14px 0 0 14px;
 }
 
 #demo-area {
@@ -24,6 +24,13 @@
     text-align: center;
     font-weight: 600;
     padding: 10px;
+}
+
+#demo {
+    flex: 1;
+    height: 540px;
+    border: 1px solid #bbb; 
+    border-radius: 0 14px 14px 0;
 }
 
 #demo-area #sci-mainpanel,
