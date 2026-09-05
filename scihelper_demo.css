@@ -1,15 +1,17 @@
 #demo-banner {
-    background: #4a90e2;
+    background: var(--ink, #161420);
     color: white;
-    padding: 24px 12px;
-    font-size: 18px;
+    padding: 24px 14px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
     writing-mode: vertical-rl;
     display: flex;
-    letter-spacing: 1px;
-    justify-content: space-between;
+    letter-spacing: 0.12em;
+    justify-content: center;
     align-items: center;
     flex-shrink: 0;
-    border-radius: 14px 0 0 14px;
+    border-radius: var(--radius, 18px) 0 0 var(--radius, 18px);
 }
 
 #demo-area {
@@ -18,7 +20,7 @@
     min-width: none;
     position: relative;
     overflow: hidden;
-    color: #ccc;
+    color: var(--muted, #837e95);
     place-items: center;
     font-size: clamp(0.8rem, 2vw, 1.2rem);
     text-align: center;
@@ -29,8 +31,10 @@
 #demo {
     flex: 1;
     height: 540px;
-    border: 1px solid #bbb; 
-    border-radius: 0 14px 14px 0;
+    background: #fff;
+    border: 1px solid var(--line, rgba(22, 20, 32, 0.10));
+    border-left: none;
+    border-radius: 0 var(--radius, 18px) var(--radius, 18px) 0;
 }
 
 #demo-area #sci-mainpanel,

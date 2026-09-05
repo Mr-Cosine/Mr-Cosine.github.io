@@ -3,30 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jiaqi (Andy) Sun — Biomedical Engineering student at the University of Waterloo. Mechanical design, embedded systems, and software projects.">
+    <meta name="theme-color" content="#161420">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <script src="reveal.js"></script>
 
     <title>Jiaqi Sun</title>
 </head>
-
-<script src="secret.js"></script>
-<script src="findme.js"></script>
-<script type="module" src="modelviewer.js"></script>
-<script src="camerareturn.js"></script>
-<script src="optimization.js"></script>
-<script src="toggleView.js"></script>
 
 <body>
     <div class="aboutme">
         <div class="nametag">JIAQI (ANDY) SUN</div>
         <div class="separator"></div>
         <div class="findme">
-            <div id="contact">FIND ME AT:</div>
+            <div id="contact">FIND ME AT</div>
             <div id="contact-list">
                 <ul>
-                    <li><a href="mailto:a95sun@uwaterloo.ca">Email: a95sun@uwaterloo.ca</a></li> 
-                    <li><a href="https://www.linkedin.com/in/jiaqi-sun-472053359/">LinkedIn: www.linkedin.com/in/jiaqi-sun-472053359</a></li> 
+                    <li><a href="mailto:a95sun@uwaterloo.ca">Email: a95sun@uwaterloo.ca</a></li>
+                    <li><a href="https://www.linkedin.com/in/jiaqi-sun-472053359/">LinkedIn: www.linkedin.com/in/jiaqi-sun-472053359</a></li>
                     <li><a href="https://github.com/Mr-Cosine">GitHub: github.com/Mr-Cosine</a></li>
                     <li><a href="https://www.instagram.com/bot_no.0721/">Instagram: instagram.com/bot_no.0721</a></li>
                     <li><a href="https://www.facebook.com/andy.sun.792">Facebook: facebook.com/andy.sun.792</a></li>
@@ -41,8 +40,8 @@
     <div class="header">
         <div class = "text">
             <h1>
-                HI THERE, I AM 
-                <span style="color: #6babff;"><span class = "clickable">ANDY</span></span>
+                HI THERE, I AM
+                <span class="clickable">ANDY</span>
             </h1>
             <hr>
                 <p>
@@ -52,25 +51,25 @@
                     to browser extensions and interactive web experiences.
                 </p>
         </div>
-        <button class="scroll-button" onclick="document.querySelector('.projects').scrollIntoView({ behavior: 'smooth' })">   
+        <button class="scroll-button" aria-label="Scroll to projects" onclick="document.querySelector('.projects').scrollIntoView({ behavior: 'smooth' })">
         </button>
 
-        <img src="asset/images/myimage.jpg" class="myimg">
+        <img src="asset/images/myimage.jpg" class="myimg" alt="Portrait of Jiaqi (Andy) Sun">
     </div>
 
     <div class="content">
         <div class="values">
-            <div class="value-item">
+            <div class="value-item reveal">
                 <h3>I Build Things</h3>
                 <p>Hardware, software, and everything in between — I take ideas from concept to physical or functional reality.</p>
             </div>
-            
-            <div class="value-item">
+
+            <div class="value-item reveal">
                 <h3>I Learn Fast</h3>
                 <p>Every project here required tools and knowledge I did not have when I started. I close skill gaps independently and quickly.</p>
             </div>
 
-            <div class="value-item">
+            <div class="value-item reveal">
                 <h3>I Ship</h3>
                 <p>A published extension. Validated prototypes. I follow through from first sketch to working deliverable.</p>
             </div>
@@ -78,19 +77,19 @@
 
         <div class="projects">
             <h1>PROJECTS</h1>
-            
+
             <h2>INTEGRATED</h2>
             <hr>
-            <div class="project-container">
+            <div class="project-container reveal">
                 <div class="content-left">
                     <h3>Wearable Exoskeleton System for Grip Assistance</h3>
                     <div class="project-meta">2025 &nbsp;·&nbsp; Personal & Team</div>
-                    
+
                     <p><strong>Problem:</strong> Users with limited grip strength lack affordable, accessible assistive devices —
                     existing solutions are either too expensive, too bulky, or not customizable to individual anatomy.</p>
 
                     <p><strong>Solution:</strong> Led mechanical design within a multidisciplinary team to build a 3D-printed
-                    wearable exoskeleton from scratch — integrating motors, batteries, and cable routing with the mechanical assembly. 
+                    wearable exoskeleton from scratch — integrating motors, batteries, and cable routing with the mechanical assembly.
                     Iterated through 9 prototype cycles balancing comfort, performance , then validated with a breadboard Arduino control circuit.</p>
 
                     <p><strong>Outcome:</strong> Delivered a functional prototype meeting all design targets, and comfortable continuous wear — on a minimal budget within $300.</p>
@@ -100,26 +99,26 @@
                 </div>
 
                 <div class="content-right" id = "integrated">
-                    <model-viewer 
-                        src="asset/models/hand.glb" 
-                        class="media-window" 
+                    <model-viewer
+                        src="asset/models/hand.glb"
+                        class="media-window"
                         orientation="0deg 0deg 0deg"
                         exposure="0.8"
                         shadow-intensity="5"
                         shadow-softness="0.8"
-                        camera-controls 
+                        camera-controls
                         camera-orbit = "45deg 45deg 1m"
                         data-default-orbit = "45deg 45deg 1m"
                         auto-rotate
                         auto-rotate-delay="2000"
-                        alt="Hand Exoskeleton 3D Model">          
+                        alt="Hand Exoskeleton 3D Model">
                     </model-viewer>
 
                     <div id = "integrated-prototype">
                         <div id = "prototype-banner">First Cycle - Functionality Testing</div>
-            
-                        <img 
-                        src="asset/images/exoskeleton prototype.gif" 
+
+                        <img
+                        src="asset/images/exoskeleton prototype.gif"
                         id ="prototype-gif"
                         alt="Exoskeleton prototype functionality testing, using Arduino">
                     </div>
@@ -128,20 +127,20 @@
 
             <h2>MECHANICAL DESIGN</h2>
             <hr>
-            <div class="project-container">
+            <div class="project-container reveal">
                 <div class="content-left">
                     <h3>Bolt-Action Rifle</h3>
                     <div class="project-meta">2025 &nbsp;·&nbsp; Personal</div>
 
                     <p>
-                        Designed a functioning bolt-action rifle, constructed a complete internal structure from scratch without any reference. 
+                        Designed a functioning bolt-action rifle, constructed a complete internal structure from scratch without any reference.
                         Ensures mechanical functionality, structure rigidity and manufacturability.
                     </p>
 
                 </div>
 
                 <div class="content-right">
-                    <model-viewer 
+                    <model-viewer
                         id="rifle"
                         src="asset/models/rifle.glb"
                         class="media-window"
@@ -149,7 +148,7 @@
                         exposure="0.8"
                         shadow-intensity="5"
                         shadow-softness="0.8"
-                        camera-controls 
+                        camera-controls
                         camera-orbit="0deg 60deg 1m"
                         data-default-orbit="0deg 60deg 1m"
                         auto-rotate
@@ -157,13 +156,13 @@
                         alt="Bolt-Action Rifle 3D Model">
                         <button title="Change to Exploded View" id="toggleViewBtn" class="toggleViewBtn">
                             <div>DISPLAY:</div>
-                            <img id="toggleViewBtn" class="Btnicon" src="asset/images/normal view icon.png">
+                            <img id="toggleViewBtn" class="Btnicon" src="asset/images/normal view icon.png" alt="">
                         </button>
                     </model-viewer>
                 </div>
             </div>
 
-            <div class="project-container">
+            <div class="project-container reveal">
                 <div class="content-left">
                     <h3>
                         SolidWorks Aesthetic Model — <br>
@@ -172,26 +171,26 @@
                     <div class="project-meta">2026 &nbsp;·&nbsp; Academic, Personal</div>
 
                     <p>
-                        Designed a detailed aesthetic model of the Renault FT‑17 WWI tank in SolidWorks, 
-                        focusing on aesthetic fidelity. The model includes intricate details such as the turret, tracks, and body features. 
+                        Designed a detailed aesthetic model of the Renault FT‑17 WWI tank in SolidWorks,
+                        focusing on aesthetic fidelity. The model includes intricate details such as the turret, tracks, and body features.
                         (Includes some interpretations due to insufficient reference materials)
                     </p>
                 </div>
 
                 <div class="content-right">
-                    <model-viewer 
-                        src="asset/models/tank.glb" 
-                        class="media-window" 
+                    <model-viewer
+                        src="asset/models/tank.glb"
+                        class="media-window"
                         orientation="0deg 90deg 0deg"
                         exposure="0.6"
                         shadow-intensity="10"
                         shadow-softness="0.8"
-                        camera-controls 
+                        camera-controls
                         camera-orbit = "315deg 70deg 200m"
                         data-default-orbit = "315deg 70deg 100m"
                         auto-rotate
                         auto-rotate-delay="2000"
-                        alt="Renault FT‑17 Tank 3D Model">          
+                        alt="Renault FT‑17 Tank 3D Model">
                     </model-viewer>
                 </div>
             </div>
@@ -199,7 +198,7 @@
             <h2>SOFTWARE DEVELOPING</h2>
             <hr>
 
-            <div class="project-container">
+            <div class="project-container reveal">
                 <div class="content-left">
                     <h3>Sci-Helper: Integrated Highschool Science Writing Utilities</h3>
                     <div class="project-meta">2026 &nbsp;·&nbsp; Personal</div>
@@ -211,7 +210,7 @@
                     and shipped a ready to go simplistic Firefox extension that is easy to install and use.</p>
 
                     <p><strong>Skills demonstrated:</strong> Self-directed learning, UI/UX design, JavaScript development.</p>
-                    <a href="https://addons.mozilla.org/en-US/firefox/addon/sci-helper">Download and try the addon</a>
+                    <a class="btn-link" href="https://addons.mozilla.org/en-US/firefox/addon/sci-helper">Download and try the addon</a>
                 </div>
 
                 <div class="content-right">
@@ -223,14 +222,14 @@
                 </div>
             </div>
 
-            <div class="project-container">
+            <div class="project-container reveal">
                 <div class="content-left">
                     <h3>PDF Marker: PDF batch merging & keyword tagging tool</h3>
                     <div class="project-meta">2026 &nbsp;·&nbsp; Work</div>
 
                     <p><strong>Problem aiming to address:</strong> My work includes marking the related fields in PDF documents that needs to be reviewed to gain approve of production. However, the pdf are usually long and dense in text, making it hard to identify the related fields.</p>
 
-                    <p><strong>Solution:</strong> Found that related fields often contains a certain keyword, thus developed a desktop application that 
+                    <p><strong>Solution:</strong> Found that related fields often contains a certain keyword, thus developed a desktop application that
                     identifies text lines on both digital and scanned pdfs, clusters lines into blocks, and highlights those with keyword for easier identification later on.
                     </p>
 
@@ -248,13 +247,13 @@
                     </div>
                 </div>
                 <script src="pdfmarker-demo.js"></script>
-                    <script src="pdfmarker-demo-bridge.js"></script>
-                    <script>
+                <script src="pdfmarker-booter.js"></script>
+                <script>
                     var pmDemo = PDFMarkerDemo.create({
                         mount: '#pmPane',
                         dataDir: 'pdfmarker-demo-data'
                     });
-                    PDFMarkerBridge.connect({
+                    bootDemo({
                         frame: '#pmFrame',
                         demo: pmDemo,
                         uiZoom: 0.7,
@@ -268,6 +267,27 @@
             </div>
         </div>
     </div>
+
+    <footer class="site-footer">
+        <h2>Let's build something.</h2>
+        <p>I'm looking for co-op roles in mechanical design, embedded systems, or software development.</p>
+
+        <div class="footer-links">
+            <a href="mailto:a95sun@uwaterloo.ca">Email</a>
+            <a href="https://www.linkedin.com/in/jiaqi-sun-472053359/">LinkedIn</a>
+            <a href="https://github.com/Mr-Cosine">GitHub</a>
+            <a href="https://www.instagram.com/bot_no.0721/">Instagram</a>
+            <a href="https://space.bilibili.com/526016800">Bilibili</a>
+        </div>
+
+        <p class="footer-note">© 2026 Jiaqi (Andy) Sun — designed and built from scratch.</p>
+    </footer>
+
+    <script src="secret.js" defer></script>
+    <script src="findme.js" defer></script>
+    <script type="module" src="modelviewer.js"></script>
+    <script src="camerareturn.js" defer></script>
+    <script src="optimization.js" defer></script>
+    <script src="toggleView.js" defer></script>
 </body>
 </html>
-
