@@ -228,7 +228,7 @@
                     <h3>PDF Marker: PDF batch merging & keyword tagging tool</h3>
                     <div class="project-meta">2026 &nbsp;·&nbsp; Work</div>
 
-                    <p><strong>Problem aiming to address:</strong> My work includes marking the related fields in PDF documents that needs to be reviewed to gain approve of production. However, the pdf are usually long and dense in text, making it hard to identify the related fields.</p>
+                    <p><strong>Problem aiming to address:</strong> My co-op job in Vallourec includes marking the related fields in PDF documents that needs to be reviewed to gain approve of production. However, the pdf are usually long and dense in text, making it hard to identify the related fields.</p>
 
                     <p><strong>Solution:</strong> Found that related fields often contains a certain keyword, thus developed a desktop application that
                     identifies text lines on both digital and scanned pdfs, clusters lines into blocks, and highlights those with keyword for easier identification later on.
@@ -241,6 +241,13 @@
                     <link rel="stylesheet" href="pdfmarker-demo.css">
                     <div class="pm-demo">
                         <div class="pm-demo__pane" id="pmPane"></div>
+                        <div class="pm-demo__legend">
+                            <strong>Legend</strong>
+                            <div class="pm-demo__legend-entry"><div class="color-block" id="blue"></div><span>Text region detected by OCR</span></div>
+                            <div class="pm-demo__legend-entry"><div class="color-block" id="red"></div><span>Keyword matched in paragraph</span></div>
+                            <div class="pm-demo__legend-entry"><div class="color-block" id="green"></div><span>Keyword abscent in paragraph</span></div>
+                        </div>
+                        <small>File selection and annotation is disabled for demo<small>
                         <div class="pm-demo__ui">
                             <iframe id="pmFrame" src="asset/software/PDFMarker/User_Interface/UI.html" title="PDF Marker interface"
                                     scrolling="no" loading="lazy"></iframe>
@@ -271,7 +278,7 @@
 
     <footer class="site-footer">
         <h2>Let's build something.</h2>
-        <p>I'm looking for co-op roles in mechanical design, embedded systems, or software development.</p>
+        <p>I'm willing to contribute my effort to something that could make a change to the world.</p>
 
         <div class="footer-links">
             <a href="mailto:a95sun@uwaterloo.ca">Email</a>
@@ -281,7 +288,7 @@
             <a href="https://space.bilibili.com/526016800">Bilibili</a>
         </div>
 
-        <p class="footer-note">© 2026 Jiaqi (Andy) Sun — designed and built from scratch.</p>
+        <p class="footer-note">© 2026 Jiaqi (Andy) Sun</p>
     </footer>
 
     <script src="secret.js" defer></script>

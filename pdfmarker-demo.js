@@ -238,7 +238,7 @@
       let w = payload.image_width, h = payload.image_height;
       if (w && h) els.svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
 
-      let img = (state.manifest && state.manifest.image) || payload.image;
+      let img = (state.manifest && state.manifest.sets.find(entry => entry.dpi === state.dpi).image) || payload.image;
       if (img) {
         let src = dataDir + '/' + img;
         if (els.img.getAttribute('src') !== src) els.img.setAttribute('src', src);
