@@ -19,7 +19,7 @@
             });
 
     // --- Expand or Collapse Settings
-    let expandedSettings = true;
+    let expandedSettings = false;
     function updateExpandButton() {
         const arrowDown = document.getElementById('arrow-down');
         const arrowUp = document.getElementById('arrow-up');

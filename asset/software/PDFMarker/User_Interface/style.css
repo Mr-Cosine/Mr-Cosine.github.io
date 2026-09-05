@@ -170,6 +170,7 @@ h1 small {
 
 #selectOutputDirBtn:disabled {
     cursor: not-allowed;
+    opacity: 0.6;
 }
 
 .range-wrapper {
@@ -236,6 +237,7 @@ h1 small {
 #fileInput:disabled {
     cursor: not-allowed;
     transform: none;
+    opacity: 0.6;
 }
 
 /* ----- 文件列表 ----- */

@@ -28,7 +28,6 @@
                     <li><a href="https://www.linkedin.com/in/jiaqi-sun-472053359/">LinkedIn: www.linkedin.com/in/jiaqi-sun-472053359</a></li>
                     <li><a href="https://github.com/Mr-Cosine">GitHub: github.com/Mr-Cosine</a></li>
                     <li><a href="https://www.instagram.com/bot_no.0721/">Instagram: instagram.com/bot_no.0721</a></li>
-                    <li><a href="https://www.facebook.com/andy.sun.792">Facebook: facebook.com/andy.sun.792</a></li>
                     <li><a href="https://space.bilibili.com/526016800">Bilibili: https://space.bilibili.com/526016800</a></li>
                 </ul>
             </div>
@@ -39,19 +38,20 @@
 
     <div class="header">
         <div class = "text">
-            <h1>
-                HI THERE, I AM
-                <span class="clickable">ANDY</span>
+            <h1 class="no-select">
+                HI THERE, <br>
+                I AM <span class="clickable">ANDY</span>
             </h1>
             <hr>
                 <p>
-                    First-year Biomedical Engineering student at the University of Waterloo,
-                    seeking co-op roles in mechanical design, embedded systems, or software development.<br><br>
+                    Second-year Biomedical Engineering student at the University of Waterloo,
+                    seeking co-op roles in mechanical design, embedded systems, and software development.<br><br>
                     I bridge physical and digital — from SolidWorks assemblies and 3D-printed prototypes
                     to browser extensions and interactive web experiences.
                 </p>
         </div>
-        <button class="scroll-button" aria-label="Scroll to projects" onclick="document.querySelector('.projects').scrollIntoView({ behavior: 'smooth' })">
+        <button class="scroll-button" aria-label="Scroll to projects" 
+                onclick="document.querySelector('.projects').scrollIntoView({ behavior: 'smooth' })">
         </button>
 
         <img src="asset/images/myimage.jpg" class="myimg" alt="Portrait of Jiaqi (Andy) Sun">
@@ -71,7 +71,7 @@
 
             <div class="value-item reveal">
                 <h3>I Ship</h3>
-                <p>A published extension. Validated prototypes. I follow through from first sketch to working deliverable.</p>
+                <p>A published extension. Automations in use. Validated prototypes. I follow through from first sketch to working deliverable.</p>
             </div>
         </div>
 
@@ -253,10 +253,10 @@
                         mount: '#pmPane',
                         dataDir: 'pdfmarker-demo-data'
                     });
-                    bootDemo({
+                    PDFMarkerBooter.boot({
                         frame: '#pmFrame',
                         demo: pmDemo,
-                        uiZoom: 0.7,
+                        uiZoom: 0.8,
                         defaults: {
                             model: 'tesseractOCR',
                             dpi: 180,
