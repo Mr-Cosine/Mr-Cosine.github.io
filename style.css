@@ -3,21 +3,22 @@
    ============================ */
 
 :root {
-    --violet:      #6d4aff;
-    --violet-deep: #4b2fd6;
-    --magenta:     #e23a86;
-    --amber:       #f0a13a;
+    --violet:       #6d4aff;
+    --violet-deep:  #4b2fd6;
+    --magenta:      #e23a86;
+    --amber:        #f0a13a;
 
-    --ink:      #161420;
-    --ink-soft: #4b4761;
-    --muted:    #837e95;
+    --ink:          #161420;
+    --ink-soft:     #4b4761;
+    --muted:        #837e95;
 
-    --surface:     #ffffff;
-    --surface-alt: #f4f3f7;
+    --surface:      #ffffff;
+    --surface-alt:  #f4f3f7;
+    --surface-dark: #f9f9fa;
     --line:        rgba(22, 20, 32, 0.10);
     --line-strong: rgba(22, 20, 32, 0.18);
 
-    --shadow-sm: 0 1px 2px rgba(22, 20, 32, 0.06),
+    --shadow-sm: 0 1px 2px rgba(30, 29, 37, 0.06),
                  0 2px 8px rgba(22, 20, 32, 0.05);
     --shadow-md: 0 2px 4px rgba(22, 20, 32, 0.05),
                  0 12px 32px rgba(22, 20, 32, 0.09);
@@ -84,7 +85,11 @@ img { max-width: 100%; }
 .js-reveal .reveal.is-visible {
     opacity: 1;
     transform: none;
-    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    transition: opacity 0.7s var(--ease), 
+                transform 0.7s var(--ease), 
+                background-color 0.45s var(--ease), 
+                box-shadow 0.45s var(--ease), 
+                border-color 0.45s var(--ease);
 }
 
 .no-select {
@@ -412,15 +417,14 @@ img { max-width: 100%; }
     text-align: left;
 
     padding: 30px 28px 28px;
-    background: var(--surface);
+    background-color: var(--surface);
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sm);
     overflow: hidden;
-    transition: box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+    transition: background-color 0.45s var(--ease), box-shadow 0.45s var(--ease), border-color 0.45s var(--ease);
 }
 
-/* Accent cap that fills in on hover */
 .value-item::before {
     content: "";
     position: absolute;
@@ -435,6 +439,7 @@ img { max-width: 100%; }
 }
 
 .value-item:hover {
+    background-color: var(--surface-dark);
     box-shadow: var(--shadow-md);
     border-color: var(--line-strong);
 }
@@ -580,6 +585,7 @@ img { max-width: 100%; }
         letter-spacing: -0.02em;
         margin: 0;
         color: var(--ink);
+        cursor: pointer;
     }
 
     p {
@@ -607,10 +613,13 @@ img { max-width: 100%; }
 
 /* Inline call-to-action link */
 .btn-link {
+    position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 9px;
+    gap: 8px;
+    z-index: 0;
 
+    margin-right: 8px;
     margin-top: 8px;
     padding: 11px 22px;
     border-radius: 999px;
@@ -621,18 +630,34 @@ img { max-width: 100%; }
     font-weight: 500;
     text-decoration: none;
 
-    transition: background 0.25s var(--ease), transform 0.25s var(--ease),
+    transition: transform 0.25s var(--ease),
                 box-shadow 0.25s var(--ease);
+}
+
+.btn-link::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--brand-gradient);
+    opacity: 0;
+    transition: opacity 0.25s var(--ease);
 }
 
 .btn-link::after {
     content: "→";
+    font-size: 1.2rem;
+    font-weight: 800;
     transition: transform 0.25s var(--ease);
 }
 
 .btn-link:hover {
-    background: var(--violet);
     box-shadow: 0 10px 24px rgba(109, 74, 255, 0.32);
+}
+
+.btn-link:hover::before {
+    opacity: 1;
 }
 
 .btn-link:hover::after { transform: translateX(4px); }
