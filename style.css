@@ -129,6 +129,7 @@ img { max-width: 100%; }
     font-weight: 600;
     letter-spacing: 0.08em;
     color: white;
+    opacity: 0.85;
 }
 
 /*split line*/
@@ -149,9 +150,10 @@ img { max-width: 100%; }
     font-size: clamp(0.82rem, 1vw, 1rem);
     font-weight: 500;
     letter-spacing: 0.08em;
-    color: rgba(255, 255, 255, 0.82);
+    color: white;
+    opacity: 0.85;
     cursor: pointer;
-    transition: color 0.2s var(--ease);
+    transition: opacity 0.2s var(--ease);
 }
 
 #contact::after {
@@ -169,6 +171,7 @@ img { max-width: 100%; }
 
 #contact:hover {
     color: white;
+    opacity: 1;
 }
 
 #contact-list {
@@ -221,8 +224,7 @@ img { max-width: 100%; }
 
 #contact-list a:hover {
     background: var(--surface-alt);
-    color: var(--violet);
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 /* ============================
@@ -283,7 +285,7 @@ img { max-width: 100%; }
     top: calc(var(--nav-h) + 14px);
     left: 50%;
 
-    max-width: min(90vw, 640px);
+    max-width: min(80vw, 720px);
     padding: 12px 22px;
 
     background: rgba(16, 14, 26, 0.88);
