@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Code Window Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ============================
+   EXISTING TOKENS (already in your sheet — shown here only so this
+   preview renders standalone; don't duplicate these in your real file)
+   ============================ */
+:root {
+    --ink:      #161420;
+    --surface:  #ffffff;
+    --surface-alt: #f4f3f7;
+    --line:     rgba(22, 20, 32, 0.10);
+    --shadow-lg: 0 4px 8px rgba(22, 20, 32, 0.05),
+                 0 24px 64px rgba(22, 20, 32, 0.14);
+    --radius-lg: 14px;
+    --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    background: none;
+    font-family: system-ui, sans-serif;
+}
+
+/* ============================
+   CODE WINDOW (IDE-style embed) — NEW
+   ============================ */
+
+.code-window {
+    /* Palette lives here, scoped to the component, so it never leaks
+       into the rest of the light-mode design system. */
+    --code-bg:      #121022;
+    --code-bar:     rgba(255, 255, 255, 0.05);
+    --code-line-hl: rgba(255, 255, 255, 0.035);
+    --code-text:    #e6e3f2;
+    --code-comment: #6f6a8c;
+    --code-keyword: #ff7ac6;
+    --code-func:    #79dbf5;
+    --code-string:  #e9e28a;
+    --code-number:  #bd93f9;
+    --code-lineno:  #4c4768;
+
+    max-width: 760px;
+    margin: 0 auto;
+    border-radius: var(--radius-lg);
+    background: var(--code-bg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+}
+
+.code-window-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 18px;
+    background: var(--code-bar);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.code-window-dots {
+    display: flex;
+    gap: 7px;
+    flex-shrink: 0;
+}
+
+.code-window-title {
+    font-family: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: rgba(230, 227, 242, 0.55);
+}
+
+.code-window-body {
+    max-height: 360px;
+    overflow: auto;
+    padding: 6px 0;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(189, 147, 249, 0.4) transparent;
+}
+
+.code-window-body::-webkit-scrollbar { width: 10px; height: 10px; }
+.code-window-body::-webkit-scrollbar-track { background: transparent; }
+.code-window-body::-webkit-scrollbar-thumb {
+    background: rgba(189, 147, 249, 0.35);
+    border-radius: 999px;
+    border: 2px solid var(--code-bg);
+    background-clip: padding-box;
+}
+.code-window-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(189, 147, 249, 0.55);
+    background-clip: padding-box;
+}
+
+.code-window-code {
+    display: block;
+    width: max-content;
+    min-width: 100%;
+}
+
+.code-line {
+    display: grid;
+    grid-template-columns: 46px 1fr;
+    font-family: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.85rem;
+    line-height: 1.65;
+    white-space: pre;
+    transition: background 0.15s var(--ease);
+}
+
+.code-line:hover { background: var(--code-line-hl); }
+.code-line:hover .code-lineno { background: var(--code-line-hl); }
+
+.code-lineno {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: var(--code-bg);
+    color: var(--code-lineno);
+    text-align: right;
+    padding: 0 14px 0 0;
+    user-select: none;
+    transition: background 0.15s var(--ease);
+}
+
+.code-content {
+    color: var(--code-text);
+    padding-left: 18px;
+    padding-right: 24px;
+}
+
+.tok-kw   { color: var(--code-keyword); }
+.tok-func { color: var(--code-func); }
+.tok-str  { color: var(--code-string); }
+.tok-num  { color: var(--code-number); }
+.tok-cmt  { color: var(--code-comment); }
+
+@media (max-width: 600px) {
+    .code-window { border-radius: 16px; }
+    .code-line { font-size: 0.78rem; }
+    .code-lineno { padding-right: 10px; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="code-window">
+  <div class="code-window-bar">
+    <span class="code-window-title">example_interface.py</span>
+  </div>
+
+  <div class="code-window-body">
+    <code class="code-window-code">
+        <div class="code-line"><span class="code-lineno">1</span><span class="code-content"><span class="tok-kw">from</span> prettier_console <span class="tok-kw">import</span> interactive</span></div>
+        <div class="code-line"><span class="code-lineno">2</span><span class="code-content"><span class="tok-kw">import</span> sys</span></div>
+        <div class="code-line"><span class="code-lineno">3</span><span class="code-content"></span></div>
+        <div class="code-line"><span class="code-lineno">4</span><span class="code-content"><span class="tok-cmt">#=================================================================================================</span></span></div>
+        <div class="code-line"><span class="code-lineno">5</span><span class="code-content"></span></div>
+        <div class="code-line"><span class="code-lineno">6</span><span class="code-content"><span class="tok-kw">if</span> __name__ == <span class="tok-str">"__main__"</span>:</span></div>
+        <div class="code-line"><span class="code-lineno">7</span><span class="code-content">    <span class="tok-cmt">#==============================================================================================</span></span></div>
+        <div class="code-line"><span class="code-lineno">8</span><span class="code-content">    <span class="tok-kw">def</span> <span class="tok-func">sub</span>(*args):</span></div>
+        <div class="code-line"><span class="code-lineno">9</span><span class="code-content">        <span class="tok-kw">def</span> <span class="tok-func">helloworld</span>():</span></div>
+        <div class="code-line"><span class="code-lineno">10</span><span class="code-content">            options = []</span></div>
+        <div class="code-line"><span class="code-lineno">11</span><span class="code-content">            <span class="tok-kw">return</span> interactive.<span class="tok-func">menu</span>(<span class="tok-str">f'hello world'</span>, <span class="tok-str">f"hello!"</span>, options)</span></div>
+        <div class="code-line"><span class="code-lineno">12</span><span class="code-content">        <span class="tok-cmt">#==========================================================================================</span></span></div>
+        <div class="code-line"><span class="code-lineno">13</span><span class="code-content"></span></div>
+        <div class="code-line"><span class="code-lineno">14</span><span class="code-content">        num = args</span></div>
+        <div class="code-line"><span class="code-lineno">15</span><span class="code-content">        options = [</span></div>
+        <div class="code-line"><span class="code-lineno">16</span><span class="code-content">            {</span></div>
+        <div class="code-line"><span class="code-lineno">17</span><span class="code-content">             <span class="tok-str">'text'</span>: <span class="tok-str">"say hello"</span>, </span></div>
+        <div class="code-line"><span class="code-lineno">18</span><span class="code-content">             <span class="tok-str">'color'</span>: <span class="tok-str">'red'</span>, </span></div>
+        <div class="code-line"><span class="code-lineno">19</span><span class="code-content">             <span class="tok-str">'id'</span>: <span class="tok-str">'hello'</span>, </span></div>
+        <div class="code-line"><span class="code-lineno">20</span><span class="code-content">             <span class="tok-str">'func'</span>: </span></div>
+        <div class="code-line"><span class="code-lineno">21</span><span class="code-content">                {</span></div>
+        <div class="code-line"><span class="code-lineno">22</span><span class="code-content">                 <span class="tok-str">'body'</span>: helloworld</span></div>
+        <div class="code-line"><span class="code-lineno">23</span><span class="code-content">                }</span></div>
+        <div class="code-line"><span class="code-lineno">24</span><span class="code-content">            },</span></div>
+        <div class="code-line"><span class="code-lineno">25</span><span class="code-content">        ]</span></div>
+        <div class="code-line"><span class="code-lineno">26</span><span class="code-content">        <span class="tok-kw">return</span> interactive.<span class="tok-func">menu</span>(<span class="tok-str">'sub panel'</span>, <span class="tok-str">f"this is panel {num}"</span>, options)</span></div>
+        <div class="code-line"><span class="code-lineno">27</span><span class="code-content">    <span class="tok-cmt">#==============================================================================================</span></span></div>
+        <div class="code-line"><span class="code-lineno">28</span><span class="code-content"></span></div>
+        <div class="code-line"><span class="code-lineno">29</span><span class="code-content">    welcome_text = <span class="tok-str">'welcome'</span></span></div>
+        <div class="code-line"><span class="code-lineno">30</span><span class="code-content">    options = [</span></div>
+        <div class="code-line"><span class="code-lineno">31</span><span class="code-content">        {</span></div>
+        <div class="code-line"><span class="code-lineno">32</span><span class="code-content">         <span class="tok-str">'text'</span>: <span class="tok-str">"open panel 1"</span>, </span></div>
+        <div class="code-line"><span class="code-lineno">33</span><span class="code-content">         <span class="tok-str">'color'</span>: <span class="tok-str">'red'</span>, </span></div>
+        <div class="code-line"><span class="code-lineno">34</span><span class="code-content">         <span class="tok-str">'id'</span>: <span class="tok-str">'sub1'</span>, </span></div>
+        <div class="code-line"><span class="code-lineno">35</span><span class="code-content">         <span class="tok-str">'func'</span>: </span></div>
+        <div class="code-line"><span class="code-lineno">36</span><span class="code-content">            {</span></div>
+        <div class="code-line"><span class="code-lineno">37</span><span class="code-content">             <span class="tok-str">'body'</span>: sub, </span></div>
+        <div class="code-line"><span class="code-lineno">38</span><span class="code-content">             <span class="tok-str">'param'</span>: [<span class="tok-num">1</span>]   <span class="tok-cmt"># positional argument</span></span></div>
+        <div class="code-line"><span class="code-lineno">39</span><span class="code-content">            }</span></div>
+        <div class="code-line"><span class="code-lineno">40</span><span class="code-content">        },</span></div>
+        <div class="code-line"><span class="code-lineno">41</span><span class="code-content">        {</span></div>
+        <div class="code-line"><span class="code-lineno">42</span><span class="code-content">         <span class="tok-str">'text'</span>: <span class="tok-str">"open panel 2"</span>, </span></div>
+        <div class="code-line"><span class="code-lineno">43</span><span class="code-content">         <span class="tok-str">'color'</span>: <span class="tok-str">'blue'</span>, </span></div>
+        <div class="code-line"><span class="code-lineno">44</span><span class="code-content">         <span class="tok-str">'id'</span>: <span class="tok-str">'sub2'</span>, </span></div>
+        <div class="code-line"><span class="code-lineno">45</span><span class="code-content">         <span class="tok-str">'func'</span>: </span></div>
+        <div class="code-line"><span class="code-lineno">46</span><span class="code-content">            {</span></div>
+        <div class="code-line"><span class="code-lineno">47</span><span class="code-content">             <span class="tok-str">'body'</span>: sub, </span></div>
+        <div class="code-line"><span class="code-lineno">48</span><span class="code-content">             <span class="tok-str">'param'</span>: [<span class="tok-num">2</span>]   <span class="tok-cmt"># positional argument</span></span></div>
+        <div class="code-line"><span class="code-lineno">49</span><span class="code-content">            }</span></div>
+        <div class="code-line"><span class="code-lineno">50</span><span class="code-content">        }</span></div>
+        <div class="code-line"><span class="code-lineno">51</span><span class="code-content">    ]</span></div>
+<div class="code-line"><span class="code-lineno">52</span><span class="code-content">    interactive.<span class="tok-func">home_menu</span>(<span class="tok-str">'HOME'</span>, welcome_text, options)</span></div>
+    </code>
+  </div>
+</div>
+
+<script>
+// This page is embedded in an iframe on the portfolio. The parent cannot
+// measure our content across origins (and not at all over file://), so we
+// report our own height and let it size the frame. documentElement's border
+// box is used rather than scrollHeight: scrollHeight is at least the frame's
+// own height, which would ratchet the frame taller and never shrink back.
+(function () {
+    function report() {
+        var h = Math.ceil(document.documentElement.getBoundingClientRect().height);
+        parent.postMessage({ type: 'prettierconsole-demo:height', height: h }, '*');
+    }
+
+    report();
+    window.addEventListener('load', report);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(report);
+
+    if (window.ResizeObserver) new ResizeObserver(report).observe(document.documentElement);
+    else window.addEventListener('resize', report);
+})();
+</script>
+
+</body>
+</html>

@@ -97,7 +97,7 @@
 
                     <p><strong>Skills demonstrated:</strong> Cross-functional teamwork, iterative design under constraints,
                     hardware prototyping, SolidWorks 3D modeling, 3D printing, Arduino.</p>
-                    <a class="btn-link" href="https://github.com/Mr-Cosine/EMG">Go to GitHub Repository</a>
+                    <a class="btn-link" href="https://github.com/Mr-Cosine/EMG">Github Repository</a>
                 </div>
 
                 <div class="content-right" id = "integrated">
@@ -120,9 +120,9 @@
                         <div id = "prototype-banner">First Cycle - Functionality Testing</div>
 
                         <img
-                        src="asset/images/exoskeleton prototype.gif"
-                        id ="prototype-gif"
-                        alt="Exoskeleton prototype functionality testing, using Arduino">
+                            src="asset/images/exoskeleton prototype.gif"
+                            id ="prototype-gif"
+                            alt="Exoskeleton prototype functionality testing, using Arduino">
                     </div>
                 </div>
             </div>
@@ -212,7 +212,7 @@
                     and shipped a ready to go simplistic Firefox extension that is easy to install and use.</p>
 
                     <p><strong>Skills demonstrated:</strong> Self-directed learning, UI/UX design, JavaScript development.</p>
-                    <a class="btn-link" href="https://addons.mozilla.org/en-US/firefox/addon/sci-helper">Try the Extension</a> <a class="btn-link" href="https://github.com/Mr-Cosine/SciHelper">Go to GitHub Repository</a>
+                    <a class="btn-link" href="https://addons.mozilla.org/en-US/firefox/addon/sci-helper">Download and Try the Extension</a> <a class="btn-link" href="https://github.com/Mr-Cosine/SciHelper">Github Repository</a>
                 </div>
 
                 <div class="content-right">
@@ -236,7 +236,7 @@
                     </p>
 
                     <p><strong>Skills demonstrated:</strong> Self-directed learning, UI/UX design, Full-stack development, Javascript, Python</p>
-                    <a class="btn-link" href="https://github.com/Mr-Cosine/NV-request-marker">Go to GitHub Repository</a>
+                    <a class="btn-link" href="https://github.com/Mr-Cosine/NV-request-marker">Github Repository</a>
                 </div>
 
                 <div class="content-right">
@@ -275,6 +275,36 @@
                     });
                 </script>
             </div>
+
+            <div class="project-container reveal">
+                <div class="content-left">
+                    <h3>Prettier Console: Python library that creates better text based UI in console</h3>
+                    <div class="project-meta">2026 &nbsp;·&nbsp; Work @ Vallourec</div>
+
+                    <p><strong>Problem aiming to address:</strong> Creating text based UI is repeptitive and time consuming, especially when creating colored output and ASCII-art fonts.</p>
+
+                    <p><strong>Solution:</strong> Extracted reusable codes along with useful helper functions from the existing text based UI in other work automations and packaged them into python library, while preserving customizability for interfaces and styles.
+                    </p>
+
+                    <p><strong>Skills demonstrated:</strong> Python </p>
+                    <a class="btn-link" href="https://github.com/Mr-Cosine/prettier_console">Github Repository</a>
+                </div>
+
+                <div class="content-right">
+                    <div class="pm-demo">
+                        <iframe id="pcFrame" src="prettierconsole-demo.html" title="Prettier Console demo"
+                                width="100%" height="480" scrolling="no" loading="lazy"
+                                style="border:none; background:none; padding:none; display:block;">
+                            Your browser does not support iframes.
+                        </iframe>
+                        <small>The console produced: </small>
+                        <video controls width="100%" height="auto" style="border-radius: 14px;">
+                            <source autoplay loop muted playsinline src="asset/images/prettier_console.webm" type="video/webm" >
+                            <p>Your browser does not support the video tag.</p>
+                        </video>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -292,6 +322,24 @@
 
         <p class="footer-note">© 2026 Jiaqi (Andy) Sun</p>
     </footer>
+
+    <script>
+        // The Prettier Console demo measures itself and posts its height here,
+        // so the frame follows its content instead of a guessed 480px. The
+        // height attribute above is only the pre-message fallback.
+        (function () {
+            var frame = document.getElementById('pcFrame');
+            if (!frame) return;
+
+            window.addEventListener('message', function (event) {
+                if (event.source !== frame.contentWindow) return;
+                var data = event.data;
+                if (!data || data.type !== 'prettierconsole-demo:height') return;
+                if (!(data.height > 0)) return;
+                frame.style.height = data.height + 'px';
+            });
+        })();
+    </script>
 
     <script src="secret.js" defer></script>
     <script src="findme.js" defer></script>
