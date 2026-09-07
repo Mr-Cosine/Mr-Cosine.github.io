@@ -43,13 +43,15 @@
                 I AM <span class="clickable">ANDY</span>
             </h1>
             <hr>
-                <p>
-                    Second-year Biomedical Engineering student at the University of Waterloo, s
-                    eeking co-op roles in mechanical design, embedded systems, and software development.<br>
-                    <br>
-                    I bridge physical and digital — from SolidWorks assemblies and 3D-printed prototypes
-                    to browser extensions and desktop applications.
-                </p>
+            <p>
+                Second-year Biomedical Engineering student at the University of Waterloo,
+                seeking co-op roles in mechanical design, embedded systems, and software
+                development.<br>
+                <br>
+                I design the hardware, then build the software around it — SolidWorks
+                assemblies and 3D-printed prototypes on one side, desktop applications and
+                browser extensions on the other.
+            </p>
         </div>
         <button class="scroll-button" aria-label="Scroll to projects" 
                 onclick="document.querySelector('.projects').scrollIntoView({ behavior: 'smooth' })">
@@ -72,7 +74,8 @@
 
             <div class="value-item reveal">
                 <h3>I Ship</h3>
-                <p>A published extension. Automations in use. Validated prototypes. I follow through from first sketch to working deliverable.</p>
+                <p>Four automation tools still in use at an office of a plant. A published extension. Validated prototypes. 
+                I follow through from first sketch to working deliverable.</p>
             </div>
         </div>
 
@@ -84,19 +87,21 @@
             <div class="project-container reveal">
                 <div class="content-left">
                     <h3>Wearable Exoskeleton System for Grip Assistance</h3>
-                    <div class="project-meta">2025 &nbsp;·&nbsp; Personal & Team</div>
+                    <div class="project-meta">2025 &nbsp;·&nbsp; Personal &amp; Team</div>
 
-                    <p><strong>Problem:</strong> Users with limited grip strength lack affordable, accessible assistive devices —
-                    existing solutions are either too expensive, too bulky, or not customizable to individual anatomy.</p>
+                    <p><strong>Problem:</strong> People with limited grip strength lack affordable assistive devices — what exists is expensive, 
+                    bulky, or impossible to fit to an individual hand.</p>
 
-                    <p><strong>Solution:</strong> Led mechanical design within a multidisciplinary team to build a 3D-printed
-                    wearable exoskeleton from scratch — integrating motors, batteries, and cable routing with the mechanical assembly.
-                    Iterated through 40+ prototype cycles balancing comfort, performance, and structural rigidy, then validated functionality with a breadboard Arduino control circuit.</p>
+                    <p><strong>Solution:</strong> Led mechanical design in a multidisciplinary team, building a 3D-printed wearable exoskeleton from 
+                    scratch — motors, batteries and cable routing packed into geometry shaped around a hand. 40+ print-and-test cycles, most of the design 
+                    decisions made by printing a part and finding out it did not fit or poorly performs. Validated with a breadboard Arduino control 
+                    circuit.</p>
 
-                    <p><strong>Outcome:</strong> Delivered a functional prototype meeting all design targets, and comfortable continuous wear — on a minimal budget within $300.</p>
+                    <p><strong>Outcome:</strong> A working prototype hitting every design target — actuation under 0.5 s, 1 kg hold, comfortable in continuous wear — 
+                    for under $300 total.</p>
 
-                    <p><strong>Skills demonstrated:</strong> Cross-functional teamwork, iterative design under constraints,
-                    hardware prototyping, SolidWorks 3D modeling, 3D printing, Arduino.</p>
+                    <p><strong>Skills demonstrated:</strong> Iterative design, Design for additive manufacturing, 3D printing, Arduino development, C++ </p>
+                    
                     <a class="btn-link" href="https://github.com/Mr-Cosine/EMG">Github Repository</a>
                 </div>
 
@@ -135,8 +140,9 @@
                     <div class="project-meta">2025 &nbsp;·&nbsp; Personal</div>
 
                     <p>
-                        Designed a functioning bolt-action rifle, constructed a complete internal structure from scratch without any reference.
-                        Ensures mechanical functionality, structure rigidity and manufacturability.
+                        Designed a functioning bolt-action mechanism in SolidWorks with no existing models to work from. The internal geometry was
+                        worked out from how the action has to move and references are from a few mechanism diagram. Every part is fully constrained, the bolt cycles 
+                        correctly through the assembly, and the components stays manufacturable and could be assembled.
                     </p>
 
                 </div>
@@ -173,9 +179,8 @@
                     <div class="project-meta">2026 &nbsp;·&nbsp; Academic, Personal</div>
 
                     <p>
-                        Designed a detailed aesthetic model of the Renault FT‑17 WWI tank in SolidWorks,
-                        focusing on aesthetic fidelity. The model includes intricate details such as the turret, tracks, and body features.
-                        (Includes some interpretations due to insufficient reference materials)
+                        Reconstructed the WWI Renault FT‑17 in SolidWorks from incomplete reference material: turret, tracks, hull and body details 
+                        modelled as a constrained assembly. 
                     </p>
                 </div>
 
@@ -202,16 +207,18 @@
 
             <div class="project-container reveal">
                 <div class="content-left">
-                    <h3>Sci-Helper: Integrated Highschool Science Writing Utilities</h3>
+                    <h3>Sci-Helper: Highschool Science Writing Utilities</h3>
                     <div class="project-meta">2026 &nbsp;·&nbsp; Personal</div>
 
-                    <p><strong>Problem aiming to address:</strong> Writing scientific formulas in Google Docs is painfully slow —
-                    students waste time hunting for special characters and symbols mid-sentence, and online writing are not convenient to perform calculations.</p>
+                    <p><strong>Problem:</strong> Writing science in Google Docs is slow. It costs time hunting for symbols mid-sentence, and there is 
+                    nowhere convenient to run the small repetitive calculations that come up constantly.</p>
 
-                    <p><strong>Solution:</strong> Developed a integrated utility that integrates special character look ups(filtered specifically for highschool content) with useful tools that automates certain high frequency calculations,
-                    and shipped a ready to go simplistic Firefox extension that is easy to install and use.</p>
+                    <p><strong>Solution:</strong> A Firefox extension combining special-character lookup with tools that handle the calculations that keep 
+                    recurring. Tools are selected for what high school chemistry and physics actually use. Published to the Mozilla Add-ons store and 
+                    maintained through several releases.</p>
 
-                    <p><strong>Skills demonstrated:</strong> Self-directed learning, UI/UX design, JavaScript development.</p>
+                    <p><strong>Skills demonstrated:</strong> Self-directed learning, UI/UX design, JavaScript.</p>
+                    
                     <a class="btn-link" href="https://addons.mozilla.org/en-US/firefox/addon/sci-helper">Download and Try the Extension</a> <a class="btn-link" href="https://github.com/Mr-Cosine/SciHelper">Github Repository</a>
                 </div>
 
@@ -229,25 +236,29 @@
                     <h3>PDF Marker: PDF batch merging & keyword tagging tool</h3>
                     <div class="project-meta">2026 &nbsp;·&nbsp; Work @ Vallourec</div>
 
-                    <p><strong>Problem aiming to address:</strong> My co-op job in Vallourec includes marking the related fields in PDF documents that needs to be reviewed to gain approve of production. However, the pdf are usually long and dense in text, making it hard to identify the related fields.</p>
+                    <p><strong>Problem:</strong> Production approval requires marking specific fields in PDFs that reviewers need to see. The documents 
+                    are long, dense, and often being scanned rather than digital text, so finding the fields by eye is slow and easy to get wrong.</p>
 
-                    <p><strong>Solution:</strong> Found that related fields often contains a certain keyword, thus developed a desktop application that
-                    identifies text lines on both digital and scanned pdfs, clusters lines into blocks, and highlights those with keyword for easier identification later on.
-                    </p>
+                    <p><strong>Solution:</strong> A desktop application that merges a batch of PDFs, runs OCR over the pages, rebuilds paragraphs out of 
+                    the loose text regions OCR returns, and draws a red box around every paragraph containing the keyword. Rebuilding the paragraphs is 
+                    the part that matter, as a phrase split across two detections never matches otherwise. In the demo, try the leniency control and 
+                    watch the paragraphs break in both directions.</p>
 
-                    <p><strong>Skills demonstrated:</strong> Self-directed learning, UI/UX design, Full-stack development, Javascript, Python</p>
+                    <p><strong>Skills demonstrated:</strong> Self-directed learning, algorithm design, desktop application architecture, JavaScript, Python.</p>
+
                     <a class="btn-link" href="https://github.com/Mr-Cosine/NV-request-marker">Github Repository</a>
                 </div>
 
                 <div class="content-right">
                     <link rel="stylesheet" href="pdfmarker-demo.css">
                     <div class="pm-demo">
+                        <small>PDF Annotation Effect Preview</small>
                         <div class="pm-demo__pane" id="pmPane"></div>
                         <div class="pm-demo__legend">
                             <strong>Legend</strong>
                             <div class="pm-demo__legend-entry"><div class="color-block" id="blue"></div><span>Text region detected by OCR</span></div>
-                            <div class="pm-demo__legend-entry"><div class="color-block" id="red"></div><span>Keyword matched in paragraph - circled by red rectangle</span></div>
-                            <div class="pm-demo__legend-entry"><div class="color-block" id="green"></div><span>Keyword abscent in paragraph - no annotation</span></div>
+                            <div class="pm-demo__legend-entry"><div class="color-block" id="green"></div><span>Paragraphs with no keyword matched - no annotation</span></div>
+                            <div class="pm-demo__legend-entry"><div class="color-block" id="red"></div><span>Paragraphs with keyword matched - annotated by red rectangle</span></div>
                         </div>
                         <small>File &amp; directory selection and annotation feature are disabled for demo</small>
                         <div class="pm-demo__ui">
@@ -281,12 +292,18 @@
                     <h3>Prettier Console: Python library that creates better text based UI in console</h3>
                     <div class="project-meta">2026 &nbsp;·&nbsp; Work @ Vallourec</div>
 
-                    <p><strong>Problem aiming to address:</strong> Creating text based UI is repeptitive and time consuming, especially when creating colored output and ASCII-art fonts.</p>
+                    <h3>Prettier Console: a Python library for better terminal interfaces</h3>
 
-                    <p><strong>Solution:</strong> Extracted reusable codes along with useful helper functions from the existing text based UI in other work automations and packaged them into python library, while preserving customizability for interfaces and styles.
-                    </p>
+                    <p><strong>Problem:</strong> Building a text interface is repetitive work. Colour handling, ASCII-art headers and arrow-key menus 
+                    get rewritten from scratch on every tool.</p>
 
-                    <p><strong>Skills demonstrated:</strong> Python </p>
+                    <p><strong>Solution:</strong> Pulled the interface code out of an automation tool I had already written, generalised it, 
+                    and packaged it as an installable Python library. User only needs to care the content for the menu. Released publicly, 
+                    then used as a dependency in the tools I built afterwards.</p>
+
+                    <p><strong>Skills demonstrated:</strong> Python, API design, library packaging and publishing, backwards-compatible
+                    interface design.</p>
+
                     <a class="btn-link" href="https://github.com/Mr-Cosine/prettier_console">Github Repository</a>
                 </div>
 
@@ -294,23 +311,25 @@
                     <div class="pm-demo">
                         <iframe id="pcFrame" src="prettierconsole-demo.html" title="Prettier Console demo"
                                 width="100%" height="480" scrolling="no" loading="lazy"
-                                style="border:none; background:none; padding:none; display:block;">
+                                style="border:none; display:block;">
                             Your browser does not support iframes.
                         </iframe>
                         <small>The console produced: </small>
-                        <video controls width="100%" height="auto" style="border-radius: 14px;">
-                            <source autoplay loop muted playsinline src="asset/images/prettier_console.webm" type="video/webm" >
+                        <video autoplay loop muted playsinline width="100%" height="auto" style="border-radius: 14px;">
+                            <source src="asset/images/prettier_console.webm" type="video/webm" >
                             <p>Your browser does not support the video tag.</p>
                         </video>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
     <footer class="site-footer">
         <h2>Let's build something.</h2>
-        <p>I'm willing to contribute my effort to something that could make a change to the world.</p>
+        <p>I'm looking for co-op work in mechanical design, embedded systems, or software. I'd rather build something that gets used than something that
+        demos well.</p>
 
         <div class="footer-links">
             <a href="mailto:a95sun@uwaterloo.ca">Email</a>

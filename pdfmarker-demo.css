@@ -59,6 +59,7 @@
   color: var(--ink-soft);
   font-style: italic;
   font-size: 12px;
+  margin-bottom: -12px;
 }
 
 .pm-demo__ui { width: 100%; }
