@@ -32,6 +32,7 @@ const messages = [
 const messages4MileStone = {
     5: "I see your interest.",
     10: "Will you keep going?",
+    20: "Tik... tak... time passes by...",
     50: "Have you collected all the messages?",
     999: "Wow you actually clicked for 999 times! Press firmly down your mouse and witness the 1000 click!"
 }
@@ -40,17 +41,15 @@ let clickCount = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
     const name = document.querySelector('.clickable');
-    const bar = document.getElementById('top-message');
+    if (name) name.addEventListener('click', async () => {
+        let message = messages4MileStone[clickCount + 1];
+        if (messages4MileStone[clickCount + 1] === undefined) message = messages[Math.floor(Math.random() * messages.length)];
 
-    if (name) {
-        name.addEventListener('click', () => {
-            if (messages4MileStone[clickCount + 1] != undefined) showMessage(`${clickCount} clicks. ` + messages4MileStone[clickCount + 1]);
-            else showMessage(messages[Math.floor(Math.random() * messages.length)]);
-        });
-    }
+        await showMessage(message);
+    });
 });
 
-function showMessage(message) {
+async function showMessage(message) {
     let bar = document.getElementById('top-message');
 
     if (!bar) {
@@ -64,11 +63,17 @@ function showMessage(message) {
     
     const timeoutsec = bar.textContent.length * 40 + 500;
 
-    // fade in 
-    bar.style.opacity = '1';
-    // fade out after the timeout
-    setTimeout(() => {
-        bar.style.opacity = '0';
-        clickCount += 1;
-    }, timeoutsec);
+    await new Promise(resolve => {
+        // fade in 
+        bar.style.opacity = '1';
+        // fade out after the timeout
+        setTimeout(() => {
+            bar.style.opacity = '0';
+            clickCount += 1;
+            resolve();
+        }, timeoutsec);
+    })
+
+    // let animation finish
+    await new Promise(r => setTimeout(r, 1000));
 }
