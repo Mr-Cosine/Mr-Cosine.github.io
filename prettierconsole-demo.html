@@ -156,7 +156,7 @@ body {
 
 <div class="code-window">
   <div class="code-window-bar">
-    <span class="code-window-title">example_interface.py</span>
+    <span class="code-window-title">testcases.py</span>
   </div>
 
   <div class="code-window-body">
@@ -218,11 +218,6 @@ body {
 </div>
 
 <script>
-// This page is embedded in an iframe on the portfolio. The parent cannot
-// measure our content across origins (and not at all over file://), so we
-// report our own height and let it size the frame. documentElement's border
-// box is used rather than scrollHeight: scrollHeight is at least the frame's
-// own height, which would ratchet the frame taller and never shrink back.
 (function () {
     function report() {
         var h = Math.ceil(document.documentElement.getBoundingClientRect().height);

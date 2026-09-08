@@ -42,8 +42,9 @@ let clickCount = 0;
 document.addEventListener("DOMContentLoaded", () => {
     const name = document.querySelector('.clickable');
     if (name) name.addEventListener('click', async () => {
-        let message = messages4MileStone[clickCount + 1];
-        if (messages4MileStone[clickCount + 1] === undefined) message = messages[Math.floor(Math.random() * messages.length)];
+        clickCount += 1;
+        let message = `${clickCount} clicks. ${messages4MileStone[clickCount]}`;
+        if (messages4MileStone[clickCount] === undefined) message = messages[Math.floor(Math.random() * messages.length)];
 
         await showMessage(message);
     });
@@ -58,7 +59,7 @@ async function showMessage(message) {
         document.body.appendChild(bar);
     }
 
-    if (!bar || bar.style.opacity === '1') return; // prevent multiple clicks while message is visible
+    if (!bar || bar.style.opacity === '1') return;
     bar.textContent = message;
     
     const timeoutsec = bar.textContent.length * 40 + 500;
@@ -69,7 +70,6 @@ async function showMessage(message) {
         // fade out after the timeout
         setTimeout(() => {
             bar.style.opacity = '0';
-            clickCount += 1;
             resolve();
         }, timeoutsec);
     })

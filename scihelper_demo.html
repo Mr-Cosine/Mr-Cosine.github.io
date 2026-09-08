@@ -18,6 +18,31 @@
             flex-direction: column;
         }
 
+        #top-message {
+            position: fixed;
+            top: 0;
+            left: 50%;
+
+            width: 100%;
+            padding: 12px;
+
+            color: black;
+            text-align: center;
+            font-size: 0.95rem;
+            line-height: 1.45;
+
+            opacity: 0;
+            transform: translate(-50%, -12px);
+            pointer-events: none;
+            transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+            z-index: 2000;
+        }
+
+        #top-message[style*="opacity: 1"] {
+            transform: translate(-50%, 0);
+        }
+
+
     </style>
     <link rel="stylesheet" href="scihelper_demo.css">
     
@@ -96,12 +121,12 @@
         window.browser = {
             runtime: {
                 sendMessage: (msg) => {
-                    showMessage('Demo mode: contacting developer / opening options not available.\nInstall the full extension from Firefox Add-ons.');
+                    showMessage('Demo mode: options are not available.\nInstall the full extension from Firefox Add-ons.');
                     return Promise.resolve();
                 },
                 onMessage: {
                     addListener: () => {
-                        showMessage('Demo mode: contacting developer / opening options not available.\nInstall the full extension from Firefox Add-ons.');
+                        showMessage('Demo mode: options not available.\nInstall the full extension from Firefox Add-ons.');
                     }
                 }
             },
