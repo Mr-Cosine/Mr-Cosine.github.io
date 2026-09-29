@@ -89,19 +89,40 @@
                     <h3>Wearable Exoskeleton System for Grip Assistance</h3>
                     <div class="project-meta">2025 &nbsp;·&nbsp; Personal &amp; Team</div>
 
-                    <p><strong>Problem:</strong> People with limited grip strength lack affordable assistive devices — what exists is expensive, 
+                    <strong>Problem:</strong>
+                    <p> People with limited grip strength lack affordable assistive devices — what exists is expensive, 
                     bulky, or impossible to fit to an individual hand.</p>
 
-                    <p><strong>Solution:</strong> Led mechanical design in a multidisciplinary team, building a 3D-printed wearable exoskeleton from 
-                    scratch — motors, batteries and cable routing packed into geometry shaped around a hand. 40+ print-and-test cycles, most of the design 
-                    decisions made by printing a part and finding out it did not fit or poorly performs. Validated with a breadboard Arduino control 
-                    circuit.</p>
+                    <strong>Solution:</strong>
+                    <p> 
+                        Led mechanical design in a multidisciplinary team, building a 3D-printed wearable exoskeleton from 
+                        scratch — motors, batteries and cable routing packed into geometry shaped around a hand. 40+ print-and-test cycles, most of the design 
+                        decisions made by printing a part and finding out it did not fit or poorly performs. Validated with a breadboard Arduino manually controled 
+                        circuit.
+                    </p>
+                    <p>
+                        Also designed the analog front end that reads muscle activity. Surface EMG is a few hundred microvolts sitting under electrode offset, 
+                        motion artifact and mains hum. Built in Altium following standard instrumentation-amplifier and active-filter topologies: 
+                        an instrumentation amplifier for differential electrode pickup, gain split across two stages, a 20 Hz high-pass and 500 Hz low-pass 
+                        bounding the surface EMG band, and a mid-supply reference for single-supply operation. Five-sheet hierarchical schematic, board layout, 
+                        generated BOM. Motor control firmware in C++ on Arduino, with a calibration routine for setting up and caliberate a new motor.
+                    </p>
 
-                    <p><strong>Outcome:</strong> A working prototype hitting every design target — actuation under 0.5 s, 1 kg hold, comfortable in continuous wear — 
-                    for under $300 total.</p>
+                    <strong>Outcome:</strong> 
+                    <p>
+                        A working prototype hitting every design target — actuation under 0.5 s, 1 kg hold, comfortable in continuous wear — 
+                        for under $300 total.
+                    </p>
 
-                    <p><strong>Skills demonstrated:</strong> Iterative design, Design for additive manufacturing, 3D printing, Arduino development, C++ </p>
-                    
+                    <strong>Skills demonstrated:</strong>
+                    <ul>
+                        <li> Iterative design, Design for additive manufacturing</li>
+                        <li> 3D printing</li>
+                        <li> Arduino prototyping </li>
+                        <li> C++ </li>
+                        <li> PCB design &amp; Altium Designer</li>
+                    </ul>
+
                     <a class="btn-link" href="https://github.com/Mr-Cosine/EMG">Github Repository</a>
                 </div>
 
@@ -121,16 +142,26 @@
                         alt="Hand Exoskeleton 3D Model">
                     </model-viewer>
 
-                    <div id = "prototype-showcase">
-                        <div id = "prototype-testing">
-                            <div id = "prototype-banner">First Cycle - Functionality Testing</div>
+                    <div id="prototype-showcase">
+                        <div id="prototype-testing">
+                            <div id="prototype-banner">First Cycle - Functionality Testing</div>
 
                             <img
                                 src="asset/images/exoskeleton prototype.gif"
                                 id ="prototype-gif"
                                 alt="Exoskeleton prototype functionality testing, using Arduino">
                         </div>
-                        <img src="asset/images/EMG.jpg" id="prototype-image">
+                        <img 
+                            src="asset/images/EMG.jpg" 
+                            id="prototype-image" 
+                            alt="Newest iteration of prototype wearing">
+                    </div>
+                    <div id ="sensor-showcase">
+                        <img
+                            src="asset/images/EMGfrontend.png"
+                            id="emg-image"
+                            alt="The pcb design of emg sensor frontend"
+                        ></img>
                     </div>
                 </div>
             </div>
@@ -210,18 +241,29 @@
 
             <div class="project-container reveal">
                 <div class="content-left">
-                    <h3>Sci-Helper: Highschool Scientific Writing Toolkit</h3>
+                    <h3>Sci-Helper: High School Scientific Writing Toolkit</h3>
                     <div class="project-meta">2026 &nbsp;·&nbsp; Personal</div>
 
-                    <p><strong>Problem:</strong> Writing science in Google Docs is slow. It costs time hunting for symbols mid-sentence, and there is 
-                    nowhere convenient to run the small repetitive calculations that come up constantly.</p>
+                    <strong>Problem:</strong>
+                    <p>
+                        Writing science in Google Docs is slow. It costs time hunting for symbols mid-sentence, and there is
+                        nowhere convenient to run the small repetitive calculations that come up constantly.
+                    </p>
 
-                    <p><strong>Solution:</strong> A Firefox extension combining special-character lookup with tools that handle the calculations that keep 
-                    recurring. Tools are selected for what high school chemistry and physics actually use. Published to the Mozilla Add-ons store and 
-                    maintained through several releases.</p>
+                    <strong>Solution:</strong>
+                    <p>
+                        A Firefox extension combining special-character lookup with tools that handle the calculations that keep
+                        recurring. Tools are selected for what high school chemistry and physics actually use. Published to the Mozilla Add-ons store and
+                        maintained through several releases.
+                    </p>
 
-                    <p><strong>Skills demonstrated:</strong> Self-directed learning, UI/UX design, JavaScript.</p>
-                    
+                    <strong>Skills demonstrated:</strong>
+                    <ul>
+                        <li> Self-directed learning</li>
+                        <li> UI/UX design</li>
+                        <li> JavaScript</li>
+                    </ul>
+
                     <a class="btn-link" href="https://addons.mozilla.org/en-US/firefox/addon/sci-helper">Download and Try the Extension</a> <a class="btn-link" href="https://github.com/Mr-Cosine/SciHelper">Github Repository</a>
                 </div>
 
@@ -239,15 +281,28 @@
                     <h3>PDF Marker: PDF batch merging & keyword tagging tool</h3>
                     <div class="project-meta">2026 &nbsp;·&nbsp; Work @ Vallourec</div>
 
-                    <p><strong>Problem:</strong> Production approval requires marking specific fields in PDFs that reviewers need to see. The documents 
-                    are long, dense, and often being scanned rather than digital text, so finding the fields by eye is slow and easy to get wrong.</p>
+                    <strong>Problem:</strong>
+                    <p>
+                        Production approval requires marking specific fields in PDFs that reviewers need to see. The documents
+                        are long, dense, and often being scanned rather than digital text, so finding the fields by eye is slow and easy to get wrong.
+                    </p>
 
-                    <p><strong>Solution:</strong> A desktop application that merges a batch of PDFs, runs OCR over the pages, rebuilds paragraphs out of 
-                    the loose text regions OCR returns, and draws a red box around every paragraph containing the keyword. Rebuilding the paragraphs is 
-                    the part that matter, as a phrase split across two detections never matches otherwise. In the demo, try the leniency control and 
-                    watch the paragraphs break in both directions.</p>
+                    <strong>Solution:</strong>
+                    <p>
+                        A desktop application that merges a batch of PDFs, runs OCR over the pages, rebuilds paragraphs out of
+                        the loose text regions OCR returns, and draws a red box around every paragraph containing the keyword. Rebuilding the paragraphs is
+                        the part that matter, as a phrase split across two detections never matches otherwise. In the demo, try the leniency control and
+                        watch the paragraphs break in both directions.
+                    </p>
 
-                    <p><strong>Skills demonstrated:</strong> Self-directed learning, algorithm design, desktop application architecture, JavaScript, Python.</p>
+                    <strong>Skills demonstrated:</strong>
+                    <ul>
+                        <li> Self-directed learning</li>
+                        <li> Algorithm design</li>
+                        <li> Desktop application architecture</li>
+                        <li> JavaScript</li>
+                        <li> Python</li>
+                    </ul>
 
                     <a class="btn-link" href="https://github.com/Mr-Cosine/NV-request-marker">Github Repository</a>
                 </div>
@@ -295,15 +350,28 @@
                     <h3>Prettier Console: a Python library for better terminal interfaces</h3>
                     <div class="project-meta">2026 &nbsp;·&nbsp; Work @ Vallourec</div>
 
-                    <p><strong>Problem:</strong> Building a text interface is repetitive work. Colour handling, ASCII-art headers and arrow-key menus 
-                    get rewritten from scratch on every tool.</p>
+                    <strong>Problem:</strong>
+                    <p>
+                        Building a text interface is repetitive work. Colour handling, ASCII-art headers and arrow-key menus
+                        get rewritten from scratch on every tool.
+                    </p>
 
-                    <p><strong>Solution:</strong> Pulled the interface code out of an automation tool I had already written, generalised it, 
-                    and packaged it as an installable Python library. User only needs to care the content for the menu. Now released publicly on PyPi,
-                    and is installable using pip. The prototype of the library is used as a dependency in tools built during the work.</p>
+                    <strong>Solution:</strong>
+                    <p>
+                        Pulled the interface code out of an automation tool I had already written, generalised it,
+                        and packaged it as an installable Python library. User only needs to care the content for the menu. Now released publicly on PyPi,
+                        maintained over 10+ releases, and is installable using pip. The prototype of the library is used as a dependency in tools built during the work.
+                    </p>
 
-                    <p><strong>Skills demonstrated:</strong> Python, API design, library packaging and publishing, backwards-compatible
-                    interface design.</p>
+                    <strong>Skills demonstrated:</strong>
+                    <ul>
+                        <li> Python</li>
+                        <li> API design</li>
+                        <li> Framework design</li>
+                        <li> Backwards-compatible interface design</li>
+                        <li> Library packaging and publishing</li>
+                        <li> Technical documentation</li>
+                    </ul>
 
                     <a class="btn-link" href="https://github.com/Mr-Cosine/prettier_console">Github Repository</a>
                     <a class="btn-link" href="https://pypi.org/project/prettier-console/">Proejct on PyPi</a>

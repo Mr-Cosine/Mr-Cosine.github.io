@@ -590,7 +590,7 @@ img { max-width: 100%; }
         cursor: pointer;
     }
 
-    p {
+    p, ul {
         font-size: 1rem;
         font-weight: 300;
         line-height: 1.72;
@@ -599,6 +599,7 @@ img { max-width: 100%; }
     }
 
     /* "Problem:", "Solution:", "Outcome:" labels */
+    > strong,
     p strong {
         font-weight: 600;
         color: var(--ink);
@@ -674,7 +675,8 @@ img { max-width: 100%; }
     gap: 16px;
 }
 
-#prototype-showcase {
+#prototype-showcase,
+#sensor-showcase {
     display: flex;
     flex-direction: row;
     align-items: stretch;
