@@ -38,10 +38,13 @@ const messages4MileStone = {
 }
 
 let clickCount = 0;
+let busy = false;
 
 document.addEventListener("DOMContentLoaded", () => {
     const name = document.querySelector('.clickable');
     if (name) name.addEventListener('click', async () => {
+        if (busy) return;
+
         clickCount += 1;
         let message = `${clickCount} clicks. ${messages4MileStone[clickCount]}`;
         if (messages4MileStone[clickCount] === undefined) message = messages[Math.floor(Math.random() * messages.length)];
@@ -51,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function showMessage(message) {
+    busy = true;
     let bar = document.getElementById('top-message');
 
     if (!bar) {
@@ -75,5 +79,6 @@ async function showMessage(message) {
     })
 
     // let animation finish
-    await new Promise(r => setTimeout(r, 1000));
+    await new Promise(r => setTimeout(r, 500));
+    busy = false;
 }
