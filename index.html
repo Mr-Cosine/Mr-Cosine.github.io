@@ -6,9 +6,7 @@
     <meta name="description" content="Jiaqi (Andy) Sun — Biomedical Engineering student at the University of Waterloo. Mechanical design, embedded systems, and software projects.">
     <meta name="theme-color" content="#161420">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="asset/fonts/poppins/poppins.css" >
     <link rel="stylesheet" href="style.css">
 
     <script src="reveal.js"></script>
@@ -103,9 +101,14 @@
                     <p>
                         Also designed the analog front end that reads muscle activity. Surface EMG is a few hundred microvolts sitting under electrode offset, 
                         motion artifact and mains hum. Built in Altium following standard instrumentation-amplifier and active-filter topologies: 
-                        an instrumentation amplifier for differential electrode pickup, gain split across two stages, a 20 Hz high-pass and 500 Hz low-pass 
-                        bounding the surface EMG band, and a mid-supply reference for single-supply operation. Five-sheet hierarchical schematic, board layout, 
-                        generated BOM. Motor control firmware in C++ on Arduino, with a calibration routine for setting up and caliberate a new motor.
+                        an instrumentation amplifier for differential electrode pickup, two stage gains, an active high-pass and low-pass, and a mid-supply 
+                        reference for single-supply operation. Built five-sheet hierarchical schematic, designed and optimized board layout over 3 revisions. 
+                        Now is put into production.
+                    </p>
+                    <p>
+                        Constructed the sensoring algorithm from open source frameworks in C++ on Arduino, including packaging LPF, HPF, notch filter, gaussian blur 
+                        and peak detection into a library. Delivered another library for motor control firmwares too, with automation for providing interactive guide for
+                        setting up and caliberate a new motor.
                     </p>
 
                     <strong>Outcome:</strong> 
@@ -120,7 +123,7 @@
                         <li> 3D printing</li>
                         <li> Arduino prototyping </li>
                         <li> C++ </li>
-                        <li> PCB design &amp; Altium Designer</li>
+                        <li> PCB design (Altium Designer) &amp; Simulation (LTSpice)</li>
                     </ul>
 
                     <a class="btn-link" href="https://github.com/Mr-Cosine/EMG">Github Repository</a>
@@ -332,7 +335,7 @@
                         mount: '#pmPane',
                         dataDir: 'asset/software/PDFMarker/pdfmarker-demo-data'
                     });
-                    PDFMarkerBooter.boot({
+                    PDFMarkerBooter.boot({ 
                         frame: '#pmFrame',
                         demo: pmDemo,
                         uiZoom: 0.8,
