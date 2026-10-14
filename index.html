@@ -106,10 +106,14 @@
                         Now is put into production.
                     </p>
                     <p>
-                        Constructed the sensoring algorithm from open source frameworks in C++ on Arduino, including packaging LPF, HPF, notch filter, gaussian blur 
-                        and peak detection into a library. Delivered another library for motor control firmwares too, with automation for providing interactive guide for
-                        setting up and caliberate a new motor.
+                        Refactored entirely an open source signal processing C++ program for EMG sensor to build the processing and peak detection algorithm for the customized
+                        EMG sensor front end. Changed filter to Butterworth LPF &amp; HPF, and notch filter that support arbitrary sample frequency and cutoff frequency; 
+                        Added Gaussian blur algorithm on filtered value; Created customized queue and complex number class.
                     </p>
+                    <p>
+                        Delivered a library for bipolar stepper motor control firmwares. Implement cutomizable actuation length and delays between step(for speed control). 
+                        Provided an automation for providing interactive guide for setting up and caliberate a new motor.
+                    </P>
 
                     <strong>Outcome:</strong> 
                     <p>
