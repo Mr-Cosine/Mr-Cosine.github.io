@@ -83,7 +83,7 @@
             <div class="project-container reveal">
                 <div class="content-left">
                     <h3>Wearable Exoskeleton System for Grip Assistance</h3>
-                    <div class="project-meta">2025 &nbsp;·&nbsp; Personal (formally team project) </div>
+                    <div class="project-meta">2025 &nbsp;·&nbsp; Personal (formerly team project) </div>
 
                     <strong>Problem:</strong>
                     <p> People with limited grip strength lack affordable assistive devices — what exists is expensive, 
@@ -93,7 +93,7 @@
                     <p> 
                         Led mechanical design in a multidisciplinary team, building a 3D-printed wearable exoskeleton with 1DOF from 
                         scratch — motors, batteries and cable routing packed into geometry shaped around a hand. 40+ print-and-test cycles, most of the design 
-                        decisions made by printing a part and finding out it did not fit or poorly performs. Validated with a breadboard Arduino manually controled 
+                        decisions made by printing a part and finding out it did not fit or performs poorly. Validated with a breadboard Arduino manually controlled 
                         circuit.
                     </p>
                     <p>
@@ -109,8 +109,8 @@
                         Added Gaussian blur algorithm on filtered value; Created customized queue and complex number class.
                     </p>
                     <p>
-                        Delivered a library for bipolar stepper motor control firmwares. Implement cutomizable actuation length and delays between step(for speed control). 
-                        Provided an automation for providing interactive guide for setting up and caliberate a new motor.
+                        Delivered a library for bipolar stepper motor control firmwares. Implement customizable actuation length and delays between step(for speed control). 
+                        Provided an automation for providing interactive guide for setting up and calibrate a new motor.
                     </P>
 
                     <strong>Skills demonstrated:</strong>
@@ -119,7 +119,7 @@
                         <li> 3D printing</li>
                         <li> Arduino prototyping </li>
                         <li> C++ </li>
-                        <li> PCB design (Altium Designer) &amp; Simulation (LTSpice)</li>
+                        <li> PCB design (Altium Designer) &amp; Simulation (LTspice)</li>
                     </ul>
 
                     <a class="btn-link" href="https://github.com/Mr-Cosine/EMG">Github Repository</a>
@@ -157,9 +157,9 @@
                     </div>
                     <div id ="sensor-showcase">
                         <img
-                            src="asset/images/EMGfrontend.png"
+                            src="asset/images/EMGfront end.png"
                             id="emg-image"
-                            alt="The pcb design of emg sensor frontend"
+                            alt="The pcb design of emg sensor front end"
                         ></img>
                     </div>
                 </div>
@@ -169,7 +169,7 @@
             <hr>
             <div class="project-container reveal">
                 <div class="content-left">
-                    <h3>EMG sensor frontend + digital signal processing</h3>
+                    <h3>EMG sensor unit for EMG arm band</h3>
                     <div class="project-meta">2025 &nbsp;·&nbsp; Team - UW Biotron Club</div>
 
                     <strong>Problem:</strong>
@@ -177,13 +177,13 @@
 
                     <strong>Solution:</strong>
                     <p>
-                        Our team decided to design a multi-channel EMG sensor band for the Biotron Club. The EMG sensor frontend is designed to be 
+                        Our team decided to design a multi-channel EMG sensor band for the Biotron Club. The EMG sensor front end is designed to be 
                         integrated into the band, 4 units around the forward forearm to detect the muscle activity. This project is for the analog signal
                         pickup and filtering unit.
                     </p>
                     <p> 
-                        From the existing analog EMG front end, embedd a STM32 microcontroller to process the signal and designed a dedicated dry electrodes 
-                        that can be assembled together forming a unit. Designed the peripheral circuitry (battery management, voltage regulation, communication &amp; programming port for MCU).
+                        From the existing analog EMG front end, embedded a STM32 microcontroller to process the signal and designed dedicated dry electrodes board
+                        that can be assembled together with mainboard to form a unit. Designed the peripheral circuitry (battery management, voltage regulation, communication &amp; programming port for MCU).
                         Compacted the PCB layout to within 4cm by 2.5cm to be integrated conveniently into the band design. 
                         The filtered data is designed to communicate with master board via UART port.
                         The digital signal processing is implemented in C++, using the existing library from the exoskeleton project.
@@ -216,7 +216,7 @@
                     <p>
                         Designed a functioning bolt-action mechanism in SolidWorks with no existing models to work from. The internal geometry was
                         worked out from how the action has to move and references are from a few mechanism diagram. Parts are fully constrained, the bolt cycles 
-                        correctly through the assembly, and the components stays theoretically manufacturable and could be assembled.
+                        correctly through the assembly, and the components stay theoretically manufacturable and could be assembled.
                     </p>
 
                 </div>
@@ -331,7 +331,7 @@
                     <p>
                         A desktop application that merges a batch of PDFs, runs OCR over the pages, rebuilds paragraphs out of
                         the loose text regions OCR returns, and draws a red box around every paragraph containing the keyword. Rebuilding the paragraphs is
-                        the part that matter, as a phrase split across two detections never matches otherwise. In the demo, try the leniency control and
+                        the part that matters, as a phrase split across two detections never matches otherwise. In the demo, try the leniency control and
                         watch the paragraphs break in both directions.
                     </p>
 
@@ -399,7 +399,7 @@
                     <strong>Solution:</strong>
                     <p>
                         Pulled the interface code out of an automation tool I had already written, generalised it,
-                        and packaged it as an installable Python library. User only needs to care the content for the menu. Now released publicly on PyPi,
+                        and packaged it as an installable Python library. User only needs to care about the content for the menu. Now released publicly on PyPI,
                         maintained over 10+ releases, and is installable using pip. The prototype of the library is used as a dependency in tools built during the work.
                     </p>
 
