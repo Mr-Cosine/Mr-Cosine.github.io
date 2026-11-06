@@ -182,9 +182,10 @@
                         pickup and filtering unit.
                     </p>
                     <p> 
-                        From the existing analog EMG front end, embedd a STM32 microcontroller to process the signal and dry electrodes that can be assembled together. 
-                        Compacted the PCB layout to within 4cm by 2.5cm to be integrated conveniently into the band design as a whole unit. 
-                        The filtered data is designed to communicate with master board via UART.
+                        From the existing analog EMG front end, embedd a STM32 microcontroller to process the signal and designed a dedicated dry electrodes 
+                        that can be assembled together forming a unit. Designed the peripheral circuitry (battery management, voltage regulation, communication &amp; programming port for MCU).
+                        Compacted the PCB layout to within 4cm by 2.5cm to be integrated conveniently into the band design. 
+                        The filtered data is designed to communicate with master board via UART port.
                         The digital signal processing is implemented in C++, using the existing library from the exoskeleton project.
                     </p>
 
@@ -201,9 +202,8 @@
                 <div class="content-right">
                     <div id="integrated_sensor-showcase">
                         <img
-                            src="asset/images/integrated_schematics.png"
-                            id="integrated_schematics"
-                            alt="The pcb design of emg sensor frontend"
+                            src="asset/images/integrated_schematics.svg"
+                            alt="The schematic of the integrated EMG sensor unit"
                         ></img>
                     </div>
                 </div>
