@@ -83,7 +83,7 @@
             <div class="project-container reveal">
                 <div class="content-left">
                     <h3>Wearable Exoskeleton System for Grip Assistance</h3>
-                    <div class="project-meta">2025 &nbsp;·&nbsp; Personal &amp; Team</div>
+                    <div class="project-meta">2025 &nbsp;·&nbsp; Personal (formally team project) </div>
 
                     <strong>Problem:</strong>
                     <p> People with limited grip strength lack affordable assistive devices — what exists is expensive, 
@@ -91,33 +91,27 @@
 
                     <strong>Solution:</strong>
                     <p> 
-                        Led mechanical design in a multidisciplinary team, building a 3D-printed wearable exoskeleton from 
+                        Led mechanical design in a multidisciplinary team, building a 3D-printed wearable exoskeleton with 1DOF from 
                         scratch — motors, batteries and cable routing packed into geometry shaped around a hand. 40+ print-and-test cycles, most of the design 
                         decisions made by printing a part and finding out it did not fit or poorly performs. Validated with a breadboard Arduino manually controled 
                         circuit.
                     </p>
                     <p>
-                        Also designed the analog front end that reads muscle activity. Surface EMG is a few hundred microvolts sitting under electrode offset, 
+                        Designed the analog front end that reads muscle activity. Surface EMG is a few hundred microvolts sitting under electrode offset, 
                         motion artifact and mains hum. Built in Altium following standard instrumentation-amplifier and active-filter topologies: 
                         an instrumentation amplifier for differential electrode pickup, two stage gains, an active high-pass and low-pass, and a mid-supply 
                         reference for single-supply operation. Built five-sheet hierarchical schematic, designed and optimized board layout over 3 revisions. 
-                        Now is put into production.
+                        Now is put into production for 2 iterations.
                     </p>
                     <p>
                         Refactored entirely an open source signal processing C++ program for EMG sensor to build the processing and peak detection algorithm for the customized
-                        EMG sensor front end. Changed filter to Butterworth LPF &amp; HPF, and notch filter that support arbitrary sample frequency and cutoff frequency; 
+                        EMG sensor front end. Adapted Butterworth LPF &amp; HPF and notch filter, that support arbitrary sample frequency and cutoff frequency; 
                         Added Gaussian blur algorithm on filtered value; Created customized queue and complex number class.
                     </p>
                     <p>
                         Delivered a library for bipolar stepper motor control firmwares. Implement cutomizable actuation length and delays between step(for speed control). 
                         Provided an automation for providing interactive guide for setting up and caliberate a new motor.
                     </P>
-
-                    <strong>Outcome:</strong> 
-                    <p>
-                        A working prototype hitting every design target — actuation under 0.5 s, 1 kg hold, comfortable in continuous wear — 
-                        for under $300 total.
-                    </p>
 
                     <strong>Skills demonstrated:</strong>
                     <ul>
@@ -171,8 +165,49 @@
                 </div>
             </div>
 
-            <h2>MECHANICAL DESIGN</h2>
+            <h2>MECHANICAL &amp; HARDWARE</h2>
             <hr>
+            <div class="project-container reveal">
+                <div class="content-left">
+                    <h3>EMG sensor frontend + digital signal processing</h3>
+                    <div class="project-meta">2025 &nbsp;·&nbsp; Team - UW Biotron Club</div>
+
+                    <strong>Problem:</strong>
+                    <p> There lacks affordable multi-channel EMG sensor band in the market. The only manufacturer's product is discontinued.</p>
+
+                    <strong>Solution:</strong>
+                    <p>
+                        Our team decided to design a multi-channel EMG sensor band for the Biotron Club. The EMG sensor frontend is designed to be 
+                        integrated into the band, 4 units around the forward forearm to detect the muscle activity. This project is for the analog signal
+                        pickup and filtering unit.
+                    </p>
+                    <p> 
+                        From the existing analog EMG front end, embedd a STM32 microcontroller to process the signal and dry electrodes that can be assembled together. 
+                        Compacted the PCB layout to within 4cm by 2.5cm to be integrated conveniently into the band design as a whole unit. 
+                        The filtered data is designed to communicate with master board via UART.
+                        The digital signal processing is implemented in C++, using the existing library from the exoskeleton project.
+                    </p>
+
+                    <strong>Skills demonstrated:</strong>
+                    <ul>
+                        <li> PCB design (Altium Designer) </li>
+                        <li> Digital Signal Processing </li>
+                        <li> Embedded system </li>
+                    </ul>
+
+                    <a class="btn-link" href="https://github.com/Mr-Cosine/EMG/tree/main/Electronics/EMG%20sensor%20front%20end/layout/EMGintegrated">Github Repository</a>
+                </div>
+
+                <div class="content-right">
+                    <div id="integrated_sensor-showcase">
+                        <img
+                            src="asset/images/integrated_schematics.png"
+                            id="integrated_schematics"
+                            alt="The pcb design of emg sensor frontend"
+                        ></img>
+                    </div>
+                </div>
+            </div>
             <div class="project-container reveal">
                 <div class="content-left">
                     <h3>Bolt-Action Rifle</h3>
@@ -180,8 +215,8 @@
 
                     <p>
                         Designed a functioning bolt-action mechanism in SolidWorks with no existing models to work from. The internal geometry was
-                        worked out from how the action has to move and references are from a few mechanism diagram. Every part is fully constrained, the bolt cycles 
-                        correctly through the assembly, and the components stays manufacturable and could be assembled.
+                        worked out from how the action has to move and references are from a few mechanism diagram. Parts are fully constrained, the bolt cycles 
+                        correctly through the assembly, and the components stays theoretically manufacturable and could be assembled.
                     </p>
 
                 </div>
@@ -241,7 +276,7 @@
                 </div>
             </div>
 
-            <h2>SOFTWARE DEVELOPING</h2>
+            <h2>SOFTWARE DEVELOPMENT</h2>
             <hr>
 
             <div class="project-container reveal">
@@ -379,7 +414,7 @@
                     </ul>
 
                     <a class="btn-link" href="https://github.com/Mr-Cosine/prettier_console">Github Repository</a>
-                    <a class="btn-link" href="https://pypi.org/project/prettier-console/">Proejct on PyPi</a>
+                    <a class="btn-link" href="https://pypi.org/project/prettier-console/">Project on PyPi</a>
                 </div>
 
                 <div class="content-right">
@@ -403,15 +438,13 @@
 
     <footer class="site-footer">
         <h2>Let's build something.</h2>
-        <p>I'm looking for co-op work in mechanical design, embedded systems, or software. I'd rather build something that gets used than something that
-        demos well.</p>
+        <p>I'm looking for co-op work in mechanical design, embedded systems, and software. I am highly motivated to contribute to meaningful projects.</p>
 
         <div class="footer-links">
             <a href="mailto:a95sun@uwaterloo.ca">Email</a>
             <a href="https://www.linkedin.com/in/jiaqi-sun-472053359/">LinkedIn</a>
             <a href="https://github.com/Mr-Cosine">GitHub</a>
             <a href="https://www.instagram.com/bot_no.0721/">Instagram</a>
-            <a href="https://space.bilibili.com/526016800">Bilibili</a>
         </div>
 
         <p class="footer-note">© 2026 Jiaqi (Andy) Sun</p>
