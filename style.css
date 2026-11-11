@@ -709,8 +709,19 @@ img { max-width: 100%; }
     max-width: 560px;
 }
 
-#emg-image { aspect-ratio: 1416 / 1015; object-fit: cover; }
-#emg-video { aspect-ratio: 16 / 9;       object-fit: cover; }
+/* For media whose content runs to its own edges (tightly cropped renders,
+   screen recordings): pad it in so the rounded corners frame the content
+   instead of clipping it */
+.media-frame--inset {
+    padding: 10px;
+    object-fit: contain;
+}
+
+#emg-image { aspect-ratio: 1416 / 1015; }
+#emg-video { aspect-ratio: 16 / 9; object-fit: cover; }
+
+/* Matches the terminal background in the recording */
+#pc-video { background: #0c0c0c; }
 
 /* Integrated unit: schematic over PCB render, stacked full width so the
    schematic stays legible */
