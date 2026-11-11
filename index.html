@@ -157,10 +157,14 @@
                     </div>
                     <div id ="sensor-showcase">
                         <img
-                            src="asset/images/EMGfront end.png"
+                            src="asset/images/EMGfrontend.png"
                             id="emg-image"
-                            alt="The pcb design of emg sensor front end"
-                        ></img>
+                            class="media-frame"
+                            alt="The pcb design of emg sensor front end">
+                        <video id="emg-video" class="media-frame" autoplay loop muted playsinline>
+                            <source src="asset/images/EMGfrontend_demo.webm" type="video/webm">
+                            <p>Your browser does not support the video tag.</p>
+                        </video>
                     </div>
                 </div>
             </div>
@@ -186,6 +190,12 @@
                         that can be assembled together with mainboard to form a unit. Designed the peripheral circuitry (battery management, voltage regulation, communication &amp; programming port for MCU).
                         Compacted the PCB layout to within 4cm by 2.5cm to be integrated conveniently into the band design. 
                         The filtered data is designed to communicate with master board via UART port.
+                    </p>
+                    <p>
+                        Designed the shell for the unit to be TPU 3D printed and could be assembled with the PCB. The shell is designed to be 
+                        waterproof and dustproof, with a snap-fit design for easy assembly and disassembly.
+                    </p>
+                    <p>
                         The digital signal processing is implemented in C++, based on the existing library from the exoskeleton project.
                     </p>
 
@@ -203,8 +213,14 @@
                     <div id="integrated_sensor-showcase">
                         <img
                             src="asset/images/integrated_schematics.svg"
-                            alt="The schematic of the integrated EMG sensor unit"
-                        ></img>
+                            id="integrated-schematic"
+                            class="media-frame"
+                            alt="The schematic of the integrated EMG sensor unit">
+                        <img
+                            src="asset/images/EMGintegrated.png"
+                            id="integrated-pcb"
+                            class="media-frame"
+                            alt="The PCB layout of the integrated EMG sensor unit">
                     </div>
                 </div>
             </div>
@@ -425,7 +441,7 @@
                             Your browser does not support iframes.
                         </iframe>
                         <small>The console produced: </small>
-                        <video autoplay loop muted playsinline width="100%" height="auto" style="border-radius: 14px;">
+                        <video class="media-frame" autoplay loop muted playsinline>
                             <source src="asset/images/prettier_console.webm" type="video/webm" >
                             <p>Your browser does not support the video tag.</p>
                         </video>

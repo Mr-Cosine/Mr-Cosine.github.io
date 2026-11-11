@@ -675,8 +675,7 @@ img { max-width: 100%; }
     gap: 16px;
 }
 
-#prototype-showcase,
-#sensor-showcase {
+#prototype-showcase {
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -686,6 +685,45 @@ img { max-width: 100%; }
     max-width: 560px;
     height: clamp(220px, 26vw, 320px);
 }
+
+/* Shared frame for still images and videos so every piece of media
+   gets the same corner radius, hairline border and shadow */
+.media-frame {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+    background: var(--surface);
+    overflow: hidden;
+}
+
+/* Front-end PCB + demo video: columns are weighted by each item's aspect
+   ratio, so both render at the same height without cropping */
+#sensor-showcase {
+    display: grid;
+    grid-template-columns: 1.395fr 1.778fr;
+    gap: 12px;
+    width: 100%;
+    max-width: 560px;
+}
+
+#emg-image { aspect-ratio: 1416 / 1015; object-fit: cover; }
+#emg-video { aspect-ratio: 16 / 9;       object-fit: cover; }
+
+/* Integrated unit: schematic over PCB render, stacked full width so the
+   schematic stays legible */
+#integrated_sensor-showcase {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 560px;
+}
+
+#integrated-schematic { aspect-ratio: 792 / 612;   object-fit: contain; }
+#integrated-pcb       { aspect-ratio: 1312 / 1128; object-fit: cover; }
 
 #prototype-testing {
     flex: 1 1 0;
@@ -875,7 +913,9 @@ model-viewer.media-window {
     }
 
     /* track .media-window so the showcase stays flush with the viewer above */
-    #prototype-showcase {
+    #prototype-showcase,
+    #sensor-showcase,
+    #integrated_sensor-showcase {
         max-width: none;
     }
 }
@@ -935,6 +975,11 @@ model-viewer.media-window {
     #prototype-image {
         flex: 0 0 auto;
         height: 260px;
+    }
+
+    /* Side by side the pair drops to ~100px tall; stack instead */
+    #sensor-showcase {
+        grid-template-columns: 1fr;
     }
 
     .nametag {
