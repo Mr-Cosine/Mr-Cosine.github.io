@@ -3,6 +3,13 @@
    ============================ */
 
 :root {
+   .no-select {
+      -webkit-user-select: none; /* Safari */
+      -moz-user-select: none;    /* Old versions of Firefox */
+      -ms-user-select: none;     /* Internet Explorer/Edge */
+      user-select: none;         /* Standard syntax */
+   }
+
     /* Base channels: every translucent color below is derived from these,
        so a hue only ever needs changing in one place */
     --ink-rgb:    22 20 32;

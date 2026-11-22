@@ -178,12 +178,15 @@ class MP3 {
                     padding: 28px 24px 24px;
                     border-radius: 24px;
                     background: var(--surface);
-                    box-shadow: var(--shadow-md);
+                    box-shadow: var(--shadow-lg);
+                    background: rgb(var(--white-rgb) / 0.7);
+                    backdrop-filter: blur(8px);
+                    -webkit-backdrop-filter: blur(8px);
                 }
 
-                .title  { font-size: 16px; font-weight: 600; }
+                .title  { font-size: 20px; font-weight: 600; }
                 .artist { font-size: 12px; color: var(--muted); margin-top: 3px; }
-                .notice { font-size: 12px; color: var(--muted); margin-top: 10px; font-style: italic;}
+                .notice { font-size: 12px; color: var(--muted); margin-top: 12px; font-style: italic;}
 
                 /* ---------- Visualizer ---------- */
                 .viz {
@@ -280,7 +283,7 @@ class MP3 {
                         <svg width="18" height="18" viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg>
                     </button>
                 </div>
-                <div class="notice">Double click to close.</div>
+                <div class="notice">double click to close</div>
             </div>
             `, 
             collapsed: `
@@ -317,10 +320,27 @@ class MP3 {
                     box-shadow: var(--shadow-brand);
                     display: grid;
                     place-items: center;
-                    transition: background .15s var(--ease);
+                    transition: background .3s var(--ease),
+                                transform .3s var(--ease);
                 }
-                .dock:hover .icon { background: var(--violet-deep); }
-                .dock svg { fill: var(--on-dark); }
+                .dock:hover .icon { 
+                    background: var(--violet-deep);
+                    transform: scale(1.05);
+                }
+                .dock svg { 
+                    fill: var(--on-dark); 
+                    transition: rotate 0.3s linear,
+                                scale 0.3s var(--ease);
+                }
+                @keyframes spin {
+                    0% { rotate: 0deg; }
+                    50% { rotate: 180deg; }
+                    100% { rotate: 360deg; }
+                }
+                .dock:hover svg { 
+                    scale: 1.05;
+                    animation: spin 6s linear infinite;
+                }
             </style>
 
             <button class="dock" aria-label="Show player">
@@ -458,7 +478,7 @@ class MP3 {
             const title = this.root.querySelector('.title');
             if (!track || !title) return;
 
-            title.textContent = track.title;
+            title.textContent = `Track #${this.playStat.index + 1}: ${track.title}`;
             this.root.querySelector('.artist').textContent = track.artist;
 
             total.textContent = formatTime(this.playStat.duration);
