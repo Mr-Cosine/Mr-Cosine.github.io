@@ -1,6 +1,17 @@
+/* Banner + iframe share one frame (border, radius, shadow come from
+   the shared rule in style.css); this just lays them out side by side */
+.demo-frame {
+    display: flex;
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    background: var(--surface, #fff);
+}
+
 #demo-banner {
     background: var(--ink, #161420);
-    color: white;
+    color: var(--on-dark, #fff);
     padding: 24px 14px;
     font-size: 1.2rem;
     font-weight: 600;
@@ -11,7 +22,6 @@
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
-    border-radius: var(--radius, 18px) 0 0 var(--radius, 18px);
 }
 
 #demo-area {
@@ -30,11 +40,10 @@
 
 #demo {
     flex: 1;
+    min-width: 0;
     height: 540px;
-    background: #fff;
-    border: 1px solid var(--line, rgba(22, 20, 32, 0.10));
-    border-left: none;
-    border-radius: 0 var(--radius, 18px) var(--radius, 18px) 0;
+    border: none;
+    display: block;
 }
 
 #demo-area #sci-mainpanel,

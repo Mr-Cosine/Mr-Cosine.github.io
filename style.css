@@ -1,45 +1,3 @@
-/* ============================
-   DESIGN TOKENS
-   ============================ */
-
-:root {
-    --violet:       #6d4aff;
-    --violet-deep:  #4b2fd6;
-    --magenta:      #e23a86;
-    --amber:        #f0a13a;
-
-    --ink:          #161420;
-    --ink-soft:     #4b4761;
-    --muted:        #837e95;
-
-    --surface:      #ffffff;
-    --surface-alt:  #f4f3f7;
-    --surface-dark: #f9f9fa;
-    --line:        rgba(22, 20, 32, 0.10);
-    --line-strong: rgba(22, 20, 32, 0.18);
-
-    --shadow-sm: 0 1px 2px rgba(30, 29, 37, 0.06),
-                 0 2px 8px rgba(22, 20, 32, 0.05);
-    --shadow-md: 0 2px 4px rgba(22, 20, 32, 0.05),
-                 0 12px 32px rgba(22, 20, 32, 0.09);
-    --shadow-lg: 0 4px 8px rgba(22, 20, 32, 0.05),
-                 0 24px 64px rgba(22, 20, 32, 0.14);
-
-    --brand-gradient: linear-gradient(100deg, var(--violet-deep), var(--violet) 35%, var(--magenta) 72%, var(--amber));
-
-    --radius-sm: 10px;
-    --radius:    18px;
-    --radius-lg: 26px;
-
-    --nav-h: 58px;
-
-    --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
-/* ============================
-   GLOBAL
-   ============================ */
-
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
@@ -63,7 +21,7 @@ body {
 }
 
 ::selection {
-    background: rgba(109, 74, 255, 0.22);
+    background: var(--violet-glow);
     color: var(--ink);
 }
 
@@ -115,10 +73,10 @@ img { max-width: 100%; }
     gap: clamp(12px, 2vw, 20px);
     padding: 0 clamp(16px, 4vw, 40px);
 
-    background: rgba(16, 14, 26, 0.42);
+    background: var(--scrim);
     -webkit-backdrop-filter: blur(14px) saturate(150%);
     backdrop-filter: blur(14px) saturate(150%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    border-bottom: 1px solid var(--on-dark-line);
 
     z-index: 1000;
 }
@@ -128,7 +86,7 @@ img { max-width: 100%; }
     font-size: clamp(0.82rem, 1vw, 1rem);
     font-weight: 600;
     letter-spacing: 0.08em;
-    color: white;
+    color: var(--on-dark);
     opacity: 0.85;
 }
 
@@ -136,7 +94,7 @@ img { max-width: 100%; }
 .separator {
     width: 1px;
     height: 20px;
-    background: rgba(255, 255, 255, 0.35);
+    background: var(--on-dark-faint);
 }
 
 /*contact info*/
@@ -150,7 +108,7 @@ img { max-width: 100%; }
     font-size: clamp(0.82rem, 1vw, 1rem);
     font-weight: 500;
     letter-spacing: 0.08em;
-    color: white;
+    color: var(--on-dark);
     opacity: 0.85;
     cursor: pointer;
     transition: opacity 0.2s var(--ease);
@@ -170,7 +128,7 @@ img { max-width: 100%; }
 }
 
 #contact:hover {
-    color: white;
+    color: var(--on-dark);
     opacity: 1;
 }
 
@@ -234,7 +192,7 @@ img { max-width: 100%; }
 .header {
     position: relative;
     isolation: isolate;
-    color: white;
+    color: var(--on-dark);
 
     background-image: url('asset/background/backgrd_header.png');
     background-size: cover;
@@ -261,15 +219,15 @@ img { max-width: 100%; }
     inset: 0;
     z-index: -1;
     background:
-        linear-gradient(to top, rgba(12, 10, 22, 0.42), transparent 38%),
-        linear-gradient(to right, rgba(12, 10, 22, 0.38), transparent 55%);
+        linear-gradient(to top, var(--scrim), transparent 38%),
+        linear-gradient(to right, var(--scrim), transparent 55%);
 }
 
 /* clickable name*/
 .clickable {
     cursor: pointer;
-    color: #ffd166;
-    background: linear-gradient(90deg, #ffd166, #ff9ec7);
+    color: var(--amber-light);
+    background: var(--highlight-gradient);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -288,14 +246,14 @@ img { max-width: 100%; }
     max-width: min(80vw, 720px);
     padding: 12px 22px;
 
-    background: rgba(16, 14, 26, 0.88);
+    background: var(--ink-overlay);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid var(--on-dark-line);
     border-radius: 999px;
     box-shadow: var(--shadow-lg);
 
-    color: white;
+    color: var(--on-dark);
     text-align: center;
     font-size: 0.95rem;
     line-height: 1.45;
@@ -327,7 +285,7 @@ img { max-width: 100%; }
     letter-spacing: -0.03em;
     margin: 0;
     text-transform: uppercase;
-    text-shadow: 0 2px 30px rgba(12, 10, 22, 0.35);
+    text-shadow: 0 2px 30px var(--scrim);
 }
 
 .text p {
@@ -335,8 +293,8 @@ img { max-width: 100%; }
     font-weight: 300;
     line-height: 1.7;
     max-width: 60ch;
-    color: rgba(255, 255, 255, 0.92);
-    text-shadow: 0 1px 20px rgba(12, 10, 22, 0.4);
+    color: var(--on-dark-soft);
+    text-shadow: 0 1px 20px var(--scrim);
 }
 
 .text hr {
@@ -344,7 +302,7 @@ img { max-width: 100%; }
     height: 4px;
     border: none;
     border-radius: 999px;
-    background: linear-gradient(90deg, #ffffff, rgba(255, 255, 255, 0.15));
+    background: linear-gradient(90deg, var(--on-dark), var(--on-dark-line));
     margin: 22px 0 24px 0;
 }
 
@@ -361,9 +319,9 @@ img { max-width: 100%; }
 
     margin-right: clamp(0px, 2vw, 30px);
     /* Ring drawn with spread shadows so the image itself stays a clean circle */
-    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.95),
-                0 0 0 8px rgba(255, 255, 255, 0.28),
-                0 24px 60px rgba(12, 10, 22, 0.45);
+    box-shadow: 0 0 0 6px var(--on-dark),
+                0 0 0 8px var(--on-dark-faint),
+                var(--shadow-dark);
 }
 
 /* GOTO button */
@@ -380,10 +338,10 @@ img { max-width: 100%; }
     border: none;
     cursor: pointer;
 
-    background: white;
+    background: var(--on-dark);
     clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
 
-    filter: drop-shadow(0 8px 18px rgba(12, 10, 22, 0.45));
+    filter: drop-shadow(0 8px 18px var(--shadow-dark-color));
     transition: transform 0.25s var(--ease), filter 0.25s var(--ease);
     animation: bounce 2.4s var(--ease) infinite;
 }
@@ -391,7 +349,7 @@ img { max-width: 100%; }
 .scroll-button:hover {
     animation-play-state: paused;
     transform: translateX(-50%) scale(1.12);
-    filter: drop-shadow(0 10px 22px rgba(12, 10, 22, 0.55));
+    filter: drop-shadow(0 10px 22px var(--shadow-dark-color));
 }
 
 @keyframes bounce {
@@ -628,7 +586,7 @@ img { max-width: 100%; }
     border-radius: 999px;
 
     background: var(--ink);
-    color: white;
+    color: var(--on-dark);
     font-size: 0.92rem;
     font-weight: 500;
     text-decoration: none;
@@ -656,7 +614,7 @@ img { max-width: 100%; }
 }
 
 .btn-link:hover {
-    box-shadow: 0 10px 24px rgba(109, 74, 255, 0.32);
+    box-shadow: var(--shadow-brand);
 }
 
 .btn-link:hover::before {
@@ -686,15 +644,30 @@ img { max-width: 100%; }
     height: clamp(220px, 26vw, 320px);
 }
 
-/* Shared frame for still images and videos so every piece of media
-   gets the same corner radius, hairline border and shadow */
+/* Shared frame for every block in .content-right (media, 3D viewers,
+   demo panels): same corner radius, hairline border and faint shadow */
+.media-frame,
+.media-window,
+#prototype-testing,
+#prototype-image,
+.demo-frame,
+.pm-demo {
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Media nested inside a demo panel: the panel already carries the frame,
+   so inner pieces get a tighter radius and no shadow of their own */
+.pm-demo .media-frame {
+    border-radius: var(--radius-sm);
+    box-shadow: none;
+}
+
 .media-frame {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: var(--radius);
-    border: 1px solid var(--line);
-    box-shadow: var(--shadow-sm);
     background: var(--surface);
     overflow: hidden;
 }
@@ -720,8 +693,7 @@ img { max-width: 100%; }
 #emg-image { aspect-ratio: 1416 / 1015; }
 #emg-video { aspect-ratio: 16 / 9; object-fit: cover; }
 
-/* Matches the terminal background in the recording */
-#pc-video { background: #0c0c0c; }
+#pc-video { background: var(--terminal-bg); }
 
 /* Integrated unit: schematic over PCB render, stacked full width so the
    schematic stays legible */
@@ -743,11 +715,7 @@ img { max-width: 100%; }
     display: flex;
     flex-direction: row;
     align-items: stretch;
-
-    border-radius: var(--radius);
     overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--line);
 }
 
 #prototype-gif {
@@ -766,15 +734,11 @@ img { max-width: 100%; }
     height: 100%;
     object-fit: cover;
     display: block;
-
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--line);
 }
 
 #prototype-banner {
     background: var(--ink);
-    color: white;
+    color: var(--on-dark);
     padding: 14px 12px;
     font-size: 0.66rem;
     font-weight: 600;
@@ -794,16 +758,12 @@ img { max-width: 100%; }
     max-width: 560px;
     height: auto;
     max-height: 350px;
-    border-radius: var(--radius);
-    border: 1px solid var(--line);
     object-fit: cover;
-    box-shadow: var(--shadow-sm);
 }
 
 model-viewer.media-window {
     width: 100%;
     height: auto;
-    border-radius: var(--radius);
 
     background-image: url("asset/background/backgrd_3dview.png");
     background-size: cover;
@@ -816,7 +776,7 @@ model-viewer.media-window {
     font-size: 0.72rem;
     font-weight: 600;
     letter-spacing: 0.08em;
-    color: white;
+    color: var(--on-dark);
     gap: 7px;
     top: 14px;
     right: 14px;
@@ -849,7 +809,7 @@ model-viewer.media-window {
 
 .site-footer {
     background: var(--ink);
-    color: rgba(255, 255, 255, 0.62);
+    color: var(--on-dark-muted);
 
     padding: clamp(48px, 6vw, 72px) clamp(20px, 5vw, 64px);
     text-align: center;
@@ -859,7 +819,7 @@ model-viewer.media-window {
     font-size: clamp(1.4rem, 3vw, 2.2rem);
     font-weight: 700;
     letter-spacing: -0.02em;
-    color: white;
+    color: var(--on-dark);
     margin: 0 0 12px;
 }
 
@@ -881,8 +841,8 @@ model-viewer.media-window {
 .footer-links a {
     padding: 10px 20px;
     border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    color: rgba(255, 255, 255, 0.85);
+    border: 1px solid var(--on-dark-line);
+    color: var(--on-dark-soft);
     font-size: 0.9rem;
     font-weight: 500;
     text-decoration: none;
@@ -891,14 +851,14 @@ model-viewer.media-window {
 }
 
 .footer-links a:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.4);
-    color: white;
+    background: var(--on-dark-line);
+    border-color: var(--on-dark-faint);
+    color: var(--on-dark);
 }
 
 .footer-note {
     font-size: 0.82rem;
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--on-dark-faint);
     margin: 0;
 }
 

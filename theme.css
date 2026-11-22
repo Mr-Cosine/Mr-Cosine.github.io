@@ -1,0 +1,68 @@
+/* ============================
+   DESIGN TOKENS
+   ============================ */
+
+:root {
+    /* Base channels: every translucent color below is derived from these,
+       so a hue only ever needs changing in one place */
+    --ink-rgb:    22 20 32;
+    --white-rgb:  255 255 255;
+    --violet-rgb: 109 74 255;
+
+    /* Brand */
+    --violet:        rgb(var(--violet-rgb));
+    --violet-deep:   #4b2fd6;
+    --magenta:       #e23a86;
+    --amber:         #f0a13a;
+    --amber-light:   #ffd166;   /* light brand tints for use on dark art */
+    --magenta-light: #ff9ec7;
+    --violet-glow:   rgb(var(--violet-rgb) / 0.28);
+
+    /* Text on light */
+    --ink:          rgb(var(--ink-rgb));
+    --ink-soft:     #4b4761;
+    --muted:        #837e95;
+
+    /* Surfaces & lines on light */
+    --surface:      rgb(var(--white-rgb));
+    --surface-alt:  #f4f3f7;
+    --surface-dark: #f9f9fa;
+    --line:        rgb(var(--ink-rgb) / 0.10);
+    --line-strong: rgb(var(--ink-rgb) / 0.18);
+
+    /* Dark overlays (nav bar, hero scrim, toast) */
+    --scrim:        rgb(var(--ink-rgb) / 0.40);
+    --ink-overlay:  rgb(var(--ink-rgb) / 0.88);
+
+    /* Text & lines on dark */
+    --on-dark:       rgb(var(--white-rgb));
+    --on-dark-soft:  rgb(var(--white-rgb) / 0.88);
+    --on-dark-muted: rgb(var(--white-rgb) / 0.62);
+    --on-dark-faint: rgb(var(--white-rgb) / 0.38);
+    --on-dark-line:  rgb(var(--white-rgb) / 0.12);
+
+    /* Media: matches the terminal background in the screen recording */
+    --terminal-bg:  #0c0c0c;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgb(var(--ink-rgb) / 0.06),
+                 0 2px 8px rgb(var(--ink-rgb) / 0.05);
+    --shadow-md: 0 2px 4px rgb(var(--ink-rgb) / 0.05),
+                 0 12px 32px rgb(var(--ink-rgb) / 0.09);
+    --shadow-lg: 0 4px 8px rgb(var(--ink-rgb) / 0.05),
+                 0 24px 64px rgb(var(--ink-rgb) / 0.14);
+    --shadow-dark-color: rgb(var(--ink-rgb) / 0.50);   /* for shadows cast over dark art */
+    --shadow-dark:  0 24px 60px var(--shadow-dark-color);
+    --shadow-brand: 0 10px 24px var(--violet-glow);
+
+    --brand-gradient: linear-gradient(100deg, var(--violet-deep), var(--violet) 35%, var(--magenta) 72%, var(--amber));
+    --highlight-gradient: linear-gradient(90deg, var(--amber-light), var(--magenta-light));
+
+    --radius-sm: 10px;
+    --radius:    18px;
+    --radius-lg: 26px;
+
+    --nav-h: 58px;
+
+    --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
