@@ -343,7 +343,7 @@ class MP3 {
                 }
             </style>
 
-            <button class="dock" aria-label="Show player">
+            <button title="Wanna havre some music?" class="dock" aria-label="Show player">
                 <div class="icon">
                     <svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
                 </div>
