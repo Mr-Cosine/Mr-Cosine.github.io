@@ -98,6 +98,11 @@ class Visualizer {
             container.appendChild(b);
             this.bars.push(b);
         }
+
+        // Measure once: bar width (decided by flex + gaps) and the full height available.
+        this.barW  = this.bars[0].getBoundingClientRect().width;
+        this.fullH = container.clientHeight;
+
         this.set(this.barVals);       // show the current state right away
     }
 
@@ -120,7 +125,8 @@ class Visualizer {
         if (this.bars.length !== this.barCount) return;
         for (let i = 0; i < this.barCount; i++) {
             const v = Math.min(1, Math.max(this.minScale, values[i] ?? 0));
-            this.bars[i].style.transform = `scaleY(${v})`;
+            // 0 -> circle (height = width), 1 -> full height
+            this.bars[i].style.height = (this.barW + v * (this.fullH - this.barW)) + 'px';
         }
     }
 
@@ -177,7 +183,6 @@ class MP3 {
                     width: 280px;
                     padding: 28px 24px 24px;
                     border-radius: 24px;
-                    background: var(--surface);
                     box-shadow: var(--shadow-lg);
                     background: rgb(var(--white-rgb) / 0.7);
                     backdrop-filter: blur(8px);
@@ -190,21 +195,17 @@ class MP3 {
 
                 /* ---------- Visualizer ---------- */
                 .viz {
-                    height: 110px;
-                    margin: 26px 0 22px;
+                    height: 90px;
+                    margin: 20px 0 20px;
                     display: flex;
                     align-items: center;        /* bars centered on the midline */
                     gap: 5px;
                 }
 
                 .bar {
-                    flex: 1;
-                    height: 100%;
-                    border-radius: 99px;
-                    transform: scaleY(0.04);
-                    transform-origin: center;   /* grows up AND down symmetrically */
-                    transition: transform var(--bar-transition) linear;
-                    will-change: transform;
+                    flex: 1;                    /* width comes from the gaps */
+                    border-radius: 99px;        /* clamps to half the width -> round ends */
+                    transition: height var(--bar-transition) linear;
                 }
 
                 /* ---------- Progress ---------- */
@@ -301,12 +302,12 @@ class MP3 {
                     --h: calc(var(--icon) + 2 * var(--pad));        /* tab height         */
 
                     display:block;
-                    width: var(--h);                                /* half circle + rect */
+                    width: var(--h);  
                     height: var(--h);
                     padding: var(--pad);
                     border: none;
                     border-radius: calc(var(--h) / 2) 0 0 calc(var(--h) / 2);
-                    background: rgb(var(--white-rgb) / 0.7);        /* slightly opaque    */
+                    background: rgb(var(--white-rgb) / 0.7);
                     backdrop-filter: blur(8px);
                     -webkit-backdrop-filter: blur(8px);
                     box-shadow: var(--shadow-md);
@@ -380,7 +381,7 @@ class MP3 {
         this.host.style.border = "none";
         this.host.style.zIndex = "9999";
 
-        this.visualizer = new Visualizer(doc, { barCount: 16, minScale: 0.04 });
+        this.visualizer = new Visualizer(doc, { barCount: 16, minScale: 0 });
 
         this.activator = this.activator.bind(this);
         this.deactivator = this.deactivator.bind(this);
