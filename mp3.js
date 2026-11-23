@@ -1,6 +1,15 @@
 // All songs needed to be loaded
-const SONGS = ["Passion", "Trance"]
+class Album {
+    constructor (title, songs) {
+        this.title = title;
+        this.songs = songs;
+    }
+}
+const work = new Album("Andy's work", ["Passion", "Trance"]);
+const LIBRARY = [work];
 const MUSIC_DIR = 'asset/musics/charts/';
+
+let CURRENT_ALBUM = null;
 
 // Fetch + parse one chart JSON by name.
 async function loadTrack(name) {
@@ -58,10 +67,6 @@ function cancelDraggable(object) {
     object.removeEventListener('mousedown', dragHandler);
 }
 
-/* ============================
-   Visualizer: owns the bar elements, their colours, the transition time
-   and the animation loop. It only draws; the player decides which values to show.
-   ============================ */
 class Visualizer {
     constructor(doc, {
         barCount        = 16,
@@ -171,14 +176,14 @@ class MP3 {
             expanded: `
             <style>
                 * { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
                 :host {
                     all: initial;
                     display: block;
                     font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
                     color: var(--ink);
                 }
-
+ 
                 .player {
                     width: 280px;
                     padding: 28px 24px 24px;
@@ -191,11 +196,72 @@ class MP3 {
                     -webkit-backdrop-filter: blur(12px);
                     cursor: move;
                 }
-
+ 
+                /* ---------- Album picker ---------- */
+                .album {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 4px;
+                    margin-bottom: 6px;
+                    border: none;
+                    background: none;
+                    font: inherit;
+                    font-size: 11px;
+                    letter-spacing: .04em;
+                    color: var(--on-dark-muted);
+                    cursor: pointer;
+                    transition: color .15s var(--ease);
+                }
+                .album:hover, .album.open { color: var(--on-dark); }
+                .album svg { fill: currentColor; transition: rotate .2s var(--ease); }
+                .album.open svg { rotate: 180deg; }
+ 
+                .stage { position: relative; }              /* title, artist, viz and album list share this spot */
+                .stage.picking > :not(.albums) { visibility: hidden; } /* keeps their size, so bar measurements stay valid */
+ 
+                .albums {
+                    position: absolute;
+                    inset: 0;
+                    display: none;
+                    flex-direction: column;
+                    gap: 2px;
+                    overflow-y: auto;
+                }
+                .stage.picking .albums { display: flex; }
+ 
+                .album-row {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    width: 100%;
+                    padding: 7px 10px;
+                    border: none;
+                    border-radius: var(--radius-sm);
+                    background: none;
+                    font: inherit;
+                    font-size: 13px;
+                    color: var(--on-dark-soft);
+                    text-align: left;
+                    cursor: pointer;
+                    transition: background .15s var(--ease);
+                }
+                .album-row:hover:not(:disabled) { background: var(--on-dark-line); }
+                .album-row .dot {
+                    width: 6px; height: 6px;
+                    border-radius: 50%;
+                    flex: none;
+                    background: transparent;
+                }
+                .album-row.current { color: var(--on-dark); }
+                .album-row.current .dot { background: var(--violet); box-shadow: 0 0 6px var(--violet-glow); }
+                .album-row .count { margin-left: auto; font-size: 11px; color: var(--on-dark-muted); }
+                .album-row:disabled { color: var(--on-dark-faint); cursor: default; }
+                .album-row:disabled .count { color: var(--on-dark-faint); }
+ 
                 .title  { font-size: 20px; font-weight: 600; }
                 .artist { font-size: 12px; margin-top: 3px; }
                 .notice { font-size: 12px; color: var(--on-dark-muted); margin-top: 12px; font-style: italic; text-align: right}
-
+ 
                 /* ---------- Visualizer ---------- */
                 .viz {
                     height: 90px;
@@ -204,13 +270,13 @@ class MP3 {
                     align-items: center;        /* bars centered on the midline */
                     gap: 5px;
                 }
-
+ 
                 .bar {
                     flex: 1;                    /* width comes from the gaps */
                     border-radius: 99px;        /* clamps to half the width -> round ends */
                     transition: height var(--bar-transition) linear;
                 }
-
+ 
                 /* ---------- Progress ---------- */
                 .progress {
                     height: 3px;
@@ -232,7 +298,7 @@ class MP3 {
                     margin-top: 6px;
                     font-variant-numeric: tabular-nums;
                 }
-
+ 
                 /* ---------- Controls ---------- */
                 .controls {
                     margin-top: 18px;
@@ -263,26 +329,32 @@ class MP3 {
                 .btn.play.is-playing .icon-play  { display: none; }
                 .btn.play.is-playing .icon-pause { display: block; }
             </style>
-
+ 
             <div class="player">
-                <div class="title"></div>
-                <div class="artist"></div>
-
-                <div class="viz" id="viz"></div>
-
+                <button id="album" class="album" aria-label="Choose album">
+                    <span id="albumName"></span>
+                    <svg width="16" height="16" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                </button>
+                <div class="stage" id="stage">
+                    <div class="title"></div>
+                    <div class="artist"></div>
+                    <div class="viz" id="viz"></div>
+                    <div class="albums" id="albums"></div>
+                </div>
+ 
                 <div class="progress"><span id="progressFill"></span></div>
                 <div class="times"><span>1:24</span><span>3:42</span></div>
-
+ 
                 <div class="controls">
                     <button id="prev", class="btn" aria-label="Previous">
                         <svg width="18" height="18" viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg>
                     </button>
-
+ 
                     <button id="play" class="btn play no-playing" aria-label="Play / Pause">
                         <svg class="icon-play"  width="20" height="20" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         <svg class="icon-pause" width="20" height="20" viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
                     </button>
-
+ 
                     <button id="next", class="btn" aria-label="Next">
                         <svg width="18" height="18" viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg>
                     </button>
@@ -313,7 +385,7 @@ class MP3 {
                     border-right: none;                             /* flush with the screen edge */
                     border-radius: calc(var(--h) / 2) 0 0 calc(var(--h) / 2);
                     background: var(--ink-overlay);                 /* dark glass, matches the player */
-                    backdrop-filter: blur(12px);
+                    backdrop-filter: blur(4px);
                     -webkit-backdrop-filter: blur(12px);
                     box-shadow: var(--shadow-dark);
                     cursor: pointer;
@@ -367,6 +439,9 @@ class MP3 {
         this.audio = new Audio();
         this.audio.preload = 'metadata';    // don't download the whole song until play
 
+        this.albumListOpen = false;         // album list showing instead of the bars
+        this.albumIndex = 0;                // position in LIBRARY
+
         this.playStat = {
             index: 0,                       // position in this.tracks
             json: null,                     // the json file
@@ -395,6 +470,7 @@ class MP3 {
         this.collapse();
     }
 
+    // Open & close logic
     activator() { this.expand(); }
     deactivator(eventData) { 
         if (eventData.composedPath().includes(this.host) 
@@ -442,14 +518,43 @@ class MP3 {
         playBtn.addEventListener('click', (e)=>{this.togglePlay(); e.stopPropagation();});
         nextBtn.addEventListener('click', (e)=>{this.changeTrack(+1); e.stopPropagation();});
 
+        this.renderAlbum();
+        const albumBtn = this.root.getElementById('album');
+        albumBtn.addEventListener('click', (e)=>{this.toggleAlbums(); e.stopPropagation();});
+
         this.selectTrack(this.playStat.index); 
         this.renderTrackInfo(true);
         this.renderPlayBtn();
         this.visualizer.build(this.root.getElementById('viz'));
     }
 
+    // Album picking
+    toggleAlbums(given_state = null) {
+        this.albumListOpen = given_state || !this.albumListOpen;
+        this.root.getElementById('stage')?.classList.toggle('picking', this.albumListOpen);
+        this.root.getElementById('album')?.classList.toggle('open', this.albumListOpen);
+        if (this.albumListOpen) this.renderAlbumList();
+    }
+ 
+    async chooseAlbum(i) {
+        if (i === this.albumIndex) { this.toggleAlbums(false); return; }
+        let prev = this.albumIndex;
+        this.albumIndex = i;
+        this.pause();
+        try {
+            await this.loadSongs();
+        } catch (err) {
+            this.albumIndex = prev;
+            console.warn('[mp3] could not load album:', err);
+            return;
+        }
+        this.toggleAlbums(false);
+    }
+
+    // Songs
     async loadSongs() {
-        const songsLoaded = await Promise.all(SONGS.map(name => loadTrack(name)));
+        const songs = LIBRARY[this.albumIndex].songs;
+        const songsLoaded = await Promise.all(songs.map(name => loadTrack(name)));
 
         for (let song of songsLoaded) {
             if (song.bar_count != this.visualizer.barCount)
@@ -462,7 +567,7 @@ class MP3 {
         this.tracks = songsLoaded;
         this.selectTrack(0);
     }
-    
+
     selectTrack(i) {
         const n = this.tracks.length;
         if (!n) return;
@@ -479,6 +584,37 @@ class MP3 {
         this.playStat.duration = track.frames.length / track.fps;
 
         this.renderTrackInfo(true);
+    }
+
+    // Page renderer
+    renderAlbum() {
+        const name = this.root.getElementById('albumName');
+        if (name) name.textContent = LIBRARY[this.albumIndex]?.title ?? '';
+        if (this.albumListOpen) this.renderAlbumList();
+    }
+ 
+    renderAlbumList() {
+        const list = this.root.getElementById('albums');
+        if (!list) return;
+        list.replaceChildren();
+        LIBRARY.forEach((album, i) => {
+            const n = album.songs.length;
+            const row = this.doc.createElement('button');
+            row.className = 'album-row' + (i === this.albumIndex ? ' current' : '');
+            row.disabled = n === 0;
+ 
+            const dot = this.doc.createElement('span');
+            dot.className = 'dot';
+            const title = this.doc.createElement('span');
+            title.textContent = album.title;
+            const count = this.doc.createElement('span');
+            count.className = 'count';
+            count.textContent = n === 0 ? 'empty' : `${n} track${n > 1 ? 's' : ''}`;
+ 
+            row.append(dot, title, count);
+            row.addEventListener('click', (e) => { this.chooseAlbum(i); e.stopPropagation(); });
+            list.appendChild(row);
+        });
     }
 
     renderTrackInfo(fresh) {
@@ -508,6 +644,7 @@ class MP3 {
         playBtn.classList.toggle('no-playing', !this.playStat.playing);
     }
 
+    // Play logic
     resume() {
         // check if file is ready.
         if (!this.playStat.json) { this.playStat.playing = false; this.renderPlayBtn(); return; }
@@ -552,6 +689,7 @@ class MP3 {
         if (wasPlaying) setTimeout(() => {this.resume()}, 300);
     }
 
+    // Add to document
     appendToDoc() { this.doc.body.appendChild(this.host); }
 };
 
