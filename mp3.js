@@ -70,13 +70,11 @@ function cancelDraggable(object) {
 class Visualizer {
     constructor(doc, {
         barCount        = 16,
-        minScale        = 0.04,       // smallest bar height (fraction of full)
         transitionRatio = 0.8,        // bar transition = this share of one chart frame
         colorVars       = ['--violet-deep', '--violet', '--magenta', '--amber'],
     } = {}) {
         this.doc             = doc;
         this.barCount        = barCount;
-        this.minScale        = minScale;
         this.transitionRatio = transitionRatio;
         this.colorVars       = colorVars;
 
@@ -129,17 +127,17 @@ class Visualizer {
         this.barVals = values;
         if (this.bars.length !== this.barCount) return;
         for (let i = 0; i < this.barCount; i++) {
-            const v = Math.min(1, Math.max(this.minScale, values[i] ?? 0));
+            const v = Math.min(1, values[i] ?? 0);
             // 0 -> circle (height = width), 1 -> full height
             this.bars[i].style.height = (this.barW + v * (this.fullH - this.barW)) + 'px';
         }
     }
 
     // Run the animation loop: every screen frame, nextFrame() returns the values to draw.
-    start(nextFrame) {
+    start(animationFrame) {
         cancelAnimationFrame(this.barUpdater);        // never run two loops at once
         const step = () => {
-            this.set(nextFrame());
+            this.set(animationFrame());               // call it: it returns this frame's values
             this.barUpdater = requestAnimationFrame(step);
         };
         this.barUpdater = requestAnimationFrame(step);
@@ -305,7 +303,7 @@ class MP3 {
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    gap: 28px;
+                    gap: 18px;
                 }
                 .btn {
                     border: none;
@@ -318,6 +316,7 @@ class MP3 {
                 .btn svg { fill: currentColor; }
                 .btn.play {
                     width: 52px; height: 52px;
+                    min-width: 52px; min-height: 52px;
                     border-radius: 50%;
                     background: var(--violet);
                     color: #fff;
@@ -349,10 +348,19 @@ class MP3 {
                     <button id="prev", class="btn" aria-label="Previous">
                         <svg width="18" height="18" viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg>
                     </button>
+
+                    <button id="backward", class="btn", aria-label="Bwd", style="transform: scaleX(-1)">
+                            <svg width="18" height="18" viewBox="0 0 24 24"><path d="M2.58 16.93A8.25 8.25 0 1 1 18.59 14.11L16.09 14.11A5.75 5.75 0 1 0 4.93 16.08zM12.84 14.11L17.34 20.11L21.84 14.11z"/></svg>
+                    </button>
  
                     <button id="play" class="btn play no-playing" aria-label="Play / Pause">
                         <svg class="icon-play"  width="20" height="20" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         <svg class="icon-pause" width="20" height="20" viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+                    </button>
+
+                
+                    <button id="forward", class="btn", aria-label="Fwd">
+                        <svg width="18" height="18" viewBox="0 0 24 24"><path d="M2.58 16.93A8.25 8.25 0 1 1 18.59 14.11L16.09 14.11A5.75 5.75 0 1 0 4.93 16.08zM12.84 14.11L17.34 20.11L21.84 14.11z"/></svg>
                     </button>
  
                     <button id="next", class="btn" aria-label="Next">
@@ -391,7 +399,7 @@ class MP3 {
                     cursor: pointer;
                     transition: translate 0.3s var(--ease);
                 }
-                .dock.tucked       { translate: 50% 0; } 
+                .dock.tucked       { translate: 40% 0; } 
                 .dock.tucked:hover { translate: 0 0; }
                 .dock .icon {
                     width: var(--icon);
@@ -403,23 +411,17 @@ class MP3 {
                     place-items: center;
                     transition: background .3s var(--ease);
                 }
-                .dock:hover .icon { 
-                    background: var(--violet-deep);
-                    transform: scale(1.05);
+                @keyframes spin { to { rotate: 360deg; } }
+                .dock svg {
+                    fill: var(--on-dark);
+                    transition: scale 0.3s var(--ease);
                 }
-                .dock svg { 
-                    fill: var(--on-dark); 
-                    transition: rotate 0.3s linear,
-                                scale 0.3s var(--ease);
-                }
-                @keyframes spin {
-                    0% { rotate: 0deg; }
-                    50% { rotate: 180deg; }
-                    100% { rotate: 360deg; }
-                }
-                .dock:hover svg { 
-                    scale: 1.05;
+                .dock:hover .icon,
+                .dock.spinning .icon { background: var(--violet-deep); }
+                .dock:hover svg,
+                .dock.spinning svg {
                     animation: spin 6s linear infinite;
+                    scale: 1.05;
                 }
             </style>
 
@@ -430,6 +432,7 @@ class MP3 {
             </button>
             `
         }
+        
         this.playConfig = {
             FPS: 0,
             FRAME_MS: 0,
@@ -438,6 +441,7 @@ class MP3 {
         this.tracks = [];
         this.audio = new Audio();
         this.audio.preload = 'metadata';    // don't download the whole song until play
+        this.audio.addEventListener('ended', () => this.pause());   // track finished: reset play state, stop bars
 
         this.albumListOpen = false;         // album list showing instead of the bars
         this.albumIndex = 0;                // position in LIBRARY
@@ -456,6 +460,7 @@ class MP3 {
                 this.playing = false; 
             }
         }
+
         this.host = doc.createElement('div');
         this.root = this.host.attachShadow({ mode: 'open' });    
         this.host.style.padding = 0;
@@ -463,10 +468,12 @@ class MP3 {
         this.host.style.border = "none";
         this.host.style.zIndex = "9999";
 
-        this.visualizer = new Visualizer(doc, { barCount: 16, minScale: 0 });
+        this.visualizer = new Visualizer(doc, {barCount: 16});
 
         this.activator = this.activator.bind(this);
         this.deactivator = this.deactivator.bind(this);
+
+        this.selectTrack(this.playStat.index); 
         this.collapse();
     }
 
@@ -481,14 +488,16 @@ class MP3 {
     }
 
     collapse() {
-        this.pause();
+        this.visualizer.stop();
         this.root.innerHTML = this.html.collapsed;
         this.visualizer.detach();
         cancelDraggable(this.host);
         this.host.style.top = "50%";
-        this.host.style.transform = "translateY(-50%);";
+        this.host.style.transform = "translateY(-50%)";
         this.host.style.left = "";
         this.host.style.right = 0;
+
+        this.renderPlayBtn();                         // dock spins if music is still playing
 
         clearTimeout(this.tuckTimer);
         this.tuckTimer = setTimeout(() => {
@@ -500,6 +509,14 @@ class MP3 {
     }
 
     expand() {
+        // Reopened while music plays: keep the bars moving (paused or not loaded = nothing to animate)
+        if (this.playStat.playing) {
+            this.visualizer.start(() => {
+                this.renderTrackInfo(false);
+                return this.currentAnimationFrame();
+            });
+        }
+
         clearTimeout(this.tuckTimer);
         this.root.innerHTML = this.html.expanded;
         makeDraggable(this.host);
@@ -514,15 +531,18 @@ class MP3 {
         const prevBtn = this.root.getElementById('prev');
         const playBtn = this.root.getElementById('play');
         const nextBtn = this.root.getElementById('next');
+        const fwdBtn = this.root.getElementById('forward');
+        const bwdBtn = this.root.getElementById('backward');
         prevBtn.addEventListener('click', (e)=>{this.changeTrack(-1); e.stopPropagation();});
+        bwdBtn.addEventListener('click', (e)=>{this.jump(-10); e.stopPropagation();});
         playBtn.addEventListener('click', (e)=>{this.togglePlay(); e.stopPropagation();});
+        fwdBtn.addEventListener('click', (e)=>{this.jump(10); e.stopPropagation();});
         nextBtn.addEventListener('click', (e)=>{this.changeTrack(+1); e.stopPropagation();});
 
         this.renderAlbum();
         const albumBtn = this.root.getElementById('album');
         albumBtn.addEventListener('click', (e)=>{this.toggleAlbums(); e.stopPropagation();});
 
-        this.selectTrack(this.playStat.index); 
         this.renderTrackInfo(true);
         this.renderPlayBtn();
         this.visualizer.build(this.root.getElementById('viz'));
@@ -587,6 +607,13 @@ class MP3 {
     }
 
     // Page renderer
+    currentAnimationFrame() {                
+        const { frames } = this.playStat.json;
+        const i = Math.floor(this.audio.currentTime * this.playConfig.FPS);
+        this.playStat.time = Math.min(Math.max(i, 0), frames.length - 1);
+        return frames[this.playStat.time];
+    }
+
     renderAlbum() {
         const name = this.root.getElementById('albumName');
         if (name) name.textContent = LIBRARY[this.albumIndex]?.title ?? '';
@@ -620,7 +647,7 @@ class MP3 {
     renderTrackInfo(fresh) {
         const [cur, total] = this.root.querySelectorAll('.times span');
         if (!cur) return;                             // collapsed: no labels to update
-        cur.textContent = formatTime(this.audio.currentTime);
+        cur.textContent = formatTime(min(this.audio.currentTime, this.playStat.duration));
         const progressFill = this.root.getElementById('progressFill');
         progressFill.style.width = (this.audio.currentTime / this.playStat.duration * 100) + '%';
 
@@ -637,11 +664,17 @@ class MP3 {
         }
     }
 
+    // Show the play state: play/pause icon when expanded, spinning dock icon when collapsed.
     renderPlayBtn() {
+        const playing = this.playStat.playing;
+
         const playBtn = this.root.getElementById('play');
-        if (!playBtn) if (!playBtn) return;
-        playBtn.classList.toggle('is-playing', this.playStat.playing);
-        playBtn.classList.toggle('no-playing', !this.playStat.playing);
+        if (playBtn) {
+            playBtn.classList.toggle('is-playing', playing);
+            playBtn.classList.toggle('no-playing', !playing);
+        }
+
+        this.root.querySelector('.dock')?.classList.toggle('spinning', playing);
     }
 
     // Play logic
@@ -660,11 +693,8 @@ class MP3 {
 
         // Each screen frame: pick the chart frame for the audio's current time.
         this.visualizer.start(() => {
-            const { frames } = this.playStat.json;
-            const i = Math.floor(this.audio.currentTime * this.playConfig.FPS);
-            this.playStat.time = Math.min(Math.max(i, 0), frames.length - 1);
             this.renderTrackInfo(false);
-            return frames[this.playStat.time];
+            return this.currentAnimationFrame();
         });
     }
 
@@ -680,6 +710,13 @@ class MP3 {
     async togglePlay() {
         if (!this.playStat.playing) this.resume();
         else this.pause();
+    }
+
+    jump(seconds = 10) {
+        if (!this.playStat.json) return;              // nothing loaded yet
+        const end = Number.isFinite(this.audio.duration) ? this.audio.duration : this.playStat.duration;
+        this.audio.currentTime = Math.min(Math.max(this.audio.currentTime + seconds, 0), end);
+        this.renderTrackInfo(false);                  // update time + progress now (also while paused)
     }
 
     changeTrack(deviation) {
