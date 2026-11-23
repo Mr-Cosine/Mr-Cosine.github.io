@@ -73,7 +73,7 @@ img { max-width: 100%; }
     gap: clamp(12px, 2vw, 20px);
     padding: 0 clamp(16px, 4vw, 40px);
 
-    background: var(--scrim);
+    background: var(--ink-overlay);
     -webkit-backdrop-filter: blur(14px) saturate(150%);
     backdrop-filter: blur(14px) saturate(150%);
     border-bottom: 1px solid var(--on-dark-line);
@@ -211,7 +211,7 @@ img { max-width: 100%; }
     overflow: hidden;
 }
 
-/* Depth scrim: keeps white type legible over the brighter half of the art
+/* Depth ink-overlay: keeps white type legible over the brighter half of the art
    and gives the hero a defined bottom edge. */
 .header::before {
     content: "";
@@ -219,8 +219,8 @@ img { max-width: 100%; }
     inset: 0;
     z-index: -1;
     background:
-        linear-gradient(to top, var(--scrim), transparent 38%),
-        linear-gradient(to right, var(--scrim), transparent 55%);
+        linear-gradient(to top, var(--ink-overlay), transparent 38%),
+        linear-gradient(to right, var(--ink-overlay), transparent 55%);
 }
 
 /* clickable name*/
@@ -285,7 +285,7 @@ img { max-width: 100%; }
     letter-spacing: -0.03em;
     margin: 0;
     text-transform: uppercase;
-    text-shadow: 0 2px 30px var(--scrim);
+    text-shadow: 0 2px 30px var(--ink-overlay);
 }
 
 .text p {
@@ -294,7 +294,7 @@ img { max-width: 100%; }
     line-height: 1.7;
     max-width: 60ch;
     color: var(--on-dark-soft);
-    text-shadow: 0 1px 20px var(--scrim);
+    text-shadow: 0 1px 20px var(--ink-overlay);
 }
 
 .text hr {

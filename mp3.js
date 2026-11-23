@@ -183,15 +183,18 @@ class MP3 {
                     width: 280px;
                     padding: 28px 24px 24px;
                     border-radius: 24px;
-                    box-shadow: var(--shadow-lg);
-                    background: rgb(var(--white-rgb) / 0.7);
-                    backdrop-filter: blur(8px);
-                    -webkit-backdrop-filter: blur(8px);
+                    border: 1px solid var(--on-dark-line);      /* keeps the edge visible on dark sections */
+                    box-shadow: var(--shadow-dark);
+                    background: var(--ink-overlay);             /* dark glass, contrasts with light sections */
+                    color: var(--on-dark);
+                    backdrop-filter: blur(12px);
+                    -webkit-backdrop-filter: blur(12px);
+                    cursor: move;
                 }
 
                 .title  { font-size: 20px; font-weight: 600; }
-                .artist { font-size: 12px; color: var(--muted); margin-top: 3px; }
-                .notice { font-size: 12px; color: var(--muted); margin-top: 12px; font-style: italic;}
+                .artist { font-size: 12px; margin-top: 3px; }
+                .notice { font-size: 12px; color: var(--on-dark-muted); margin-top: 12px; font-style: italic; text-align: right}
 
                 /* ---------- Visualizer ---------- */
                 .viz {
@@ -212,7 +215,7 @@ class MP3 {
                 .progress {
                     height: 3px;
                     border-radius: 2px;
-                    background: var(--line);
+                    background: var(--on-dark-line);            /* empty track */
                 }
                 .progress span {
                     display: block;
@@ -225,7 +228,7 @@ class MP3 {
                     display: flex;
                     justify-content: space-between;
                     font-size: 11px;
-                    color: var(--muted);
+                    color: var(--on-dark-muted);
                     margin-top: 6px;
                     font-variant-numeric: tabular-nums;
                 }
@@ -241,7 +244,7 @@ class MP3 {
                 .btn {
                     border: none;
                     background: none;
-                    color: var(--ink);
+                    color: var(--on-dark);                      /* prev / next icons */
                     cursor: pointer;
                     display: grid;
                     place-items: center;
@@ -304,15 +307,20 @@ class MP3 {
                     display:block;
                     width: var(--h);  
                     height: var(--h);
-                    padding: var(--pad);
-                    border: none;
+                    /* 1px less padding where the border is, so the 44px circle still fits exactly */
+                    padding: calc(var(--pad) - 1px) var(--pad) calc(var(--pad) - 1px) calc(var(--pad) - 1px);
+                    border: 1px solid var(--on-dark-line);
+                    border-right: none;                             /* flush with the screen edge */
                     border-radius: calc(var(--h) / 2) 0 0 calc(var(--h) / 2);
-                    background: rgb(var(--white-rgb) / 0.7);
-                    backdrop-filter: blur(8px);
-                    -webkit-backdrop-filter: blur(8px);
-                    box-shadow: var(--shadow-md);
+                    background: var(--ink-overlay);                 /* dark glass, matches the player */
+                    backdrop-filter: blur(12px);
+                    -webkit-backdrop-filter: blur(12px);
+                    box-shadow: var(--shadow-dark);
                     cursor: pointer;
+                    transition: translate 0.3s var(--ease);
                 }
+                .dock.tucked       { translate: 50% 0; } 
+                .dock.tucked:hover { translate: 0 0; }
                 .dock .icon {
                     width: var(--icon);
                     height: var(--icon);
@@ -321,8 +329,7 @@ class MP3 {
                     box-shadow: var(--shadow-brand);
                     display: grid;
                     place-items: center;
-                    transition: background .3s var(--ease),
-                                transform .3s var(--ease);
+                    transition: background .3s var(--ease);
                 }
                 .dock:hover .icon { 
                     background: var(--violet-deep);
@@ -344,7 +351,7 @@ class MP3 {
                 }
             </style>
 
-            <button title="Wanna havre some music?" class="dock" aria-label="Show player">
+            <button title="Wanna have some music?" class="dock" aria-label="Show player">
                 <div class="icon">
                     <svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
                 </div>
@@ -400,18 +407,24 @@ class MP3 {
     collapse() {
         this.pause();
         this.root.innerHTML = this.html.collapsed;
-        this.visualizer.detach();                     // its bars were just removed
+        this.visualizer.detach();
         cancelDraggable(this.host);
         this.host.style.top = "50%";
-        this.host.style.transform = "translateY(-50%)";
+        this.host.style.transform = "translateY(-50%);";
         this.host.style.left = "";
         this.host.style.right = 0;
+
+        clearTimeout(this.tuckTimer);
+        this.tuckTimer = setTimeout(() => {
+            this.root.querySelector('.dock')?.classList.add('tucked');
+        }, 500);
 
         this.root.removeEventListener("dblclick", this.deactivator);
         this.root.addEventListener("click", this.activator);
     }
 
     expand() {
+        clearTimeout(this.tuckTimer);
         this.root.innerHTML = this.html.expanded;
         makeDraggable(this.host);
         this.host.style.top = "50%";
@@ -429,6 +442,7 @@ class MP3 {
         playBtn.addEventListener('click', (e)=>{this.togglePlay(); e.stopPropagation();});
         nextBtn.addEventListener('click', (e)=>{this.changeTrack(+1); e.stopPropagation();});
 
+        this.selectTrack(this.playStat.index); 
         this.renderTrackInfo(true);
         this.renderPlayBtn();
         this.visualizer.build(this.root.getElementById('viz'));

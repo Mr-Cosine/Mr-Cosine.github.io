@@ -39,8 +39,7 @@
     --line-strong: rgb(var(--ink-rgb) / 0.18);
 
     /* Dark overlays (nav bar, hero scrim, toast) */
-    --scrim:        rgb(var(--ink-rgb) / 0.40);
-    --ink-overlay:  rgb(var(--ink-rgb) / 0.88);
+    --ink-overlay:  rgb(var(--ink-rgb) / 0.42);
 
     /* Text & lines on dark */
     --on-dark:       rgb(var(--white-rgb));
