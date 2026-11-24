@@ -5,9 +5,9 @@ class Album {
         this.songs = songs;
     }
 }
-const work = new Album("Andy's work", ["Passion", "Trance"]);
+const work = new Album("Andy's work", ["Winter_warmth", "Bio", "Passion", "Trance"]);
 const LIBRARY = [work];
-const MUSIC_DIR = 'asset/musics/charts/';
+const MUSIC_DIR = 'asset/musics/charts/';   // from the path where this .js file is at
 
 let CURRENT_ALBUM = null;
 
@@ -647,7 +647,7 @@ class MP3 {
     renderTrackInfo(fresh) {
         const [cur, total] = this.root.querySelectorAll('.times span');
         if (!cur) return;                             // collapsed: no labels to update
-        cur.textContent = formatTime(min(this.audio.currentTime, this.playStat.duration));
+        cur.textContent = formatTime(Math.min(this.audio.currentTime, this.playStat.duration));
         const progressFill = this.root.getElementById('progressFill');
         progressFill.style.width = (this.audio.currentTime / this.playStat.duration * 100) + '%';
 

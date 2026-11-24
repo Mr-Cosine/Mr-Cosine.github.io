@@ -2,7 +2,6 @@
     "info": {
         "wav_path": "../tracks/Passion.mp3",
         "title": "Passion",
-        "name": "Passion",
         "artist": "Jiaqi Sun",
         "frame_frequency": 30
     },
