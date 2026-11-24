@@ -87,6 +87,22 @@ class Visualizer {
 
     // Create the bars inside `container` (the #viz of a freshly expanded player).
     build(container) {
+        function hexToRgb(h) {
+            if (h.startsWith('#')) {
+                const n = parseInt(h.slice(1), 16);
+                return [n >> 16, (n >> 8) & 255, n & 255];
+            }
+            return h.match(/\d+(\.\d+)?/g).slice(0, 3).map(Number);
+        }
+
+        function colorAt(stops, t) {
+            const seg = t * (stops.length - 1);
+            const i = Math.min(Math.floor(seg), stops.length - 2);
+            const f = seg - i;
+            const a = hexToRgb(stops[i]), b = hexToRgb(stops[i + 1]);
+            return `rgb(${a.map((c, k) => Math.round(c + (b[k] - c) * f)).join(',')})`;
+        }
+        
         this.container = container;
         container.style.setProperty('--bar-transition', this.transitionMs + 'ms');
 
@@ -97,7 +113,7 @@ class Visualizer {
         for (let i = 0; i < this.barCount; i++) {
             const b = this.doc.createElement('div');
             b.className = 'bar';
-            b.style.background = Visualizer.colorAt(stops, i / (this.barCount - 1));
+            b.style.background = colorAt(stops, i / (this.barCount - 1));
             container.appendChild(b);
             this.bars.push(b);
         }
@@ -148,22 +164,6 @@ class Visualizer {
         cancelAnimationFrame(this.barUpdater);
         this.barUpdater = null;
         this.set([]);
-    }
-
-    static hexToRgb(h) {
-        if (h.startsWith('#')) {
-            const n = parseInt(h.slice(1), 16);
-            return [n >> 16, (n >> 8) & 255, n & 255];
-        }
-        return h.match(/\d+(\.\d+)?/g).slice(0, 3).map(Number);
-    }
-
-    static colorAt(stops, t) {
-        const seg = t * (stops.length - 1);
-        const i = Math.min(Math.floor(seg), stops.length - 2);
-        const f = seg - i;
-        const a = Visualizer.hexToRgb(stops[i]), b = Visualizer.hexToRgb(stops[i + 1]);
-        return `rgb(${a.map((c, k) => Math.round(c + (b[k] - c) * f)).join(',')})`;
     }
 }
 
